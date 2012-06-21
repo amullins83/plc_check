@@ -1,19 +1,25 @@
 extends layout
 
 block body
-  div(ng-controller='AppCtrl')
-    h2 Hello {{name}}
-    ul.menu
-      li
-        a(href='view1') view1
-      li
-        a(href='view2') view2
+  .navbar.navbar-fixed-top
+    .navbar-inner
+      .container
+        a.brand(href="#") AngularExpressBootstrapSeed ;)
+    
+  .container-fluid      
+    div(ng-controller='AppCtrl')
+      h2 Hello {{name}}
+      ul.menu
+        li
+          a(href='view1') view1
+        li
+          a(href='view2') view2
 
-    div(ng-view)
+      div(ng-view)
 
-    div
-      | Angular seed app: v
-      span(app-version)
+      div
+        | Angular seed app: v
+        span(app-version)
 
   script(src='js/lib/angular/angular.js')
   script(src='js/app.js')
