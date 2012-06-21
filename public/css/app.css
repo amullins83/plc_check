@@ -28,3 +28,11 @@
   content: "";
   padding: 0;
 }
+
+
+/* Custom CSS overriding bootstrap fixong top-navbar and body padding issue */
+@media (min-width: 980px){
+      body {
+        padding-top:60px;
+      }
+    }
