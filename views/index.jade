@@ -3,18 +3,16 @@ extends layout
 block body
   .navbar.navbar-fixed-top
     .navbar-inner
-      .container
-        a.brand(href="#") AngularExpressBootstrapSeed ;)
-    
+      .container-fluid
+        a.brand(href='#') AngularExpressBootstrapSeed ;)
+        ul.nav
+          li
+            a(href='view1') View1
+          li
+            a(href='view2') View2                
   .container-fluid      
     div(ng-controller='AppCtrl')
       h2 Hello {{name}}
-      ul.menu
-        li
-          a(href='view1') view1
-        li
-          a(href='view2') view2
-
       div(ng-view)
 
       div
