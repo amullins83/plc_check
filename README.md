@@ -40,6 +40,10 @@ Just fetch the changes and merge them into your project with git.
     app.js              --> app config
     package.json        --> for npm
     public/             --> all of the files to be used in on the client side
+      bootstrap/        --> all bootstrap files
+        css/
+        img/
+        js/
       css/              --> css files
         app.css         --> default stylesheet
       img/              --> image files
