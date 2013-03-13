@@ -8,6 +8,6 @@ exports.index = function(req, res){
 };
 
 exports.partial = function (req, res) {
-  var id = req.params.id;
-  res.render('partials/partial' + id);
+  var name = req.params.name;
+  res.render('partials/partial' + name);
 };

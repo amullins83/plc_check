@@ -14,9 +14,6 @@ var app = module.exports = express();
 app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
-  app.set('view options', {
-    layout: false
-  });
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.static(__dirname + '/public'));
@@ -34,7 +31,7 @@ app.configure('production', function(){
 // Routes
 
 app.get('/', routes.index);
-app.get('/partial/:id', routes.partial);
+app.get('/partial/:name', routes.partial);
 
 // JSON API
 
