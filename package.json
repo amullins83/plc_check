@@ -5,5 +5,11 @@
   , "dependencies": {
       "express": "3.0.0"
     , "jade": ">= 0.0.1"
+    , "oauth": ">= 0.0.1"
+    , "qunit": ">= 0.0.1"
+    , "mongoose": ">= 0.0.1"
+    , "angular": ">= 0.0.4"
+    , "coffee-script": ">= 1.6.2"
+    , "karma": ">= 0.8.5"
   }
 }
