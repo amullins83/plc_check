@@ -1,0 +1,32 @@
+/* line 4, ../scss/tli.scss */
+textarea.tliText {
+  width: 600px;
+  height: 250px;
+}
+
+/* line 9, ../scss/tli.scss */
+table {
+  margin: 20px auto;
+  position: relative;
+  width: 800px;
+  text-align: center;
+}
+
+/* line 16, ../scss/tli.scss */
+td {
+  width: 200px;
+  text-align: center;
+  border: 1px blue solid;
+}
+
+/* line 22, ../scss/tli.scss */
+tr {
+  width: 800px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* line 28, ../scss/tli.scss */
+tr:nth-child(even) {
+  background-color: #ddd;
+}

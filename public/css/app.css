@@ -30,7 +30,7 @@
 }
 
 
-/* Custom CSS overriding bootstrap fixong top-navbar and body padding issue */
+/* Custom CSS overriding bootstrap fixing top-navbar and body padding issue */
 @media (min-width: 980px){
       body {
         padding-top:60px;
