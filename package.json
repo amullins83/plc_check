@@ -1,7 +1,11 @@
 {
-    "name": "application-name"
-  , "version": "0.0.1"
+    "name": "tli-winning"
+  , "version": "0.1.1"
   , "private": true
+  , "engines" : {
+		"node" : "0.8.x",
+		"npm" : "1.2.x"
+	}
   , "dependencies": {
       "express": "3.0.0"
     , "jade": ">= 0.0.1"
