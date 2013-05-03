@@ -4,23 +4,24 @@ block body
   .navbar.navbar-fixed-top
     .navbar-inner
       .container-fluid
-        a.brand(href='#') AngularExpressBootstrapSeed
+        a.brand(href='#') WordCounter
         ul.nav
           li
-            a(href='view1') View1
+            a(href='view1') Word Count
           li
-            a(href='view2') View2                
+            a(href='view2') Timeline              
   .container-fluid      
     div(ng-controller='AppCtrl')
       .hero-unit  
-        h1 Hello {{name}}
+        h1 WordCounter
       div(ng-view)
     hr  
     div
       | Angular seed app: v
       span(app-version)
 
-  script(src='js/lib/angular/angular.js')
+  script(src='js/lib/angular/angular.min.js')
+  script(src='js/lib/angular/angular-sanitize.min.js')
   script(src='js/app.js')
   script(src='js/services.js')
   script(src='js/controllers.js')

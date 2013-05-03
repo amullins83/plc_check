@@ -1,3 +1,7 @@
 .row-fluid
-	.span12
-		p This is the partial for view 1.
+	.span12(style="text-align:center;")
+			textarea(ng-model="text", class="tliText", autofocus)
+
+	.span12(style="text-align:center;")
+		| Word count: 
+		span(ng-bind-html-unsafe="text | wordCount", valid-color) 0

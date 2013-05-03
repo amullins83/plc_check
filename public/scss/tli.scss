@@ -1,0 +1,30 @@
+$textWidth:600px;
+$textHeight:250px;
+
+textarea.tliText {
+	width:$textWidth;
+	height:$textHeight;
+}
+
+table {
+	margin:20px auto;
+	position:relative;
+	width:800px;
+	text-align:center;
+}
+
+td {
+	width:200px;
+	text-align:center;
+	border: 1px blue solid;
+}
+
+tr {
+	width:800px;
+	margin:0 auto;
+	position:relative;
+}
+
+tr:nth-child(even) {
+		background-color:#ddd;
+}
