@@ -12,10 +12,10 @@ function AppCtrl($scope, $http) {
   });
 }
 
-function MyCtrl1() {}
-MyCtrl1.$inject = [];
+function WordCountCtrl() {}
+WordCountCtrl.$inject = [];
 
 
-function MyCtrl2() {
+function TimeLineCtrl() {
 }
-MyCtrl2.$inject = [];
+WordCountCtrl.$inject = [];
