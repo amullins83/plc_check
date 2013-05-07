@@ -30,7 +30,12 @@ exports.ready ->
 		exports.Assignment.find (err, assignments)->
 			handler(assignment.date) for assignment in assignments
 			callback()
-			
+	
+	exports.Assignment.eachName = (handler, callback)->
+		exports.Assignment.find (err, assignments)->
+			handler(assignment.name) for assignment in assignments
+			callback()
+
 	exports.Assignment.prototype.postsComplete = ->
 		return this.postText.length == 3
 		
