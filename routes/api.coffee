@@ -18,13 +18,14 @@ renderJSON = (res)->
 
 exports.assignments =
 	get: (req, res)->
-		Assignment.find req.params.searchObject || {}, renderJSON(res)
+		console.log req.params.findObject
+		Assignment.find req.params.findObject || {}, renderJSON(res)
 
 	create: (req, res)->
-		Assignment.create req.params.postObject, renderJSON(res)
+		Assignment.create req.body, renderJSON(res)
 
 	edit:  (req, res)->
-		Assignment.findOneAndUpdate req.params.originalObject, req.params.updateObject, renderJSON(res)
+		Assignment.findOneAndUpdate req.params.findObject, req.body.updateObject, renderJSON(res)
 
 	destroy: (req, res)->
 		Assignment.remove req.params.deleteObject, renderJSON(res)
