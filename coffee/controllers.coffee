@@ -3,8 +3,8 @@
 # Controllers
 
 AppCtrl = ($scope, $http)->
-  $http({method: 'GET', url: '/api/name'}).success (data, status, headers, config)->
-	$scope.name = data.name
+  $http({method: 'GET', url: '/api/name'}).success((data, status, headers, config)->
+											$scope.name = data.name
   ).error (data, status, headers, config)->
     $scope.name = 'Error!'
 

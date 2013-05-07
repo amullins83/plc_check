@@ -15,6 +15,9 @@ angular.module('wordCounter.directives', []).directive('appVersion', [
 		(scope, elm, attrs)->
 			$(document).on "keyup", "textarea", ->
 				numWords = elm.text()
-				textColor = (numWords <= maxWords && numWords >= minWords) ? "#00aa00" : "#ff8888"
+				if (numWords <= maxWords && numWords >= minWords)
+					textColor = "#00aa00"
+				else
+					textColor = "#ff8888"
 				elm.css({color:textColor})
 ])
