@@ -31,6 +31,10 @@ app.get '/partial/:name', routes.partial
 # JSON API
 
 app.get '/api/name', api.name
+app.get '/api/assignments', api.assignments.get
+app.post '/api/assignments', api.assignments.create
+app.put '/api/assignments', api.assignments.edit
+app.delete	'/api/assignments', api.assignments.destroy
 
 # redirect all others to the index (HTML5 history)
 app.get '*', routes.index

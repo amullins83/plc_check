@@ -101,3 +101,13 @@ describe "Assignment", ->
 			expect(assignment1.done()).toBe false
 			assignment1.postText.push oldPost
 			
+	describe "#eachName method", ->
+
+		it "comprehends names", (done)->
+			names = []
+			Assignment.count (err, count)->
+				Assignment.eachName (name)->
+					names.push name
+				, ->
+					expect(names.length).toBe count
+					done()
