@@ -5,12 +5,11 @@
 angular.module('wordCounter.filters', []).filter('interpolate', [
 	'version',
 	(version)->
-    	(text)->
-			String(text).replace /\%VERSION\%/mg, version
+    	(text)-> String(text).replace /\%VERSION\%/mg, version
 ]).filter 'wordCount', ->
 	(text)->
 		count = String(text).split(" ").length
-		if not text? || text.length == 0
+		if !text? || text.length == 0
 			return 0
 		else
 			return count
