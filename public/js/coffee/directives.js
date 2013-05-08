@@ -19,10 +19,10 @@
           return elm.css({
             color: textColor
           });
-        };
+        });
 
         $(document).on("keyup", "textarea", setColor);
-        $(document).ready(setColor);
+        $(document).on("ready", setColor);
       };
     }
   ]);
