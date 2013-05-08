@@ -9,9 +9,14 @@ AppCtrl = ($scope, $http)->
     $scope.name = 'Error!'
 
 class WordCountCtrl
-	constructor: ->
-		
-	@$inject: []
+	constructor: ($)->
+		$(document).on "ready", ->
+			$("textarea").text document.localStorage["text"]
+			
+		$(document).on "keyup", "textarea", ->
+			document.localStorage["text"] = $("textarea").text()
+
+	@$inject: ["jQuery"]
 
 
 class TimeLineCtrl
