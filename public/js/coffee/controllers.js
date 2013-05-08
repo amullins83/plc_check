@@ -13,14 +13,16 @@
   };
 
   WordCountCtrl = (function() {
-    function WordCountCtrl($scope) {
-      $scope.text = window.localStorage["text"];
+    function WordCountCtrl() {
+      $(document).on("ready", function() {
+        return $scope.text = window.localStorage["text"];
+      });
       $(document).on("keyup", "textarea", function() {
         return window.localStorage["text"] = $("textarea").val();
       });
     }
 
-    WordCountCtrl.$inject = ['$scope'];
+    WordCountCtrl.$inject = [];
 
     return WordCountCtrl;
 
