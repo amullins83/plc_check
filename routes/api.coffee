@@ -1,5 +1,6 @@
 #Serve JSON to our AngularJS client
 models = models || require "../models"
+url = require "url"
 Assignment = {}
 
 models.ready ->
@@ -18,14 +19,20 @@ renderJSON = (res)->
 
 exports.assignments =
 	get: (req, res)->
-		console.log req.params.findObject
-		Assignment.find req.params.findObject || {}, renderJSON(res)
+		query = url.parse(req.url).query
+		findObject = {}
+		if query?
+			for keyVal in query.split("&")
+				findObject[keyVal.split("=")[0]] = unescape(keyVal.split("=")[1]).replace("+", " ")
+				Assignment.find findObject, renderJSON(res)
+		else
+			Assignment.find renderJSON(res)
 
 	create: (req, res)->
 		Assignment.create req.body, renderJSON(res)
 
 	edit:  (req, res)->
-		Assignment.findOneAndUpdate req.params.findObject, req.body.updateObject, renderJSON(res)
+		Assignment.findOneAndUpdate req.body.findObject, req.body.updateObject, renderJSON(res)
 
 	destroy: (req, res)->
-		Assignment.remove req.params.deleteObject, renderJSON(res)
+		Assignment.remove req.body, renderJSON(res)

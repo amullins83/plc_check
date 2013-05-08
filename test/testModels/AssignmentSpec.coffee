@@ -4,15 +4,33 @@ describe "Assignment", ->
 	assignment1 = null
 	Assignment = null
 
-	it "defines assignment1", (done)->
-		models = require("../../models")
-		models.ready ->
-			Assignment = models.Assignment
+	newAssignment =
+		name: "testAssignment"
+		postURL:"stuff"
+		reflectURL:"other"
+		postText: ["things", "to", "consider"]
+		reflectText: "it's like you're my mirror"
+		date:"2013-05-07"
+	
+
+	
+	models = require("../../models")
+	
+	finishTest = (done)->
+		Assignment = models.Assignment
+		Assignment.create newAssignment, (err, assignment)->
 			Assignment.find {}, (err, assignments)->
 				assignment1 = assignments[0]
 				expect(assignment1).toBeDefined()
 				done()
-	
+
+	it "defines assignment1", (done)->
+		if models.db.readyState == 1
+			finishTest(done)
+		else
+			models.db.once "open", ->
+				finishTest(done)
+				
 	it "should have a name", ->
 		expect(assignment1.name).toBeDefined()
 	
