@@ -1,7 +1,13 @@
 .row-fluid
 	.span12(style="text-align:center;")
+		.span4(style="text-align:center;")
+			select(name="assignment", id="assignment", ng-model="selectedAssignment")
+				option(ng-repeat="assignment in assignments", value="{{ assignment }}") {{ assignment.name }}
+			select(name="submission", id="submission", ng-model="selectedSubmission")
+				option(ng-repeat="submission in submissionTypes", value="{{ submission }}") {{ submission }}
+		.span8(style="text-align:center;")
 			textarea(ng-model="text", class="tliText", autofocus)
-
-	.span12(style="text-align:center;")
-		| Word count: 
-		span(ng-bind-html-unsafe="text | wordCount", valid-color) 0
+			.span4(style="text-align:center;") Word count: 
+				span(ng-bind-html-unsafe="text | wordCount", valid-color) 0
+			.span4(style="text-align:center;")
+				button(id="go", name="go", valid-button) Go

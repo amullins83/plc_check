@@ -25,4 +25,18 @@
         $(document).ready(setColor);
       };
     }
+  ]).directive('validButton', [
+    'minWords', 'maxWords', function(minWords, maxWords) {
+      return function(scope, elm, attrs) {
+        var setDisable = function() {
+          var numWords;
+
+          numWords = $("textarea").val().split(" ").length;
+          elm.attr("disabled", numWords > maxWords || numWords < minWords);
+        };
+
+        $(document).on("keyup", "textarea", setDisable);
+        $(document).ready(setDisable);
+      };
+    }
   ]);

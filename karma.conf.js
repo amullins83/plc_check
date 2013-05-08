@@ -1,5 +1,5 @@
 // Karma configuration
-// Generated on Sun May 05 2013 21:43:08 GMT-0500 (CDT)
+// Generated on Wed May 08 2013 15:10:24 GMT-0500 (Central Daylight Time)
 
 
 // base path, that will be used to resolve files and exclude
@@ -10,12 +10,8 @@ basePath = '';
 files = [
   JASMINE,
   JASMINE_ADAPTER,
-  REQUIRE,
-  REQUIRE_ADAPTER,
-  {pattern: 'node_modules/**/*.js', included: false},
-  {pattern: 'models/**/*.js', included: false},
-  {pattern: 'test/**/*pec.js', included: false},
-  'test/test-main.js'
+  'public/js/*.js',
+  'public/js/test/*.js'
 ];
 
 
