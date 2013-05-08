@@ -2,7 +2,7 @@
 
 mongoose = require "mongoose"
 mongoose.connect 'mongodb://localhost/tliWin'
-db = mongoose.connection
+db = exports.db = mongoose.connection
 
 
 exports.assignmentObject =
@@ -17,27 +17,27 @@ exports.ready = (handler)->
 		db.once "open", handler
 	
 exports.ready ->
-	exports.Assignment = mongoose.model "Assignment", mongoose.Schema(exports.assignmentObject)
-	exports.Assignment.prototype.addPost = (newPost)->
+	Assignment = exports.Assignment = mongoose.model "Assignment", mongoose.Schema(exports.assignmentObject)
+	Assignment.prototype.addPost = (newPost)->
 		unless this.postText.length == 3
 			this.postText.push newPost
 	
-	exports.Assignment.prototype.addReflect = (newReflection)->
+	Assignment.prototype.addReflect = (newReflection)->
 		unless this.reflectText?
 			this.reflectText = newReflection
 			
-	exports.Assignment.eachDate = (handler, callback)->
+	Assignment.eachDate = (handler, callback)->
 		exports.Assignment.find (err, assignments)->
 			handler(assignment.date) for assignment in assignments
 			callback()
 	
-	exports.Assignment.eachName = (handler, callback)->
+	Assignment.eachName = (handler, callback)->
 		exports.Assignment.find (err, assignments)->
 			handler(assignment.name) for assignment in assignments
 			callback()
 
-	exports.Assignment.prototype.postsComplete = ->
+	Assignment.prototype.postsComplete = ->
 		return this.postText.length == 3
 		
-	exports.Assignment.prototype.done = ->
+	Assignment.prototype.done = ->
 		return this.postText.length == 3 and this.reflectText?
