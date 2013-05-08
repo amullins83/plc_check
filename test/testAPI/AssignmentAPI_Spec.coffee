@@ -60,9 +60,10 @@ describe "Assignment API", ->
 				done()
 				
 		it "returns entries that match an input name", (done)->
-			httpJson.getJSON "/api/assignments?name=Week+12", (error, assignments)->
-				expect(assignments.length).toEqual 1
-				done()
+			Assignment.find (error, assignments)->
+				httpJson.getJSON "/api/assignments?name=#{escape(assignments[0].name)}", (error, assignments)->
+					expect(assignments.length).toEqual 1
+					done()
 				
 		it "returns an empty array if nothing matches", (done)->
 			httpJson.getJSON "/api/assignments?name=Week+1", (error, assignments)->
@@ -106,3 +107,10 @@ describe "Assignment API", ->
 			httpJson.getJSON "/api/assignments?name=UpdatedStuff", (error, assignments)->
 				expect(assignments.length).toBe 0
 				done()
+				
+	describe "count assignments", ->
+		it "returns the number of assignments in the database", (done)->
+			Assignment.count (err, realCount)->
+				httpJson.getJSON "/api/assignments/count", (error, apiCount)->
+					expect(apiCount).toEqual realCount
+					done()

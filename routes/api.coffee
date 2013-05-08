@@ -36,3 +36,6 @@ exports.assignments =
 
 	destroy: (req, res)->
 		Assignment.remove req.body, renderJSON(res)
+		
+	count: (req, res)->
+		Assignment.count renderJSON(res)
