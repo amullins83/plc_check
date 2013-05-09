@@ -1,9 +1,11 @@
 .row-fluid
 	.span12(style="text-align:center;")
 		.span4(style="text-align:center;")
-			select(name="assignment", id="assignment", ng-model="selectedAssignment")
+			select(name="assignment", id="assignment", ng-model="selectedAssignmentJSON")
+				option(value="") Choose an assignment...
 				option(ng-repeat="assignment in assignments", value="{{ assignment }}") {{ assignment.name }}
 			select(name="submission", id="submission", ng-model="selectedSubmission")
+				option(value="") Choose a submission...
 				option(ng-repeat="submission in submissionTypes", value="{{ submission }}") {{ submission }}
 		.span8(style="text-align:center;")
 			textarea(ng-model="text", class="tliText", autofocus)
