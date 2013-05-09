@@ -8,8 +8,11 @@
 				option(value="") Choose a submission...
 				option(ng-repeat="submission in submissionTypes", value="{{ submission }}") {{ submission }}
 		.span8(style="text-align:center;")
-			textarea(ng-model="text", class="tliText", autofocus)
-			.span4(style="text-align:center;") Word count: 
-				span(ng-bind-html-unsafe="text | wordCount", valid-color) 0
-			.span4(style="text-align:center;")
-				button(id="go", name="go", valid-button) Go
+			.span12
+				textarea(ng-model="text", class="tliText", autofocus)
+			.span12
+				.span4(style="text-align:center;") Word count: 
+					span(ng-bind-html-unsafe="text | wordCount", valid-color) 0
+				.span2(style="text-align:center;")
+					button(id="go", name="go", valid-button) Go
+				.span6(style="text-align:center;") {{ feedback }}

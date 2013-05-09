@@ -15,4 +15,9 @@
         return count;
       }
     };
+  }).filter("prettyDate", function() {
+    return function(date) {
+      var d = new Date(date);
+      return (d.getMonth()+1) + "/" + d.getDate() + "/" + d.getFullYear();
+    };
   });

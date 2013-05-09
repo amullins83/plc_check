@@ -107,7 +107,7 @@
           $scope.text = $scope.selectedAssignment.postText[parseInt($scope.selectedSubmission.match(/(\d+)/)) - 1];
         }
         $("textarea").val($scope.text);
-        $("textarea").keyup();  
+        $("textarea").keyup().change();  
       }
 		
       
@@ -131,7 +131,7 @@
           }
 
         $("textarea").val($scope.text);
-        $("textarea").keyup();
+        $("textarea").keyup().change();
       }
     });
 
@@ -139,10 +139,13 @@
         if(typeof($scope.selectedAssignment) !== "undefined") {
           if(typeof($scope.selectedSubmission) !== "undefined") {
             $.ajax("/api/assignments", {
-				data:$scope.selectedAssignment,
+				data:{findObject:{name:$scope.selectedAssignment.name}, updateObject:$scope.selectedAssignment},
 				success:function(response) {
-              				$("#assignmentFeedback").load(response);
+              				$scope.feedback = "Successfully saved " + response.name;
               			},
+        error:function(response) {
+                      $scope.feedback = "Error: " + response.message;
+        },
 				type:"PUT"
 			});
             $("#go").attr("disabled", true);
@@ -154,7 +157,12 @@
         method: 'GET',
         url: '/api/assignments'
       }).success(function(data, status, headers, config) {
-        $scope.assignments = data;
+        $scope.assignments = [];
+        for(var i = 0; i < data.length; i++) {
+          $scope.assignments.push(data[i]);
+          delete $scope.assignments[i]._id;
+          delete $scope.assignments[i].__v;
+        }
       }).error(function(data, status, headers, config) {
         $scope.asssignments = [{name: "Error", date:"Never"}];
       });
@@ -167,9 +175,23 @@
   })();
 
   TimeLineCtrl = (function() {
-    function TimeLineCtrl() {}
+    function TimeLineCtrl($scope, $http) {
+      $http({
+        method: 'GET',
+        url: '/api/assignments'
+      }).success(function(data, status, headers, config) {
+        $scope.assignments = [];
+        for(var i = 0; i < data.length; i++) {
+          $scope.assignments.push(data[i]);
+          delete $scope.assignments[i]._id;
+          delete $scope.assignments[i].__v;
+        }
+      }).error(function(data, status, headers, config) {
+        $scope.asssignments = [{name: "Error", date:"Never"}];
+      });
+    }
 
-    TimeLineCtrl.$inject = [];
+    TimeLineCtrl.$inject = ['$scope', '$http'];
 
     return TimeLineCtrl;
 

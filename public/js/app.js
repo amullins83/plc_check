@@ -9,6 +9,9 @@ angular.module('wordCounter', ['wordCounter.filters', 'wordCounter.services', 'w
         templateUrl: 'partial/2',
         controller: TimeLineCtrl
       });
+      $routeProvider.when('/oldTable', {
+        templateUrl: 'partial/3'
+      });
       $routeProvider.otherwise({
         redirectTo: '/wordCount'
       });
