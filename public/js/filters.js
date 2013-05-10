@@ -20,4 +20,12 @@
       var d = new Date(date);
       return (d.getMonth()+1) + "/" + d.getDate() + "/" + d.getFullYear();
     };
-  });
+  }).filter("activeURL", ["$rootScope", function(scope) {
+      return function(assignment) {
+        if(scope.selectedSubmission.match(/\d/))
+          return assignment.postURL;
+        else
+          return assignment.reflectURL;
+      };
+    }
+  ]);
