@@ -122,10 +122,10 @@
             $.ajax("/api/assignments", {
 				data:{findObject:{name:$scope.selectedAssignment.name}, updateObject:$scope.selectedAssignment},
 				success:function(response) {
-              		$scope.feedback = "Successfully saved " + response.name;
+              		$("#feedback").text("Successfully saved " + response.name);
               			},
         		error:function(response) {
-					$scope.feedback = "Error: " + response.message;
+					$("#feedback").text("Error: " + response.message);
         		},
 				type:"PUT"
 			});
@@ -133,6 +133,24 @@
           }
         }
     });
+
+	$(document).on("click", "#Post", function() {
+		if(typeof($scope.selectedAssignment) !== "undefined") {
+          if(typeof($scope.selectedSubmission) !== "undefined") {
+            $.ajax("/api/moodle", {
+				data:$scope.selectedAssignment,
+				success:function(response) {
+              		$("#feedback").text("Successfully posted " + response.name);
+              			},
+        		error:function(response) {
+					$("#feedback").text("Error: " + response.message);
+        		},
+				type:"POST"
+			});
+            $("#Post").attr("disabled", true);
+          }
+        }
+	});
 
       $http({
         method: 'GET',
