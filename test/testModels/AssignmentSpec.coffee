@@ -1,5 +1,5 @@
 "use strict"
-
+process.env.test = true
 describe "Assignment", ->
 	assignment1 = null
 	Assignment = null

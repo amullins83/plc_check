@@ -1,7 +1,11 @@
 "use strict"
 
 mongoose = require "mongoose"
-mongoose.connect 'mongodb://localhost/tliWin'
+if process.env.test
+	mongoose.connect "mongodb://localhost/test"
+else
+	mongoose.connect 'mongodb://localhost/tliWin'
+
 db = exports.db = mongoose.connection
 
 

@@ -1,5 +1,5 @@
 "use strict"
-
+process.env.test = true
 
 # httpJson = require('http-json-request')
 
