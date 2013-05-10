@@ -10,12 +10,13 @@
         var setColor = function() {
           var numWords, textColor;
 
-          numWords = elm.text();
+          numWords = $("textarea").val().split(" ").length;
           if (numWords <= maxWords && numWords >= minWords) {
             textColor = "#00aa00";
           } else {
             textColor = "#ff8888";
           }
+		  elm.text(numWords);
           return elm.css({
             color: textColor
           });
