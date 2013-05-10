@@ -37,6 +37,12 @@
 		
 		$scope.selectedSubmission = $chosenSubmission.val();
       $("#submission").val($scope.selectedSubmission);
+
+      if($scope.selectedSubmission === "Reflection")
+        $("#Post").attr("href", $scope.selectedAssignment.reflectURL);
+      else
+        $("#Post").attr("href", $scope.selectedAssignment.postURL);
+      
 	  }, 500);
 
 		$scope.$watch("text", function() {
@@ -82,12 +88,15 @@
 
 		if(typeof($scope.selectedSubmission) !== "undefined" && $scope.selectedSubmission !== "")
 		{
-		  	if($scope.selectedSubmission === "Reflection")
-			 	$scope.text = $scope.selectedAssignment.reflectText;
+		  	if($scope.selectedSubmission === "Reflection") {
+			 	 $scope.text = $scope.selectedAssignment.reflectText;
+         $("#Post").attr("href", $scope.selectedAssignment.reflectURL);
+        }
         	else {
 				if(typeof($scope.selectedAssignment.postText) === "undefined")
             		$scope.selectedAssignment.postText = [];
           			$scope.text = $scope.selectedAssignment.postText[parseInt($scope.selectedSubmission.match(/(\d+)/)) - 1];
+                $("#Post").attr("href", $scope.selectedAssignment.postURL);
         }  
       }
 		window.localStorage["text"] = $scope.text;
@@ -104,12 +113,15 @@
       $scope.selectedSubmission = $submission.val();
 
       if(typeof($scope.selectedAssignment) !== "undefined") {
-          if($scope.selectedSubmission === "Reflection")
+          if($scope.selectedSubmission === "Reflection") {
             $scope.text = $scope.selectedAssignment.reflectText;
+            $("#Post").attr("href", $scope.selectedAssignment.reflectURL);
+          }
           else {
            if(typeof($scope.selectedAssignment.postText) === "undefined")
               $scope.selectedAssignment.postText = [];
            $scope.text = $scope.selectedAssignment.postText[parseInt($scope.selectedSubmission.match(/(\d+)/)) - 1];
+           $("#Post").attr("href", $scope.selectedAssignment.postURL);
           }
       }
 		window.localStorage["text"] = $scope.text;
@@ -133,25 +145,6 @@
           }
         }
     });
-
-	$(document).on("click", "#Post", function() {
-		if(typeof($scope.selectedAssignment) !== "undefined") {
-          if(typeof($scope.selectedSubmission) !== "undefined") {
-            $.ajax("/api/moodle", {
-				data:{assignment:$scope.selectedAssignment,
-					 submission:$scope.selectedSubmission},
-				success:function(response) {
-              		$("#feedback").text("Successfully posted " + response.name);
-              			},
-        		error:function(response) {
-					$("#feedback").text("Error: " + JSON.parse(response).message);
-        		},
-				type:"POST"
-			});
-            $("#Post").attr("disabled", true);
-          }
-        }
-	});
 
       $http({
         method: 'GET',
