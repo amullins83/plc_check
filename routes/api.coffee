@@ -26,9 +26,7 @@ exports.assignments =
 		if query?
 			for keyVal in query.split("&")
 				findObject[keyVal.split("=")[0]] = unescape(keyVal.split("=")[1]).replace("+", " ")
-				Assignment.find findObject, renderJSON(res)
-		else
-			Assignment.find renderJSON(res)
+		Assignment.find(findObject).sort("date").exec renderJSON(res)
 
 	create: (req, res)->
 		Assignment.create req.body, renderJSON(res)
