@@ -4,6 +4,6 @@
 // I can only verify this works in Chrome, which is good enough for me.
 var fieldValues = {};
 var inputs = document.getElementsByTagName("input");
-for(var i = 0; i < length; i++) {
+for(var i = 0; i < inputs.length; i++) {
 	fieldValues[inputs[i].name] = inputs[i].value;
 }
