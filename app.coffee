@@ -37,7 +37,7 @@ app.put '/api/assignments', api.assignments.edit
 app.delete	'/api/assignments', api.assignments.destroy
 app.get '/api/assignments/count', api.assignments.count
 
-app.post '/api/moodle', api.moodle
+#app.post '/api/moodle', api.moodle
 
 # redirect all others to the index (HTML5 history)
 app.get '*', routes.index
