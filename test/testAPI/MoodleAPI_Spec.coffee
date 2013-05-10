@@ -40,14 +40,13 @@ describe "Moodle API", ->
 		it "returns a happy message when successful", (done)->
 			httpJson.postJSON
 				name: "testPost"
-				postText: ["some", "things", "right"]
+				postText: ["This is the test post", "this is another", "last time, promise"]
 				reflectText: "A reflection of sorts"
-				postURL: "localhost:8000/post"
-				reflectURL: "localhost:8000/reflect"
+				postURL: "localhost:8000/api/post"
+				reflectURL: "localhost:8000/api/reflect"
 			, (error, responseObject)->
 				if error?
 					expect(error.message).toBeDefined()
 				else
 					expect(responseObject.message).toMatch /succesful/i
 				done()
-				

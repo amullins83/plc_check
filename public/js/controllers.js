@@ -138,12 +138,13 @@
 		if(typeof($scope.selectedAssignment) !== "undefined") {
           if(typeof($scope.selectedSubmission) !== "undefined") {
             $.ajax("/api/moodle", {
-				data:$scope.selectedAssignment,
+				data:{assignment:$scope.selectedAssignment,
+					 submission:$scope.selectedSubmission},
 				success:function(response) {
               		$("#feedback").text("Successfully posted " + response.name);
               			},
         		error:function(response) {
-					$("#feedback").text("Error: " + response.message);
+					$("#feedback").text("Error: " + JSON.parse(response).message);
         		},
 				type:"POST"
 			});
