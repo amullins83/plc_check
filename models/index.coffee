@@ -4,7 +4,7 @@ mongoose = require "mongoose"
 if process.env.test
 	mongoose.connect "mongodb://localhost/test"
 else
-	mongoose.connect 'mongodb://localhost/tliWin'
+	mongoose.connect "mongodb://#{process.env.MONGOLABS_USER}:#{process.env.MONGOLABS_PASS}@ds061787.mongolab.com:61787/heroku_app15454729"
 
 db = exports.db = mongoose.connection
 
