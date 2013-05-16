@@ -31,11 +31,6 @@ app.get '/partial/:name', routes.partial
 # JSON API
 
 app.get '/api/name', api.name
-app.get '/api/assignments', api.assignments.get
-app.post '/api/assignments', api.assignments.create
-app.put '/api/assignments', api.assignments.edit
-app.delete	'/api/assignments', api.assignments.destroy
-app.get '/api/assignments/count', api.assignments.count
 
 #app.post '/api/moodle', api.moodle
 
