@@ -16,7 +16,7 @@ exports.summarize = (path, keepExpression)->
 	fs.readdir path, (err, data)->
 		for name in data
 			folderLocation = filePath(path, name)
-			if fs.statSync(folderLocation).isDirectory()
+			if fs.statSync(folderLocation).isDirectory() and name != "zips"
 				folderData = fs.readdirSync folderLocation
 				summary = ""
 				for file in folderData
@@ -52,7 +52,7 @@ exports.compare = (path)->
 	fs.readdir path, (err, data)->
 		answers = fs.readFileSync(filePath(path, "Examples/labs.txt")).toString()
 		for name in data
-			unless name == "Examples"
+			unless name == "Examples" or name == "zips"
 				folderLocation = filePath(path, name)
 				if fs.statSync(folderLocation).isDirectory()
 					fileLocation = filePath(folderLocation, "labs.txt")
