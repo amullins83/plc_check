@@ -37,13 +37,15 @@ diffs = (string1, string2)->
 	foundDiff = false
 	for line, index in lines1
 		if line.match(/.rsl/)
-			unless foundDiff
+			unless foundDiff or index == 0
 				output += " Good!\n\n"
 			output += line + "\n"
 			foundDiff = false
 		else unless line == lines2[index]
-			output += "1 <<<<\n#{line}\n2 >>>>\n#{lines2[index]}\n\n"
+			output += "Student Response <<<<\n#{line}\nCorrect Answer >>>>\n#{lines2[index]}\n\n"
 			foundDiff ||= true
+	unless foundDiff
+		output += " Good!\n"
 	return output
 
 exports.compare = (path)->
@@ -53,5 +55,13 @@ exports.compare = (path)->
 			unless name == "Examples"
 				folderLocation = filePath(path, name)
 				if fs.statSync(folderLocation).isDirectory()
-					studentLabs = fs.readFileSync(filePath(folderLocation, "labs.txt")).toString()
-					fs.writeFileSync(filePath(folderLocation, "diffs.txt"), diffs(studentLabs, answers))
+					fileLocation = filePath(folderLocation, "labs.txt")
+					folderData = fs.readdirSync(folderLocation)
+					foundLabs = false
+					for file in folderData
+						if file == "labs.txt"
+							foundLabs = true
+							break
+					if foundLabs
+						studentLabs = fs.readFileSync(filePath(folderLocation, "labs.txt")).toString()
+						fs.writeFileSync(filePath(folderLocation, "diffs.txt"), diffs(studentLabs, answers))
