@@ -1,16 +1,21 @@
 "use strict"
 fs = require "fs"
 
+filePath = (path, name)->
+	return path + "/" + name
+
 exports.rename = (path, findExpression, replaceExpression)->
 	fs.readdir path, (err, data)->
 		for file in data
-			filePath = path + "/" + file
-			newName = file.replace findExpression, replaceExpression
-			newPath = path + "/" + newName
-			fs.renameSync filePath, newPath
-
-filePath = (path, name)->
-	return path + "/" + name
+			fileLocation = filePath path, file
+			interpolateExp = replaceExpression
+			fileMatches = file.match findExpression
+			if fileMatches? and replaceExpression.match(/\$\d/)?
+				for matchText, index in fileMatches
+					interpolateExp = interpolateExp.replace(new RegExp("\\$#{index}","g"), matchText)
+			newName = file.replace findExpression, interpolateExp
+			newPath = filePath path, newName
+			fs.renameSync fileLocation, newPath
 
 exports.summarize = (path, keepExpression)->
 	fs.readdir path, (err, data)->
