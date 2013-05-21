@@ -11,28 +11,35 @@ schema = mongoose.Schema
 db = exports.db = mongoose.connection
 
 
-exports.labObject =
+exports.labObject = labObject =
 	name: String
 	date: Date
 	uploadURL: String
 	problems: Array
 
-exports.problemObject =
+exports.problemObject = problemObject =
 	name: String
 	rungs: Array
 	score: Number
 	lab: String
 
-exports.rungObject =
+exports.rungObject = rungObject =
 	value: String
 	problem: String
+	conditions: Array
 
-
-exports.ready = (handler)->
+exports.ready = ready = (handler)->
 		db.once "open", handler
 	
-exports.ready ->
-	Lab = exports.Lab = mongoose.model "Lab", mongoose.Schema(exports.labObject)
-	Problem = exports.Problem = mongoose.model "Problem", mongoose.Schema(exports.problemObject)
-	Rung = exports.Rung = mongoose.model "Rung", mongoose.Schema(exports.rungObject)
-	
+ready ->
+	Lab = exports.Lab = mongoose.model "Lab", mongoose.Schema(labObject)
+	Problem = exports.Problem = mongoose.model "Problem", mongoose.Schema(problemObject)
+	Rung = exports.Rung = mongoose.model "Rung", mongoose.Schema(rungObject)
+
+	Rung.prototype.run = (inputObject)->
+		outputObject = {}
+		for item in inputObject
+			outputObject[item] = inputObject[item]
+		for condition in conditions
+			outputObject = condition(outputObject)
+		return outputObject
