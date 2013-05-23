@@ -17,8 +17,6 @@ exports.rename = (path, findExpression, replaceExpression)->
 			newPath = filePath path, newName
 			fs.renameSync fileLocation, newPath
 
-
-
 exports.summarize = (path, keepExpression)->
 	fs.readdir path, (err, data)->
 		for name in data
