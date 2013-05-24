@@ -30,12 +30,12 @@ RSLStartEnd = (function() {
         }
         return dataTable;
       } else {
-        throw "EOR does not match SOR";
+        throw errorMessage;
       }
     };
   };
 
-  RSLStartEnd.EOR = RSLStartEnd.ending;
+  RSLStartEnd.EOR = RSLStartEnd.ending();
 
   RSLStartEnd.END = RSLStartEnd.ending(function() {
     return dataTable.programOpen = false;
@@ -44,3 +44,5 @@ RSLStartEnd = (function() {
   return RSLStartEnd;
 
 })();
+
+module.exports = RSLStartEnd;
