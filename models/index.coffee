@@ -32,6 +32,7 @@ schema = mongoose.Schema
 db = exports.db = mongoose.connection
 
 
+
 exports.labObject = labObject =
 	name: String
 	date: Date
