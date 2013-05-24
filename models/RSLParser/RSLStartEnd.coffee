@@ -19,10 +19,12 @@ class RSLStartEnd
                     lastAction
                 return dataTable
             else
-                throw "EOR does not match SOR"
+                throw errorMessage
     
-    @EOR: @ending
+    @EOR: @ending()
     
     @END: @ending ->
         dataTable.programOpen = false
     , "END does not match SOR"
+
+module.exports = RSLStartEnd
