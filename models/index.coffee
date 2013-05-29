@@ -54,7 +54,7 @@
 			db.once "open", handler
 	
 	
-	RSLParser = exports.RSLParser = require "./RSLParser.coffee"
+	RSLParser = exports.RSLParser = require "./RSLParserComplete.coffee"
 	
 	ready ->
 		Lab = exports.Lab = mongoose.model "Lab", mongoose.Schema(labObject)
