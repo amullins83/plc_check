@@ -15,7 +15,7 @@
             it "returns the dataTable on unrecognized instruction", ->
                 expect(RSLParser.execute "what", {data: "table"}).toEqual {data: "table"}
 
-            describe "executing start and end instructions", ->
+            describe "start and end instructions", ->
 
                 it "Starts a rung with SOR", ->
                     expect(RSLParser.execute "SOR,0", {data: "table"}).toEqual
@@ -40,4 +40,20 @@
                         activeRung : "1"
                         rungs : ['0', '1']
                     ).programOpen).toBe false
+
+            describe "bitwise input instructions", ->
+                describe "XIC", ->
+                    it "returns false when input is false", ->
+                        expect(RSLParser.execute "XIC,I:1/0", 
+                            "I":
+                                "1":
+                                    "0":false
+                        ).toBe false
+
+                    it "returns the dataTable when input is true", ->
+                        dt = 
+                            "I":
+                                "1":
+                                    "0":true
+                        expect(RSLParser.execute "XIC,I:1/0", dt).toEqual dt
 ).call this
