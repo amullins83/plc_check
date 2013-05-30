@@ -15,16 +15,17 @@ class RSLStartEnd
             [matchText, rungNumber] = matchValues
             if rungNumber == dataTable.activeRung
                 dataTable.rungOpen = false
-                if typeof lastAction  == "Function"
-                    lastAction()
+                if typeof lastAction  != "undefined"
+                    dataTable = lastAction(dataTable)
                 return dataTable
             else
                 throw errorMessage
     
     @EOR: @ending()
     
-    @END: @ending ->
+    @END: @ending (dataTable)->
         dataTable.programOpen = false
+        return dataTable
     , "END does not match SOR"
 
 module.exports = RSLStartEnd
@@ -187,7 +188,7 @@ class RSLBranch
     constructor: ->
 
     @Branch: class Branch
-        constructor: (@branchNumber)->
+       constructor: (@branchNumber)->
             @topLine    = true
             @bottomLine = true
             @onTopLine  = true

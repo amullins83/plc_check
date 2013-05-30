@@ -2,13 +2,22 @@
      Unit:
          ✔ Create system to automate running concat script on unit model change @done (13-05-30 02:22)
          ✔ Test this new system @done (13-05-30 02:22)
-         ☐ Complete StartEnd testing
-         ☐ Test BitInput
-         ☐ Test BitOutput
-         ☐ Test Logical
-         ☐ Test Timer
-         ☐ Test Counter
-         ☐ Test Branches
+         ✔ Complete StartEnd testing @done (13-05-30 16:58)
+         Test BitInput:
+             ✔ Test XIC @done (13-05-30 17:10)
+             ☐ Test XIO
+         Test BitOutput:
+             ☐ Test OTE
+             ☐ Test OTL
+             ☐ Test OTU
+         Test Logical:
+             ☐ Test AND
+             ☐ Test OR
+             ☐ Test XOR
+             ☐ Test NOT
+         Test Timer:
+         Test Counter:
+         Test Branches:
      System:
          ☐ Run against a few actual problems
          ☐ Evaluate severity of each particular issue
