@@ -16,7 +16,7 @@ class RSLStartEnd
             if rungNumber == dataTable.activeRung
                 dataTable.rungOpen = false
                 if typeof lastAction  == "Function"
-                    lastAction
+                    lastAction()
                 return dataTable
             else
                 throw errorMessage
