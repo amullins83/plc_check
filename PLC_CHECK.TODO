@@ -1,0 +1,15 @@
+ Testing:
+     Unit:
+         ☐ Create system to automate running concat script on unit model change
+         ☐ Test this new system
+         ☐ Complete StartEnd testing
+         ☐ Test BitInput
+         ☐ Test BitOutput
+         ☐ Test Logical
+         ☐ Test Timer
+         ☐ Test Counter
+         ☐ Test Branches
+     System:
+         ☐ Run against a few actual problems
+         ☐ Evaluate severity of each particular issue
+         ☐ Calculuate score based on deviations from goal and their severity

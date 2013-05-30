@@ -32,4 +32,12 @@
                         activeRung  : "0"
                         rungs       : ['0']
                     ).rungOpen).toBe false
+
+                it "Ends a program with END", ->
+                    expect(RSLParser.execute("END,1",
+                        rungOpen    : true
+                        programOpen : true
+                        activeRung : "1"
+                        rungs : ['0', '1']
+                    ).programOpen).toBe false
 ).call this
