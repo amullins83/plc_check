@@ -16,15 +16,16 @@ class RSLStartEnd
             if rungNumber == dataTable.activeRung
                 dataTable.rungOpen = false
                 if typeof lastAction  == "Function"
-                    lastAction
+                    dataTable = lastAction dataTable
                 return dataTable
             else
                 throw "EOR does not match SOR"
     
-    @EOR: @ending
+    @EOR: @ending()
     
-    @END: @ending ->
+    @END: @ending (dataTable)->
         dataTable.programOpen = false
+        dataTable
     , "END does not match SOR"
 
 class RSLOutput
