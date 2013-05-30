@@ -2,7 +2,7 @@ class RSLBranch
     constructor: ->
 
     @Branch: class Branch
-        constructor: (@branchNumber)->
+       constructor: (@branchNumber)->
             @topLine    = true
             @bottomLine = true
             @onTopLine  = true
