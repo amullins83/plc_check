@@ -1,7 +1,7 @@
  Testing:
      Unit:
-         ☐ Create system to automate running concat script on unit model change
-         ☐ Test this new system
+         ✔ Create system to automate running concat script on unit model change @done (13-05-30 02:22)
+         ✔ Test this new system @done (13-05-30 02:22)
          ☐ Complete StartEnd testing
          ☐ Test BitInput
          ☐ Test BitOutput
