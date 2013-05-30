@@ -19,7 +19,7 @@
   <script>
     
       var require = {
-  "baseUrl": "/Users/austinmullins/pokerHearts",
+  "baseUrl": "/Users/austinmullins/plc_check",
   "paths": {
     "mongoose": "node_modules/mongoose/lib/mongoose"
   },
@@ -36,11 +36,43 @@
       
       
       
-        './models/index' 
+        './models/RSLParser/RSLBranch.coffee' ,
+        
+      
+      
+        './models/RSLParser/RSLCounterTimer.coffee' ,
+        
+      
+      
+        './models/RSLParser/RSLInput.coffee' ,
+        
+      
+      
+        './models/RSLParser/RSLLogical.coffee' ,
+        
+      
+      
+        './models/RSLParser/RSLOneShot.coffee' ,
+        
+      
+      
+        './models/RSLParser/RSLOutput.coffee' ,
+        
+      
+      
+        './models/RSLParser/RSLStartEnd.coffee' ,
+        
+      
+      
+        './models/RSLParserComplete.coffee' ,
+        
+      
+      
+        './models/index.coffee' 
         
     ],
     function(){
-      require(['./test/testModels/AssignmentSpec.js','./test/testModels/exampleSpec.js','./.grunt/grunt-contrib-jasmine/reporter.js'], function(){
+      require(['./test/testAPI/LabAPI_Spec.coffee','./test/testModels/LabSpec.coffee','./test/testModels/RSLParserSpec.coffee','./test/testModels/RSLStartEndSpec.coffee','./.grunt/grunt-contrib-jasmine/reporter.js'], function(){
         require(['./.grunt/grunt-contrib-jasmine/jasmine-helper.js'], function(){
           // good to go! Our tests should already be running.
         })
