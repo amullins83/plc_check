@@ -7,14 +7,14 @@ module.exports = function(grunt) {
             }
         },
         jasmine: {
-            src: ['models/**/*.js'],
+            src: ['models/**/*.coffee'],
             options: {
-                specs: ['test/**/*Spec.js'],
+                specs: ['test/**/*Spec.coffee'],
                 host: "http://localhost:3000",
                 template: require('grunt-template-jasmine-requirejs'),
                 templateOptions: {
                           requireConfig: {
-                            baseUrl: '/Users/austinmullins/pokerHearts',
+                            baseUrl: '/Users/austinmullins/plc_check',
                             paths: {
                               "mongoose": "node_modules/mongoose/lib/mongoose"
                             },
@@ -25,14 +25,17 @@ module.exports = function(grunt) {
             }
         },
         watch: {
-            files: ["<%= jasmine.src %>", "<%= jasmine.options.specs %>"],
-            tasks: ["jasmine"]
+            tests: {
+                files: ["<%= jasmine.src %>", "<%= jasmine.options.specs %>"],
+                tasks: ["jasmine"]
+            }
         }
     });
 
     grunt.loadNpmTasks("grunt-contrib-jasmine");
     grunt.loadNpmTasks("grunt-contrib-watch");
     grunt.loadNpmTasks("grunt-contrib-connect");
+
 
     grunt.registerTask("default", ["watch"]);
 

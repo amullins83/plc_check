@@ -14,7 +14,7 @@ describe "Lab", ->
 	
 
 	
-	models = require("../../models")
+	models = require "../../models"
 	
 	finishTest = (done)->
 		Lab = models.Lab
