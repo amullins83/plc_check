@@ -42,18 +42,28 @@
                     ).programOpen).toBe false
 
             describe "bitwise input instructions", ->
+                dt_true = 
+                    "I":
+                        "1":
+                            "0":true
+
+                dt_false = 
+                    "I":
+                        "1":
+                            "0":false
+
                 describe "XIC", ->
                     it "returns false when input is false", ->
-                        expect(RSLParser.execute "XIC,I:1/0", 
-                            "I":
-                                "1":
-                                    "0":false
-                        ).toBe false
+                        expect(RSLParser.execute "XIC,I:1/0", dt_false).toBe false
 
                     it "returns the dataTable when input is true", ->
-                        dt = 
-                            "I":
-                                "1":
-                                    "0":true
-                        expect(RSLParser.execute "XIC,I:1/0", dt).toEqual dt
+                        expect(RSLParser.execute "XIC,I:1/0", dt_true).toEqual dt_true
+
+                describe "XIO", ->
+                    it "returns false when input is true", ->
+                        expect(RSLParser.execute "XIO,I:1/0", dt_true).toBe false
+
+                    it "returns the dataTable when input is false", ->
+                        expect(RSLParser.execute "XIO,I:1/0", dt_false).toBe dt_false
+                        
 ).call this
