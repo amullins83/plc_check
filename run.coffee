@@ -1,21 +1,14 @@
 ( ->
     "use strict"
 
-    prompt = require "prompt"
     scripts = require "./scripts.coffee"
-
-    prompt.start
-
-    prompt.get ["folder", "re"], (err, result)->
-        if err
-            onErr err
-
-        scripts.summarize result.folder, new RegExp(result.re, "g")
-        scripts.compare result.folder
-        console.log "Deposited Diffs"
-
-    onErr = (error)->
-        console.log  error
-        1
+    fs = require "fs"
     
+    fs.readdir "./submissions", (err, folderList)->
+        return "Error reading file" if err?
+        for folder in folderList
+            folderLocation = "./submissions/" + folder
+            if fs.statSync(folderLocation).isDirectory() and folder != "Homework"
+                scripts.summarize folderLocation, /SOR,\d+ .* EOR,\d+/g
+                scripts.compare folderLocation
 ).call this
