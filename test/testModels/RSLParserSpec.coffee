@@ -6,7 +6,7 @@
     describe "RSLParser", ->
         
         RSLParser = require "../../models/RSLParserComplete.coffee"
-        
+        Find = require "../../models/RSLParser/find.coffee"
         it "should exist", ->
             expect(RSLParser).toBeDefined
 
@@ -62,8 +62,73 @@
                 describe "XIO", ->
                     it "returns false when input is true", ->
                         expect(RSLParser.execute "XIO,I:1/0", dt_true).toBe false
-
                     it "returns the dataTable when input is false", ->
-                        expect(RSLParser.execute "XIO,I:1/0", dt_false).toBe dt_false
-                        
+                        expect(RSLParser.execute "XIO,I:1/0", dt_false).toEqual dt_false
+
+            describe "bitwise output instructions", ->
+                dt_true = 
+                    "I":
+                        "1":
+                            "0":true
+
+                dt_true_output_on =
+                    "I":
+                        "1":
+                            "0":true
+                    "O":
+                        "2":
+                            "0":true
+
+                dt_false = 
+                    "I":
+                        "1":
+                            "0":false
+
+                dt_false_output_on =
+                    "I":
+                        "1":
+                            "0":false
+                    "O":
+                        "2":
+                            "0":true
+
+                dt_true_output_on_latched = 
+                    "I":
+                        "1":
+                            "0":true
+                    "O":
+                        "2":
+                            "0":true
+                    "latch": [
+                        file: "O",
+                        rank: "2",
+                        bit: "0"
+                    ]
+
+                dt_true_output_off_unlatched =
+                    "I":
+                        "1":
+                            "0":true
+                    "O":
+                        "2":
+                            "0":false
+                    "latch": []
+
+                describe "OTE", ->
+                    it "returns the dataTable with chosen address turned on", ->
+                        expect(RSLParser.execute "OTE,O:2/0", dt_true).toEqual dt_true_output_on               
+                        expect(RSLParser.execute "OTE,O:2/0", dt_false).toEqual dt_false_output_on
+
+                describe "OTL", ->
+                    it "returns the dataTable with chosen address turned on and added to latch list", ->
+                        expect(RSLParser.execute "OTL,O:2/0", dt_true).toEqual dt_true_output_on_latched
+
+                describe "OTU", ->
+                    it "finds the latched output", ->
+                        removeIndex = Find.find dt_true_output_on_latched["latch"], {file: "O", rank: "2", bit: "0"}
+                        expect(removeIndex).toBe 0
+
+                    it "returns the dataTable with chosen address turned off and removed from latch list", ->
+                        expect(RSLParser.execute "OTU,O:2/0", dt_true_output_on_latched).toEqual dt_true_output_off_unlatched
+
 ).call this
