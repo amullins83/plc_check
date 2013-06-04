@@ -35,22 +35,31 @@ exports.summarize = (path, keepExpression)->
 								summary += line + "\n"
 					fs.writeFileSync filePath(folderLocation, "labs.txt"), summary
 
-diffs = (string1, string2)->
+diffs = exports.diffs = (string1, string2)->
 	output = ""
 	lines1 = string1.split "\n"
 	lines2 = string2.split "\n"
 	foundDiff = false
-	for line, index in lines1
-		if line.match(/.rsl/)
-			unless foundDiff or index == 0
-				output += " Good!\n\n"
-			output += line + "\n"
-			foundDiff = false
-		else unless line == lines2[index]
-			output += "Student Response <<<<\n#{line}\nCorrect Answer >>>>\n#{lines2[index]}\n\n"
+	index1 = index2 = 0
+	for index1 in [0...lines1.length]
+		line1 = lines1[index1]
+		if index2 < lines2.length
+			line2 = lines2[index2]
+
+		unless line1 == line2 or (line1.match(/\.rsl/) and not line2.match(/\.rsl/))
+			output += "Student Response <<<<\n#{line1}\nCorrect Answer >>>>\n#{line2}\n\n"
 			foundDiff ||= true
-	unless foundDiff
-		output += " Good!\n"
+
+		if line1.match /\.rsl/
+			unless foundDiff
+				output += " Good!\n\n"
+			index2 += 1 until not(lines2[index2]?) or lines2[index2].match(/\.rsl/) or index2 == lines2.length - 1
+			index2 += 1
+			output += line1 + "\n"
+			foundDiff = false
+		else unless line2.match /\.rsl/
+			index2 += 1
+
 	return output
 
 exports.compare = (path)->
