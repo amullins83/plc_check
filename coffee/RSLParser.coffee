@@ -1,3 +1,4 @@
+#= require find
 #= require RSLStartEnd    
 #= require RSLInput
 #= require RSLOutput    
