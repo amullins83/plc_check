@@ -814,13 +814,13 @@
             ✔ 6-21b @done (13-06-04 00:36)
             ✔ 6-23 @done (13-06-04 00:36)
             ✔ 6-24 @done (13-06-04 00:36)
-            ☐ 6-25
-            ☐ 6-27
-            ☐ 6-28
-            ☐ 6-29
-            ☐ 6-30
-            ☐ 6-31
-            ☐ 6-34
+            ✔ 6-25 @done (13-06-04 09:07)
+            ✔ 6-27 @done (13-06-04 09:07)
+            ✔ 6-28 @done (13-06-04 09:07)
+            ✔ 6-29 @done (13-06-04 09:07)
+            ✔ 6-30 @done (13-06-04 09:07)
+            ✔ 6-31 @done (13-06-04 09:07)
+            ✔ 6-34 @done (13-06-04 09:07)
          Porras:
             ☐ 6-1
             ☐ 6-2
@@ -938,9 +938,17 @@
              ✔ Test XIC @done (13-05-30 17:10)
              ✔ Test XIO @done (13-05-30 23:29)
          Test BitOutput:
-             ☐ Test OTE
-             ☐ Test OTL
-             ☐ Test OTU
+             ✔ Test OTE @done (13-06-04 17:22)
+             ✔ Test OTL @done (13-06-04 17:22)
+             ✔ Test OTU @done (13-06-04 17:22)
+         Test Branches:
+             ☐ Test BST
+             ☐ Test NXB
+             ☐ Test BND
+             ☐ Test both branches false
+             ☐ Test both branches true
+             ☐ Test true / false
+             ☐ Test false / true
          Test Logical:
              ☐ Test AND
              ☐ Test OR
@@ -948,7 +956,7 @@
              ☐ Test NOT
          Test Timer:
          Test Counter:
-         Test Branches:
+
      System:
          ☐ Run against a few actual problems
          ☐ Evaluate severity of each particular issue
