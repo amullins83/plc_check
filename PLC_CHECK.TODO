@@ -935,16 +935,18 @@
          ✔ Test this new system @done (13-05-30 02:22)
          ✔ Complete StartEnd testing @done (13-05-30 16:58)
          Test BitInput:
-             ✔ Test XIC @done (13-05-30 17:10)
-             ✔ Test XIO @done (13-05-30 23:29)
+             ✔ New Spec: false contact returns dataTable with rungOpen = false @done (13-06-05 17:08)
+             ✔ Test XIC @done (13-06-05 17:08)
+             ✔ Test XIO @done (13-06-05 17:08)
          Test BitOutput:
-             ✔ Test OTE @done (13-06-04 17:22)
+             ✔ Test OTE @done (13-06-05 16:29)
              ✔ Test OTL @done (13-06-04 17:22)
              ✔ Test OTU @done (13-06-04 17:22)
          Test Branches:
-             ☐ Test BST
-             ☐ Test NXB
-             ☐ Test BND
+             ✔ New Spec: BST updates "Active branch" @done (13-06-05 17:13)
+             ✔ Test BST @done (13-06-05 17:13)
+             ✔ Test NXB @done (13-06-05 17:13)
+             ✔ Test BND @done (13-06-05 17:40)
              ☐ Test both branches false
              ☐ Test both branches true
              ☐ Test true / false
