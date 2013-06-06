@@ -1,7 +1,5 @@
 describe "Bit Input", ->
-	RSLParser = require "../../models/RSLParserComplete.coffee"
+	RSLInput = require "../../models/RSLParser/RSLInput.coffee"
 
 	it "exists", ->
-		expect(RSLParser.RSLInput).toBeDefined
-
-		
+		expect(RSLInput).toBeDefined()
