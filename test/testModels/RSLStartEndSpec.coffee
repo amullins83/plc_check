@@ -17,7 +17,7 @@
 
         describe "SOR", ->
 
-                it "Returns a dataTable with activeRung = '0'", ->
-                    expect(RSLStartEnd.SOR(["SOR,0", "0"], {data: "table"}).activeRung).toEqual '0'
+                it "Returns a dataTable with activeRung = 0", ->
+                    expect(RSLStartEnd.SOR(["SOR,0", "0"], {data: "table"}).activeRung).toEqual 0
 
 ).call this

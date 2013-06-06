@@ -202,4 +202,89 @@
                         expect(RSLParser.execute("BND,2", dt_true_new_branch_bottom()).activeBranch).toBe 1
                         expect(RSLParser.execute("BND,1", dt_in_between()).activeBranch).toBe 0
 
+
+        describe "RunRung method", ->
+
+            it "exists", ->
+                expect(typeof RSLParser.runRung).toEqual "function"
+            
+            describe "simple rung", ->
+
+                rungText = "SOR,0 XIC,I:1/0 OTE,O:2/0 EOR,0"
+
+                dt_true = ->
+                    dt = new DataTable true
+                    dt.rungs = []
+                    return dt
+
+                dt_false = ->
+                    dt = new DataTable false
+                    dt.rungs = []
+                    return dt
+
+                dt_true_after_rung = -> 
+                    dt = new DataTable true
+                    dt.addOutput 2,0
+                    dt.rungOpen = false
+                    return dt
+
+                dt_false_after_rung = ->
+                    dt = new DataTable false
+                    dt.rungOpen = false
+                    return dt
+
+                it "returns dataTable with output on when input is on", ->
+                    expect(RSLParser.runRung rungText, dt_true()).toEqual dt_true_after_rung()
+
+                it "returns dataTable when input is off", ->
+                    expect(RSLParser.runRung rungText, dt_false()).toEqual dt_false_after_rung()
+
+            describe "series rung", ->
+
+                dt_true_false = ->
+                    dt = new DataTable true
+                    dt.I[1][1] = false
+                    dt.rungs = []
+                    return dt
+
+                dt_true_true = ->
+                    dt = new DataTable true
+                    dt.I[1][1] = true
+                    dt.rungs = []
+                    return dt
+
+                dt_false_true = ->
+                    dt = new DataTable false
+                    dt.I[1][1] = true
+                    dt.rungs = []
+                    return dt
+
+                dt_false_false = ->
+                    dt = new DataTable false
+                    dt.I[1][1] = false
+                    dt.rungs = []
+                    return dt
+
+                dt_true_true_after_rung = ->
+                    dt = dt_true_true()
+                    dt.rungs.push 0
+                    dt.addOutput 2,0
+                    dt.rungOpen = false
+                    return dt                    
+
+                dt_any_false_after_rung = (dt_maker)->
+                    dt = dt_maker()
+                    dt.rungs.push 0
+                    dt.rungOpen = false
+                    return dt
+
+                rungText = "SOR,0 XIC,I:1/0 XIC,I:1/1 OTE,O:2/0 EOR,0"
+
+                it "sets output on when both inputs true", ->
+                    expect(RSLParser.runRung rungText, dt_true_true()).toEqual dt_true_true_after_rung()
+
+                it "returns closed dataTable when either input false", ->
+                    for dt_maker in [dt_true_false, dt_false_true, dt_false_false]
+                        expect(RSLParser.runRung rungText, dt_maker()).toEqual dt_any_false_after_rung(dt_maker)
+
 ).call this
