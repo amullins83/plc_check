@@ -46,6 +46,14 @@
                 if matchValues?
                     dataTable = f matchValues, dataTable
             return dataTable
+
+        @runRung: (rungText, dataTable)->
+            for instruction in rungText.split " "
+                if instruction.match(/SOR,\d+/) or dataTable.rungOpen
+                    dataTable = @execute instruction, dataTable
+                else
+                    break
+            return dataTable
     
     module.exports = RSLParser
 ).call this
