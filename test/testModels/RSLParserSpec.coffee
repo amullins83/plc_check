@@ -452,6 +452,13 @@
 
         describe "runRoutine method", ->
 
+            dt_in = (truthArray)->
+                dt = new DataTable
+                for value, bit in truthArray
+                    dt.I[1][bit] = value
+                dt.rungs = []
+                return dt
+
             it "exists", ->
                 expect(RSLParser.runRoutine).toBeDefined()
 
@@ -459,12 +466,7 @@
 
                 lab1a = fs.readFileSync("./submissions/ch1_2/Examples/1-1a.rsl").toString()
 
-                dt_lab1a_in = (truthArray)->
-                    dt = new DataTable
-                    for value, bit in truthArray
-                        dt.I[1][bit] = value
-                    dt.rungs = []
-                    return dt
+                dt_lab1a_in = dt_in
 
                 dt_lab1a_out = (truthArray)->
                     dt = dt_lab1a_in(truthArray)
@@ -481,4 +483,29 @@
                         truthArray = [(i >> 2 & 1) == 1, (i >> 1 & 1) == 1, (i & 1) == 1]
                         expect(RSLParser.runRoutine lab1a, dt_lab1a_in(truthArray)).toEqual dt_lab1a_out(truthArray)
 
+            describe "lab 2-2", ->
+
+                lab22 = fs.readFileSync("./submissions/ch1_2/Examples/2-2.rsl").toString()
+
+                dt_lab22_in = dt_in
+
+                dt_lab22_out = (truthArray)->
+                    dt = dt_lab22_in truthArray
+                    dt.rungs = [0...17]
+                    dt.activeRung = 16
+                    for no_contact in [0,2,3,5,6,7,10,11,14]
+                        dt.addOutput 2,no_contact if truthArray[no_contact]
+                    for nc_contact in [1,4,8,9,12,13,15]
+                        dt.addOutput 2,nc_contact unless truthArray[nc_contact]
+                    dt.rungOpen = false
+                    dt.programOpen = false
+                    return dt
+
+                it "runs correctly for the test case of I:1", ->
+                    truthArray = [true,false,true,true,true,false,false,false,true,true,false,false,true,true,false,true]
+                    expect(RSLParser.runRoutine lab22, dt_lab22_in(truthArray)).toEqual dt_lab22_out(truthArray)
+
+                it "runs correctly for the inverse case of I:1", ->
+                    truthArray = [false,true,false,false,false,true,true,true,false,false,true,true,false,false,true,false]
+                    expect(RSLParser.runRoutine lab22, dt_lab22_in(truthArray)).toEqual dt_lab22_out(truthArray)                    
 ).call this
