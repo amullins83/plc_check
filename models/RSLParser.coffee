@@ -69,7 +69,7 @@
                         skipToEOR = false
 
                 dataTable = @execute instruction, dataTable
-                
+
                 if dataTable.activeBranch > 1
                     currentBranch = dataTable.branches[dataTable.activeBranch - 1]
                     skipToNXB = currentBranch.onTopLine and not currentBranch.topLine
@@ -77,6 +77,12 @@
                 else
                     skipToEOR = not dataTable.rungOpen
         
+            return dataTable
+
+        @runRoutine: (programText, dataTable)->
+            for rung in programText.match /SOR,\d+ .*E(OR|ND),\d+/g
+                dataTable = @runRung rung, dataTable
+                break unless dataTable.programOpen
             return dataTable
     
     module.exports = RSLParser

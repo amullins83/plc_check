@@ -8,6 +8,7 @@
         RSLParser = require "../../models/RSLParser.coffee"
         Find = require "../../models/RSLParser/find.coffee"
         DataTable = require "../../models/dataTable.coffee"
+        fs = require "fs"
 
         it "should exist", ->
             expect(RSLParser).toBeDefined()
@@ -21,7 +22,7 @@
 
             describe "start and end instructions", ->
 
-                it "Starts a rung with SOR", ->
+                it "starts a rung with SOR", ->
                     expect(RSLParser.execute "SOR,0", {data: "table"}).toEqual
                         data : 'table'
                         rungs : [ 0 ]
@@ -30,7 +31,7 @@
                         rungOpen : true
                         programOpen : true
 
-                it "Ends a rung with EOR", ->
+                it "ends a rung with EOR", ->
                     expect(RSLParser.execute("EOR,0",
                         rungOpen    : true
                         programOpen : true
@@ -39,7 +40,24 @@
                         rungs       : [0]
                     ).rungOpen).toBe false
 
-                it "Ends a program with END", ->
+                it "destroys any branches with EOR", ->
+                    expect(RSLParser.execute("EOR,0",
+                        rungOpen : true
+                        programOpen : true
+                        activeRung : 0 
+                        activeBranch: 0
+                        rungs : [0]
+                        branches : [
+                            {
+                                topLine: true
+                                bottomLine: false
+                                onTopLine: false
+                                open: false
+                            }
+                        ]
+                    ).branches).not.toBeDefined()
+
+                it "ends a program with END", ->
                     expect(RSLParser.execute("END,1",
                         rungOpen    : true
                         programOpen : true
@@ -298,10 +316,7 @@
                 dt.rungs = [0]
                 dt.addOutput 2,0
                 dt.addBranch()
-                dt.branches[0].onTopLine = false
-                dt.branches[0].open = false
-                dt.branches[0].topLine = dt.I[1][0]
-                dt.branches[0].bottomLine = dt.I[1][1]
+                delete dt.branches
                 dt.activeBranch = 0
                 dt.rungOpen = false
                 return dt
@@ -310,10 +325,7 @@
                 dt = dt_false_false()
                 dt.rungs = [0]
                 dt.addBranch()
-                dt.branches[0].onTopLine = false
-                dt.branches[0].open = false
-                dt.branches[0].topLine = false
-                dt.branches[0].bottomLine = false
+                delete dt.branches
                 dt.activeBranch = 0
                 dt.rungOpen = false
                 return dt
@@ -332,10 +344,7 @@
                 dt.rungs = [0]
                 dt.rungOpen = false
                 dt.addBranch()
-                dt.branches[0].onTopLine = false
-                dt.branches[0].topLine = truthArray[0] and truthArray[1]
-                dt.branches[0].bottomLine = truthArray[2]
-                dt.branches[0].open = false
+                delete dt.branches
                 dt.activeBranch = 0
                 return dt
 
@@ -440,5 +449,36 @@
                     for i in [0...4]
                         truthArray = [(i >> 1 & 1) == 1, (i & 1) == 1]
                         expect(RSLParser.runRung rungText1, dt_latch_after(truthArray)).toEqual dt_unlatch_after(truthArray)
+
+        describe "runRoutine method", ->
+
+            it "exists", ->
+                expect(RSLParser.runRoutine).toBeDefined()
+
+            describe "lab 1-1a", ->
+
+                lab1a = fs.readFileSync("./submissions/ch1_2/Examples/1-1a.rsl").toString()
+
+                dt_lab1a_in = (truthArray)->
+                    dt = new DataTable
+                    for value, bit in truthArray
+                        dt.I[1][bit] = value
+                    dt.rungs = []
+                    return dt
+
+                dt_lab1a_out = (truthArray)->
+                    dt = dt_lab1a_in(truthArray)
+                    dt.rungs = [0,1]
+                    dt.activeRung = 1
+                    if (truthArray[0] and truthArray[1]) or truthArray[2]
+                        dt.addOutput 2,0
+                    dt.rungOpen = false
+                    dt.programOpen = false
+                    return dt
+
+                it "runs correctly for all combinations of I:1/0, I:1/1, and I:1/2", ->
+                    for i in [0...8]
+                        truthArray = [(i >> 2 & 1) == 1, (i >> 1 & 1) == 1, (i & 1) == 1]
+                        expect(RSLParser.runRoutine lab1a, dt_lab1a_in(truthArray)).toEqual dt_lab1a_out(truthArray)
 
 ).call this

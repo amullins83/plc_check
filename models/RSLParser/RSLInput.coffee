@@ -10,6 +10,9 @@
                 [matchText, file, rankString, bitString] = matchValues
                 rank = parseInt rankString, 10
                 bit = parseInt bitString, 10
+                dataTable[file] = dataTable[file] || {}
+                dataTable[file][rank] = dataTable[file][rank] || {}
+                dataTable[file][rank][bit] = dataTable[file][rank][bit] || false
                 if bitwiseFunction(dataTable[file][rank][bit])
                     return dataTable
                 else
