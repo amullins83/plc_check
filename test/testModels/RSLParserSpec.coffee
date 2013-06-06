@@ -10,7 +10,7 @@
         DataTable = require "../../models/dataTable.coffee"
 
         it "should exist", ->
-            expect(RSLParser).toBeDefined
+            expect(RSLParser).toBeDefined()
 
         
 
@@ -121,22 +121,30 @@
 
             describe "branch instructions", ->
 
-                dt_true_no_branch = new DataTable(true)
+                dt_true_no_branch = ->
+                    return new DataTable(true)
 
-                dt_false_no_branch = new DataTable(false)
+                dt_false_no_branch = ->
+                    return new DataTable(false)
 
-                dt_true_branch_top = new DataTable(true)
-                dt_true_branch_top.addBranch()
-                dt_true_branch_top.activeBranch = 1
+                dt_true_branch_top = ->
+                    _dt_true_branch_top = new DataTable(true)
+                    _dt_true_branch_top.addBranch()
+                    _dt_true_branch_top.activeBranch = 1
+                    return _dt_true_branch_top
 
-                dt_false_branch_top = new DataTable(false)
-                dt_false_branch_top.addBranch()
-                dt_false_branch_top.activeBranch = 1
+                dt_false_branch_top = ->
+                    _dt_false_branch_top = new DataTable(false)
+                    _dt_false_branch_top.addBranch()
+                    _dt_false_branch_top.activeBranch = 1
+                    return _dt_false_branch_top
 
-                dt_true_new_branch = new DataTable(true)
-                dt_true_new_branch.addBranch()
-                dt_true_new_branch.addBranch()
-                dt_true_new_branch.activeBranch = 2
+                dt_true_new_branch = ->
+                    _dt_true_new_branch = new DataTable(true)
+                    _dt_true_new_branch.addBranch()
+                    _dt_true_new_branch.addBranch()
+                    _dt_true_new_branch.activeBranch = 2
+                    return _dt_true_new_branch
 
                 dt_true_new_branch_bottom = ->
                     _dt_true_new_branch_bottom = new DataTable(true)
@@ -146,12 +154,14 @@
                     _dt_true_new_branch_bottom.activeBranch = 2
                     return _dt_true_new_branch_bottom
 
-                dt_true_new_branch_closed = new DataTable(true)
-                dt_true_new_branch_closed.addBranch()
-                dt_true_new_branch_closed.addBranch()
-                dt_true_new_branch_closed.branches[1].onTopLine = false
-                dt_true_new_branch_closed.branches[1].open = false
-                dt_true_new_branch_closed.activeBranch = 1
+                dt_true_new_branch_closed = ->
+                    _dt_true_new_branch_closed = new DataTable(true)
+                    _dt_true_new_branch_closed.addBranch()
+                    _dt_true_new_branch_closed.addBranch()
+                    _dt_true_new_branch_closed.branches[1].onTopLine = false
+                    _dt_true_new_branch_closed.branches[1].open = false
+                    _dt_true_new_branch_closed.activeBranch = 1
+                    return _dt_true_new_branch_closed
 
                 dt_true_two_branches_closed = ->
                     _dt_true_two_branches_closed = new DataTable(true)
@@ -174,64 +184,165 @@
                     output.activeBranch = 1
                     return output
 
+                dt_false_branch_bottom = ->
+                    dt = dt_false_branch_top()
+
+                dt_false_false = ->
+                    dt = new DataTable false
+                    dt.I[1][1] = false
+                    dt.addBranch()
+                    dt.branches[0].topLine = false
+                    dt.branches[0].bottomLine = false
+                    dt.branches[0].onTopLine = false
+                    return dt
+
+
+
                 describe "BST", ->
 
-                    it "Creates dataTable 'branches' key if it doesn't exist", ->
-                        expect(RSLParser.execute "BST,1", dt_true_no_branch).toEqual dt_true_branch_top
-                        expect(RSLParser.execute "BST,1", dt_false_no_branch).toEqual dt_false_branch_top
+                    it "creates dataTable 'branches' key if it doesn't exist", ->
+                        expect(RSLParser.execute "BST,1", dt_true_no_branch()).toEqual dt_true_branch_top()
+                        expect(RSLParser.execute "BST,1", dt_false_no_branch()).toEqual dt_false_branch_top()
 
-                    it "Pushes new branch", ->
-                        expect(RSLParser.execute "BST,2", dt_true_branch_top).toEqual dt_true_new_branch
+                    it "pushes new branch", ->
+                        expect(RSLParser.execute "BST,2", dt_true_branch_top()).toEqual dt_true_new_branch()
 
-                    it "Sets active branch equal to branch number", ->
-                        expect(RSLParser.execute("BST,1", dt_true_no_branch).activeBranch).toBe 1
-                        expect(RSLParser.execute("BST,2", dt_true_branch_top).activeBranch).toBe 2
+                    it "sets active branch equal to branch number", ->
+                        expect(RSLParser.execute("BST,1", dt_true_no_branch()).activeBranch).toBe 1
+                        expect(RSLParser.execute("BST,2", dt_true_branch_top()).activeBranch).toBe 2
 
                 describe "NXB", ->
 
-                    it "Switches active branch from top to bottom", ->
-                        expect(RSLParser.execute "NXB,2", dt_true_new_branch).toEqual dt_true_new_branch_bottom()
+                    it "switches active branch from top to bottom", ->
+                        expect(RSLParser.execute "NXB,2", dt_true_new_branch()).toEqual dt_true_new_branch_bottom()
 
                 describe "BND", ->
 
-                    it "Closes the current branch", ->
-                        expect(RSLParser.execute "BND,2", dt_true_new_branch_bottom()).toEqual dt_true_new_branch_closed
+                    it "closes the current branch", ->
+                        expect(RSLParser.execute "BND,2", dt_true_new_branch_bottom()).toEqual dt_true_new_branch_closed()
                         expect(RSLParser.execute "BND,1", dt_in_between()).toEqual dt_true_two_branches_closed()
 
-                    it "Decrements active branch number", ->
+                    it "decrements active branch number", ->
                         expect(RSLParser.execute("BND,2", dt_true_new_branch_bottom()).activeBranch).toBe 1
                         expect(RSLParser.execute("BND,1", dt_in_between()).activeBranch).toBe 0
 
+                    it "sets rungOpen to false if both branches false", ->
+                        expect(RSLParser.execute("BND,1", dt_false_false()).rungOpen).toBe false
 
-        describe "RunRung method", ->
+        describe "runRung method", ->
 
             it "exists", ->
                 expect(typeof RSLParser.runRung).toEqual "function"
-            
-            describe "simple rung", ->
 
-                rungText = "SOR,0 XIC,I:1/0 OTE,O:2/0 EOR,0"
 
-                dt_true = ->
+            dt_true_false = ->
+                    dt = new DataTable true
+                    dt.I[1][1] = false
+                    dt.rungs = []
+                    return dt
+
+            dt_true_true = ->
+                    dt = new DataTable true
+                    dt.I[1][1] = true
+                    dt.rungs = []
+                    return dt
+
+            dt_false_true = ->
+                    dt = new DataTable false
+                    dt.I[1][1] = true
+                    dt.rungs = []
+                    return dt
+
+            dt_false_false = ->
+                    dt = new DataTable false
+                    dt.I[1][1] = false
+                    dt.rungs = []
+                    return dt
+
+            dt_true_true_after_rung = ->
+                    dt = dt_true_true()
+                    dt.rungs.push 0
+                    dt.addOutput 2,0
+                    dt.rungOpen = false
+                    return dt                    
+
+            dt_any_false_after_rung = (dt_maker)->
+                    dt = dt_maker()
+                    dt.rungs.push 0
+                    dt.rungOpen = false
+                    return dt
+
+            dt_true = ->
                     dt = new DataTable true
                     dt.rungs = []
                     return dt
 
-                dt_false = ->
+            dt_false = ->
                     dt = new DataTable false
                     dt.rungs = []
                     return dt
 
-                dt_true_after_rung = -> 
+            dt_true_after_rung = -> 
                     dt = new DataTable true
                     dt.addOutput 2,0
                     dt.rungOpen = false
                     return dt
 
-                dt_false_after_rung = ->
+            dt_false_after_rung = ->
                     dt = new DataTable false
                     dt.rungOpen = false
                     return dt
+
+            dt_any_true_after_rung = (dt_maker)->
+                dt = dt_maker()
+                dt.rungs = [0]
+                dt.addOutput 2,0
+                dt.addBranch()
+                dt.branches[0].onTopLine = false
+                dt.branches[0].open = false
+                dt.branches[0].topLine = dt.I[1][0]
+                dt.branches[0].bottomLine = dt.I[1][1]
+                dt.activeBranch = 0
+                dt.rungOpen = false
+                return dt
+
+            dt_false_false_after_rung = ->
+                dt = dt_false_false()
+                dt.rungs = [0]
+                dt.addBranch()
+                dt.branches[0].onTopLine = false
+                dt.branches[0].open = false
+                dt.branches[0].topLine = false
+                dt.branches[0].bottomLine = false
+                dt.activeBranch = 0
+                dt.rungOpen = false
+                return dt
+
+            dt_lab1_1_before = (truthArray)->
+                dt = new DataTable
+                for truth, bit in truthArray
+                    dt.I[1][bit] = truth
+                dt.rungs = []
+                return dt
+
+            dt_lab1_1_after = (truthArray)->
+                dt = dt_lab1_1_before(truthArray)
+                if (truthArray[0] and truthArray[1]) or truthArray[2]
+                   dt.addOutput 2,0
+                dt.rungs = [0]
+                dt.rungOpen = false
+                dt.addBranch()
+                dt.branches[0].onTopLine = false
+                dt.branches[0].topLine = truthArray[0] and truthArray[1]
+                dt.branches[0].bottomLine = truthArray[2]
+                dt.branches[0].open = false
+                dt.activeBranch = 0
+                return dt
+
+            describe "simple rung", ->
+
+                rungText = "SOR,0 XIC,I:1/0 OTE,O:2/0 EOR,0"
+
 
                 it "returns dataTable with output on when input is on", ->
                     expect(RSLParser.runRung rungText, dt_true()).toEqual dt_true_after_rung()
@@ -241,43 +352,6 @@
 
             describe "series rung", ->
 
-                dt_true_false = ->
-                    dt = new DataTable true
-                    dt.I[1][1] = false
-                    dt.rungs = []
-                    return dt
-
-                dt_true_true = ->
-                    dt = new DataTable true
-                    dt.I[1][1] = true
-                    dt.rungs = []
-                    return dt
-
-                dt_false_true = ->
-                    dt = new DataTable false
-                    dt.I[1][1] = true
-                    dt.rungs = []
-                    return dt
-
-                dt_false_false = ->
-                    dt = new DataTable false
-                    dt.I[1][1] = false
-                    dt.rungs = []
-                    return dt
-
-                dt_true_true_after_rung = ->
-                    dt = dt_true_true()
-                    dt.rungs.push 0
-                    dt.addOutput 2,0
-                    dt.rungOpen = false
-                    return dt                    
-
-                dt_any_false_after_rung = (dt_maker)->
-                    dt = dt_maker()
-                    dt.rungs.push 0
-                    dt.rungOpen = false
-                    return dt
-
                 rungText = "SOR,0 XIC,I:1/0 XIC,I:1/1 OTE,O:2/0 EOR,0"
 
                 it "sets output on when both inputs true", ->
@@ -286,5 +360,85 @@
                 it "returns closed dataTable when either input false", ->
                     for dt_maker in [dt_true_false, dt_false_true, dt_false_false]
                         expect(RSLParser.runRung rungText, dt_maker()).toEqual dt_any_false_after_rung(dt_maker)
+
+            describe "branching rung", ->
+
+                rungText = "SOR,0 BST,1 XIC,I:1/0 NXB,1 XIC,I:1/1 BND,1 OTE,O:2/0 EOR,0"
+
+                it "sets output on when either input is true", ->
+                    for dt_maker in [dt_true_true, dt_true_false, dt_false_true]
+                        expect(RSLParser.runRung rungText, dt_maker()).toEqual dt_any_true_after_rung(dt_maker)
+
+                it "returns closed rung when both inputs false", ->
+                    expect(RSLParser.runRung rungText, dt_false_false()).toEqual dt_false_false_after_rung()
+
+            describe "series parallel rung", ->
+
+                # This is Lab 1-1 in Petruzella
+                rungText = "SOR,0 BST,1 XIC,I:1/0 XIC,I:1/1 NXB,1 XIC,I:1/2 BND,1 OTE,O:2/0 EOR,0"
+
+                it "sets output on when both I:1/0 and I:1/1 are on", ->
+                    expect(RSLParser.runRung(rungText, dt_lab1_1_before([true, true, false])).O[2][0]).toBe true
+                    expect(RSLParser.runRung(rungText, dt_lab1_1_before([true, true, true])).O[2][0]).toBe true
+
+                it "sets output on when I:1/2 is on", ->
+                    expect(RSLParser.runRung(rungText, dt_lab1_1_before([false, false, true])).O[2][0]).toBe true
+                    expect(RSLParser.runRung(rungText, dt_lab1_1_before([false, true, true])).O[2][0]).toBe true
+                    expect(RSLParser.runRung(rungText, dt_lab1_1_before([true, false, true])).O[2][0]).toBe true
+                    expect(RSLParser.runRung(rungText, dt_lab1_1_before([true, true, true])).O[2][0]).toBe true
+
+                it "sets output off otherwise", ->
+                    expect(RSLParser.runRung(rungText, dt_lab1_1_before([false, false, false])).O).not.toBeDefined()
+                    expect(RSLParser.runRung(rungText, dt_lab1_1_before([false, true, false])).O).not.toBeDefined()
+                    expect(RSLParser.runRung(rungText, dt_lab1_1_before([true, false, false])).O).not.toBeDefined()
+
+                it "does precisely what I think it does", ->
+                    for i in [0...8]
+                        truthArray = [(i >> 2 & 1) == 1, (i >> 1 & 1) == 1, (i & 1) == 1]
+                        dt_i = dt_lab1_1_before truthArray
+                        dt_o = dt_lab1_1_after truthArray
+                        expect(RSLParser.runRung rungText, dt_i).toEqual dt_o
+
+            describe "latch-unlatch rungs", ->
+
+                dt_latch_before = (truthArray)->
+                    dt = new DataTable truthArray[0]
+                    dt.I[1][1] = truthArray[1]
+                    dt.rungs = []
+                    return dt
+
+                dt_latch_after = (truthArray)->
+                    dt = dt_latch_before(truthArray)
+                    dt.rungs = [0]
+                    if truthArray[0]
+                        dt.latch = [{file: "O", rank: 2, bit: 0}]
+                        dt.addOutput 2,0
+                    dt.rungOpen = false
+                    return dt
+
+                dt_unlatch_after = (truthArray)->
+                    dt = dt_latch_after(truthArray)
+                    dt.rungs = [0,1]
+                    if truthArray[1]
+                        if dt.latch?
+                            dt.latch = []
+                        dt.O =
+                            2:
+                                0: false
+                    dt.activeRung = 1
+                    return dt
+
+                rungText0 = "SOR,0 XIC,I:1/0 OTL,O:2/0 EOR,0"
+                rungText1 = "SOR,1 XIC,I:1/1 OTU,O:2/0 EOR,1"
+
+                it "latches an output when the input is true", ->
+                    for i in [0...4]
+                        truthArray = [(i >> 1 & 1) == 1, (i & 1) == 1]
+                        expect(RSLParser.runRung rungText0, dt_latch_before(truthArray)).toEqual dt_latch_after(truthArray)
+
+                it "unlatches an output when the input is true", ->
+                    for i in [0...4]
+                        truthArray = [(i >> 1 & 1) == 1, (i & 1) == 1]
+                        expect(RSLParser.runRung rungText1, dt_latch_after(truthArray)).toEqual dt_unlatch_after(truthArray)
 
 ).call this

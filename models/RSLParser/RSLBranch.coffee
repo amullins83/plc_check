@@ -33,15 +33,21 @@
                     correctLine = not activeBranch.onTopLine
                     thingToClose = "open"
         
-                if correctLine
-                    if activeBranch.open
-                        activeBranch[thingToClose] = false
-                        dataTable.branches[branchNumber - 1] = activeBranch
-                        if closingType == "BND"
-                            dataTable.activeBranch = branchNumber - 1
-                        return dataTable
-                    else
-                        throw "Unexpected #{closingType}"
+                if correctLine and activeBranch.open
+                    activeBranch[thingToClose] = false
+                    dataTable.branches[branchNumber - 1] = activeBranch
+                    if closingType == "BND"
+                        dataTable.activeBranch = branchNumber - 1
+                        branchTrue = dataTable.branches[branchNumber - 1].topLine or dataTable.branches[branchNumber - 1].bottomLine
+                        unless branchTrue
+                            if branchNumber > 1
+                                if dataTable.branches[branchNumber - 2].onTopLine
+                                    dataTable.branches[branchNumber - 2].topLine = false
+                                else
+                                    dataTable.branches[branchNumber - 2].bottomLine = false
+                            else
+                               dataTable.rungOpen = false
+                    return dataTable
                 else
                     throw "Unexpected #{closingType}"
         

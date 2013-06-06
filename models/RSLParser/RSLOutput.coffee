@@ -31,8 +31,8 @@
             if dataTable["latch"]?
                 removeIndex = Find.find dataTable["latch"], {file:file, rank:rank, bit:bit}
     
-            unless removeIndex == -1
-                dataTable["latch"].splice removeIndex, 1
+                unless removeIndex == -1
+                    dataTable["latch"].splice removeIndex, 1
             return dataTable
 
     module.exports = RSLOutput
