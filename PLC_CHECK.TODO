@@ -604,6 +604,9 @@
          Test Branches:
          Test RunRung:
              Test branching rung:
+         Test runRoutine:
+             ☐ Test Lab 2-2
+             ☐ Test Lab 6-11b
          Test Logical:
              ☐ Test AND
              ☐ Test OR
@@ -633,6 +636,7 @@
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Test Lab 1-1 @done (13-06-06 01:42)
  ✔ Test basic rung: SOR,0 XIC,I:1/0 OTE,O:2/0 EOR,0 @done (13-06-05 20:44)
  ✔ Test series rung: SOR,0 XIC,I:1/0 XIC,I:1/1 OTE,O:2/0 EOR,0 @done (13-06-05 20:57)
  ✔ Test both branches false @done (13-06-05 23:10)

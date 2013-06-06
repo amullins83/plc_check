@@ -5,15 +5,17 @@
     class Find
         constructor: ->
     
+        @match: (testObject, findObject)->
+            isMatch = true
+            for property of testObject
+                unless testObject[property] == findObject[property]
+                    isMatch = false
+                    break
+            return isMatch
+
         @find: (array, findObject)->
-            isMatch = false
             for element, index in array
-                isMatch = true
-                for property of element
-                    unless element[property] == findObject[property]
-                        isMatch = false
-                        break
-                if isMatch
+                if @match element, findObject
                     return index
             return -1
     
