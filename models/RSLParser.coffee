@@ -48,11 +48,35 @@
             return dataTable
 
         @runRung: (rungText, dataTable)->
+            skipToNXB = skipToBND = skipToEOR = false
             for instruction in rungText.split " "
-                if instruction.match(/SOR,\d+/) or dataTable.rungOpen
-                    dataTable = @execute instruction, dataTable
+                if skipToNXB
+                    unless instruction.match new RegExp "NXB,#{dataTable.activeBranch}"
+                        continue
+                    else
+                        skipToNXB = false
+                
+                if skipToBND
+                    unless instruction.match new RegExp "BND,#{dataTable.activeBranch}"
+                        continue
+                    else
+                        skipToBND = false
+                    
+                if skipToEOR
+                    unless instruction.match /EOR,\d+/
+                        continue
+                    else
+                        skipToEOR = false
+
+                dataTable = @execute instruction, dataTable
+                
+                if dataTable.activeBranch > 1
+                    currentBranch = dataTable.branches[dataTable.activeBranch - 1]
+                    skipToNXB = currentBranch.onTopLine and not currentBranch.topLine
+                    skipToBND = not currentBranch.onTopLine and not currentBranch.bottomLine
                 else
-                    break
+                    skipToEOR = not dataTable.rungOpen
+        
             return dataTable
     
     module.exports = RSLParser
