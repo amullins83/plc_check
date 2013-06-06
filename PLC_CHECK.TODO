@@ -596,28 +596,35 @@
             ☐ 6-34
 
  Intermediate Improvements:
-   
+   ☐ Refactor Find to utilize a new Match function
  Testing:
      Unit:
          Test BitInput:
          Test BitOutput:
          Test Branches:
          Test RunRung:
-             ✔ Test basic rung: SOR,0 XIC,I:1/0 OTE,O:2/0 EOR,0 @done (13-06-05 20:44)
-             ✔ Test series rung: SOR,0 XIC,I:1/0 XIC,I:1/1 OTE,O:2/0 EOR,0 @done (13-06-05 20:57)
              Test branching rung:
-               ☐ Test both branches false
-               ☐ Test both branches true
-               ☐ Test true / false
-               ☐ Test false / true
-             ☐ Test series / parallel
          Test Logical:
              ☐ Test AND
              ☐ Test OR
              ☐ Test XOR
              ☐ Test NOT
          Test Timer:
+             ☐ Test TON
+             ☐ Test TOF
+             ☐ Test RTO
+             ☐ Test RES
          Test Counter:
+             ☐ Test CTU
+             ☐ Test CTD
+         Test Compare:
+             ☐ Test LES
+             ☐ Test LEQ
+             ☐ Test GRT
+             ☐ Test GEQ
+             ☐ Test LIM
+             ☐ Test EQU
+             ☐ Test NEQ
 
      System:
          ☐ Run against a few actual problems
@@ -626,6 +633,14 @@
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Test basic rung: SOR,0 XIC,I:1/0 OTE,O:2/0 EOR,0 @done (13-06-05 20:44)
+ ✔ Test series rung: SOR,0 XIC,I:1/0 XIC,I:1/1 OTE,O:2/0 EOR,0 @done (13-06-05 20:57)
+ ✔ Test both branches false @done (13-06-05 23:10)
+ ✔ Test both branches true @done (13-06-05 23:10)
+ ✔ Test true / false @done (13-06-05 23:10)
+ ✔ Test false / true @done (13-06-05 23:10)
+ ✔ Test series / parallel @done (13-06-05 23:47)
+ ✔ Test Latch/Unlatch rung @done (13-06-06 00:18)
  ✔ 5-1 @done (13-05-30 23:43)
  ✔ 5-1 @done (13-05-30 23:49)
  ✔ 5-2 @done (13-06-01 10:09)
