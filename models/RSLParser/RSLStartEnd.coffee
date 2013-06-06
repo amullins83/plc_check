@@ -21,6 +21,7 @@
                 rungNumber = parseInt rungNumberString, 10
                 if rungNumber == dataTable.activeRung
                     dataTable.rungOpen = false
+                    delete dataTable.branches
                     if typeof lastAction  != "undefined"
                         dataTable = lastAction(dataTable)
                     return dataTable
