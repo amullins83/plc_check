@@ -596,7 +596,6 @@
             ☐ 6-34
 
  Intermediate Improvements:
-   ✔ Refactor Find to utilize a new Match function @done (13-06-06 08:18)
  Testing:
      Unit:
          Test BitInput:
@@ -605,7 +604,6 @@
          Test RunRung:
              Test branching rung:
          Test runRoutine:
-             ✔ Test Lab 2-2 @done (13-06-06 08:56)
              ☐ Test Lab 6-11b
          Test Logical:
              ☐ Test AND
@@ -630,28 +628,34 @@
              ☐ Test NEQ
 
      System:
-         ✔ Create Grader base class @done (13-06-06 19:17)
          Create Grader_ch1_2:
-             ☐ test 1-1a
-             ☐ test 1-1b
-             ☐ test 1-1c
-             ☐ test 1-1d
-             ☐ test 1-2
-             ☐ test 1-3
-             ☐ test 1-4
-             ☐ test 1-5
-             ☐ test 1-6
-             ☐ test 2-1
-             ☐ test 2-2
          Run against a few actual labs:
-             ☐ Patrizi
-             ☐ Dishon
-             ☐ Carnahan
-             ☐ Jackson
-         ✔ Calculate score based on number of tests passed on each assignment @done (13-06-06 19:20)
+         Make script to automatically grade all submissions:
+             ☐ feedback saved to feedback.txt
+             ☐ feedback includes grade
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Refactor Find to utilize a new Match function @done (13-06-06 08:18)
+ ✔ Test Lab 2-2 @done (13-06-06 08:56)
+ ✔ Create Grader base class @done (13-06-06 19:17)
+ ✔ test 1-1a @done (13-06-07 16:12)
+ ✔ test 1-1b @done (13-06-07 16:12)
+ ✔ test 1-1c @done (13-06-07 16:12)
+ ✔ test 1-1d @done (13-06-07 16:12)
+ ✔ test 1-2 @done (13-06-07 16:12)
+ ✔ test 1-3 @done (13-06-07 16:12)
+ ✔ test 1-4 @done (13-06-07 16:12)
+ ✔ test 1-5 @done (13-06-07 16:12)
+ ✔ test 1-6 @done (13-06-07 16:12)
+ ✔ test 2-1 @done (13-06-07 16:12)
+ ✔ test 2-2 @done (13-06-07 16:12)
+ ✔ Patrizi @done (13-06-07 16:23)
+ ✔ Dishon @done (13-06-07 16:12)
+ ✔ Carnahan @done (13-06-07 16:23)
+ ✔ Jackson @done (13-06-07 16:29)
+ ✔ Calculate score based on number of tests passed on each assignment @done (13-06-06 19:20)
+ ✔ Add a point value to each test. @done (13-06-07 17:01)
  ✔ Test Lab 1-1 @done (13-06-06 01:42)
  ✔ Test basic rung: SOR,0 XIC,I:1/0 OTE,O:2/0 EOR,0 @done (13-06-05 20:44)
  ✔ Test series rung: SOR,0 XIC,I:1/0 XIC,I:1/1 OTE,O:2/0 EOR,0 @done (13-06-05 20:57)
