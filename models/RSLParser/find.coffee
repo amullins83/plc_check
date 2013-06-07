@@ -8,9 +8,12 @@
         @match: (testObject, findObject)->
             isMatch = true
             for property of testObject
-                unless testObject[property] == findObject[property]
-                    isMatch = false
-                    break
+                if typeof testObject[property] == "object"
+                    isMatch = typeof findObject[property] == "object" and @match testObject[property], findObject[property]
+                else
+                    unless testObject[property] == findObject[property]
+                        isMatch = false
+                        break
             return isMatch
 
         @find: (array, findObject)->
