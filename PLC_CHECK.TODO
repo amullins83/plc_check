@@ -630,9 +630,25 @@
              ☐ Test NEQ
 
      System:
-         ☐ Run against a few actual problems
-         ☐ Evaluate severity of each particular issue
-         ☐ Calculuate score based on deviations from goal and their severity
+         ✔ Create Grader base class @done (13-06-06 19:17)
+         Create Grader_ch1_2:
+             ☐ test 1-1a
+             ☐ test 1-1b
+             ☐ test 1-1c
+             ☐ test 1-1d
+             ☐ test 1-2
+             ☐ test 1-3
+             ☐ test 1-4
+             ☐ test 1-5
+             ☐ test 1-6
+             ☐ test 2-1
+             ☐ test 2-2
+         Run against a few actual labs:
+             ☐ Patrizi
+             ☐ Dishon
+             ☐ Carnahan
+             ☐ Jackson
+         ✔ Calculate score based on number of tests passed on each assignment @done (13-06-06 19:20)
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
