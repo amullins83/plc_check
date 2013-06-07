@@ -304,11 +304,13 @@
                     dt = new DataTable true
                     dt.addOutput 2,0
                     dt.rungOpen = false
+                    dt.rungs = [0]
                     return dt
 
             dt_false_after_rung = ->
                     dt = new DataTable false
                     dt.rungOpen = false
+                    dt.rungs = [0]
                     return dt
 
             dt_any_true_after_rung = (dt_maker)->
@@ -334,7 +336,6 @@
                 dt = new DataTable
                 for truth, bit in truthArray
                     dt.I[1][bit] = truth
-                dt.rungs = []
                 return dt
 
             dt_lab1_1_after = (truthArray)->

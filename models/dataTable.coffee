@@ -10,7 +10,7 @@
                 "1":
                     "0":false
             @I[1][0] = true if inputTrue
-            @rungs = [0]
+            @rungs = []
             @activeRung = 0
             @rungOpen = true
             @programOpen = true
