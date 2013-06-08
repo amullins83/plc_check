@@ -1,18 +1,18 @@
-describe "Grader_ch1_2", ->
+describe "Grader_ch6", ->
 
-    Grader1 = require "../../grade/grader_ch1_2"
-    submissionPath = "./submissions/ch1_2/Dishon"
-    examplePath = "./submissions/ch1_2/Examples"
+    Grader6 = require "../../grade/grader_ch6"
+    submissionPath = "./submissions/ch6/Examples"
+    examplePath = "./submissions/ch6/Examples"
     fs = require "fs"
 
     it "exists", ->
-        expect(Grader1).toBeDefined()
+        expect(Grader6).toBeDefined()
 
     describe "constructor", ->
         myGrader = null
 
         beforeEach ->
-            myGrader = new Grader1 submissionPath
+            myGrader = new Grader6 submissionPath
 
         it "returns an object", ->
             expect(typeof myGrader).toBe "object"
@@ -29,7 +29,7 @@ describe "Grader_ch1_2", ->
         expectedGrade = 100
 
         beforeEach ->
-            myGrader = new Grader1 submissionPath
+            myGrader = new Grader6 submissionPath
             fs.writeFile "./testFeedback.txt", myGrader.feedback
 
         it "returns the right grade", ->

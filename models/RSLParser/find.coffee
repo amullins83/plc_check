@@ -22,5 +22,11 @@
                     return index
             return -1
     
+        @filter: (array, regExp)->
+            output = []
+            for element in array
+                output.push element if element.match regExp
+            return output
+
     module.exports = Find
 ).call this
