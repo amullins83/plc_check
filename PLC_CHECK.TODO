@@ -604,7 +604,6 @@
          Test RunRung:
              Test branching rung:
          Test runRoutine:
-             ☐ Test Lab 6-11b
          Test Logical:
              ☐ Test AND
              ☐ Test OR
@@ -628,39 +627,44 @@
              ☐ Test NEQ
 
      System:
+         Grader Class:
+             ☐ Create a way to "OR" tests together
          Create Grader_ch1_2:
          Create Grader_ch6:
-             ☐ Get basic class code to pass tests
-             ☐ 6-1
-             ☐ 6-2
-             ☐ 6-3
-             ☐ 6-4
-             ☐ 6-5
-             ☐ 6-11a
-             ☐ 6-11b
-             ☐ 6-12
-             ☐ 6-14a
-             ☐ 6-14b
-             ☐ 6-15
-             ☐ 6-20
-             ☐ 6-21a
-             ☐ 6-21b
-             ☐ 6-23
-             ☐ 6-24
-             ☐ 6-25
-             ☐ 6-27
-             ☐ 6-28
-             ☐ 6-29
-             ☐ 6-30
-             ☐ 6-31
-             ☐ 6-34
          Run against a few actual labs:
          Make script to automatically grade all submissions:
-             ✔ feedback saved to feedback.txt @done (13-06-07 23:30)
-             ✔ feedback includes grade @done (13-06-07 23:30)
+             ☐ doesn't fail when labs are missing
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Outputs on branches don't turn on unless branch is active @done (13-06-08 10:20)
+ ✘ Test Lab 6-11b @cancelled (13-06-08 10:21)
+ ✔ Get basic class code to pass tests @done (13-06-08 09:29)
+ ✔ 6-1 @done (13-06-08 09:29)
+ ✔ 6-2 @done (13-06-08 14:26)
+ ✔ 6-3 @done (13-06-08 14:26)
+ ✔ 6-4 @done (13-06-08 14:26)
+ ✔ 6-5 @done (13-06-08 14:26)
+ ✔ 6-11a @done (13-06-08 15:45)
+ ✔ 6-11b @done (13-06-08 15:45)
+ ✔ 6-12 @done (13-06-08 15:45)
+ ✔ 6-14a @done (13-06-08 15:45)
+ ✔ 6-14b @done (13-06-08 15:45)
+ ✔ 6-15 @done (13-06-08 15:45)
+ ✔ 6-20 @done (13-06-08 16:15)
+ ✔ 6-21a @done (13-06-08 16:15)
+ ✔ 6-21b @done (13-06-08 16:15)
+ ✔ 6-23 @done (13-06-08 16:15)
+ ✔ 6-24 @done (13-06-08 16:29)
+ ✔ 6-25 @done (13-06-08 16:30)
+ ✔ 6-27 @done (13-06-08 16:40)
+ ✔ 6-28 @done (13-06-08 16:40)
+ ✔ 6-29 @done (13-06-08 17:21)
+ ✔ 6-30 @done (13-06-08 17:21)
+ ✔ 6-31 @done (13-06-08 17:21)
+ ✔ 6-34 @done (13-06-08 17:21)
+ ✔ feedback saved to feedback.txt @done (13-06-07 23:30)
+ ✔ feedback includes grade @done (13-06-07 23:30)
  ✔ Refactor Find to utilize a new Match function @done (13-06-06 08:18)
  ✔ Test Lab 2-2 @done (13-06-06 08:56)
  ✔ Create Grader base class @done (13-06-06 19:17)

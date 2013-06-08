@@ -4,7 +4,7 @@ fs = require "fs"
 filePath = (path, name)->
     return path + "/" + name
 
-exports.rename = (path, findExpression, replaceExpression)->
+rename = exports.rename = (path, findExpression, replaceExpression)->
     fs.readdir path, (err, data)->
         for file in data
             fileLocation = filePath path, file
@@ -12,10 +12,18 @@ exports.rename = (path, findExpression, replaceExpression)->
             interpolatedExpression = replaceExpression
             if replaceVariables? and file.match(findExpression)?
                 for variable, index in file.match findExpression
-                    interpolatedExpression = interpolatedExpression.replace new RegExp("\\$#{index}","g"), variable
+                    interpolatedExpression = interpolatedExpression.replace new RegExp("\\$#{index}","g"), variable.toLowerCase()
             newName = file.replace findExpression, interpolatedExpression
             newPath = filePath path, newName
             fs.renameSync fileLocation, newPath
+
+renameAll = exports.renameAll = (path, findExpression, replaceExpression)->
+    fs.readdir path, (err, data)->
+        if err
+            return "Error reading #{path}"
+
+        for folder in data
+            rename path + "/" + folder, findExpression, replaceExpression
 
 exports.summarize = (path, keepExpression)->
     fs.readdir path, (err, data)->
