@@ -100,42 +100,176 @@
                         expect(RSLParser.execute "XIO,I:1/0", dt_false).toEqual dt_false
 
             describe "bitwise output instructions", ->
-                dt_true = new DataTable true
+                dt_true = ->
+                    new DataTable true
 
-                dt_true_output_on = new DataTable true
-                dt_true_output_on.addOutput 2,0
+                dt_true_output_on = ->
+                    dt = new DataTable true
+                    dt.addOutput 2,0
+                    return dt
 
+                dt_true_output_off = ->
+                    dt = new DataTable true
+                    dt.addOutput 2,0,false
+                    return dt
 
-                dt_false = new DataTable false
+                dt_false_output_off = ->
+                    dt = new DataTable false
+                    dt.addOutput 2,0,false
+                    return dt
 
-                dt_false_output_on = new DataTable false
-                dt_false_output_on.addOutput 2,0
+                dt_true_output_on_rung_closed = ->
+                    dt = dt_true_output_on()
+                    dt.rungOpen = false
+                    return dt
 
-                dt_true_output_on_latched = new DataTable true
-                dt_true_output_on_latched.addOutput 2,0
-                dt_true_output_on_latched.addLatch "O", 2, 0
+                dt_true_output_off_rung_closed = ->
+                    dt = dt_true_output_off()
+                    dt.rungOpen = false
+                    return dt
 
-                dt_true_output_off_unlatched = new DataTable true
-                dt_true_output_off_unlatched.addOutput 2,0
-                dt_true_output_off_unlatched.O[2][0] = false
-                dt_true_output_off_unlatched.latch = []
+                dt_false_output_on_rung_closed = ->
+                    dt = dt_false_output_on()
+                    dt.rungOpen = false
+                    return dt
+
+                dt_false_output_off_rung_closed = ->
+                    dt = dt_false_output_off()
+                    dt.rungOpen = false
+                    return dt
+
+                dt_false = ->
+                    new DataTable false
+
+                dt_false_output_on = ->
+                    dt = new DataTable false
+                    dt.addOutput 2,0
+                    return dt
+
+                dt_true_output_on_latched = ->
+                    dt = new DataTable true
+                    dt.addOutput 2,0
+                    dt.addLatch "O", 2, 0
+                    return dt
+
+                dt_true_output_off_unlatched = ->
+                    dt = new DataTable true
+                    dt.addOutput 2,0,false
+                    dt.latch = []
+                    return dt
+
+                dt_true_output_on_topLine_false = ->
+                    dt = dt_true_output_on()
+                    dt.addBranch()
+                    dt.branches[0].topLine = false
+                    return dt
+
+                dt_true_output_off_topLine_false = ->
+                    dt = dt_true_output_off()
+                    dt.addBranch()
+                    dt.branches[0].topLine = false
+                    return dt
+
+                dt_true_output_on_bottomLine_false = ->
+                    dt = dt_true_output_on()
+                    dt.addBranch()
+                    dt.branches[0].bottomLine = false
+                    dt.branches[0].onTopLine = false
+                    return dt
+
+                dt_true_output_off_bottomLine_false = ->
+                    dt = dt_true_output_off()
+                    dt.addBranch()
+                    dt.branches[0].bottomLine = false
+                    dt.branches[0].onTopLine = false
+                    return dt
+
+                dt_true_output_on_topLine_true_rung_closed = ->
+                    dt = dt_true_output_on_rung_closed()
+                    dt.addBranch()
+                    return dt
+
+                dt_true_output_off_topLine_true_rung_closed = ->
+                    dt = dt_true_output_off_rung_closed()
+                    dt.addBranch()
+                    return dt
+
+                dt_true_output_on_bottomLine_true_rung_closed = ->
+                    dt = dt_true_output_on_rung_closed()
+                    dt.addBranch()
+                    dt.branches[0].onTopLine = false
+                    return dt
+
+                dt_true_output_off_bottomLine_true_rung_closed = ->
+                    dt = dt_true_output_off_rung_closed()
+                    dt.addBranch()
+                    dt.branches[0].onTopLine = false
+                    return dt
+
+                dt_true_output_on_latched_rungClosed = ->
+                    dt = dt_true_output_on_latched()
+                    dt.rungOpen = false
+                    return dt
+                
+                dt_true_output_on_latched_topLine_false = ->
+                    dt = dt_true_output_on_latched()
+                    dt.addBranch()
+                    dt.branches[0].topLine = false
+                    return dt
+                
+                dt_true_output_on_latched_topLine_true_rungClosed = ->
+                    dt = dt_true_output_on_latched()
+                    dt.addBranch()
+                    dt.rungOpen = false
+                    return dt
 
                 describe "OTE", ->
-                    it "returns the dataTable with chosen address turned on", ->
-                        expect(RSLParser.execute "OTE,O:2/0", dt_true).toEqual dt_true_output_on               
-                        expect(RSLParser.execute "OTE,O:2/0", dt_false).toEqual dt_false_output_on
+                    it "returns the dataTable with chosen address turned on if rung open and not on a branch", ->
+                        expect(RSLParser.execute "OTE,O:2/0", dt_true()).toEqual dt_true_output_on()               
+                        expect(RSLParser.execute "OTE,O:2/0", dt_false()).toEqual dt_false_output_on()
+
+                    it "returns the dataTable with chosen address turned OFF if rung closed", ->
+                        expect(RSLParser.execute "OTE,O:2/0", dt_true_output_on_rung_closed()).toEqual dt_true_output_off_rung_closed()               
+                        expect(RSLParser.execute "OTE,O:2/0", dt_false_output_on_rung_closed()).toEqual dt_false_output_off_rung_closed()
+
+                    it "returns the dataTable with chosen address turned OFF if branch false and rung open", ->
+                        expect(RSLParser.execute "OTE,O:2/0", dt_true_output_on_topLine_false()).toEqual dt_true_output_off_topLine_false()
+                        expect(RSLParser.execute "OTE,O:2/0", dt_true_output_on_bottomLine_false()).toEqual dt_true_output_off_bottomLine_false()
+
+
+                    it "returns the dataTable with chosen address turned OFF if branch true and rung closed", ->
+                        expect(RSLParser.execute "OTE,O:2/0", dt_true_output_on_topLine_true_rung_closed()).toEqual dt_true_output_off_topLine_true_rung_closed()
+                        expect(RSLParser.execute "OTE,O:2/0", dt_true_output_on_bottomLine_true_rung_closed()).toEqual dt_true_output_off_bottomLine_true_rung_closed()
 
                 describe "OTL", ->
                     it "returns the dataTable with chosen address turned on and added to latch list", ->
-                        expect(RSLParser.execute "OTL,O:2/0", dt_true).toEqual dt_true_output_on_latched
+                        expect(RSLParser.execute "OTL,O:2/0", dt_true()).toEqual dt_true_output_on_latched()
+
+                    it "does nothing if the rung is closed and not on a branch", ->
+                        expect(RSLParser.execute "OTL,O:2/0", dt_true_output_off_rung_closed()).toEqual dt_true_output_off_rung_closed()
+
+                    it "does nothing if the rung is open and on a false branch", ->
+                        expect(RSLParser.execute "OTL,O:2/0", dt_true_output_off_topLine_false()).toEqual dt_true_output_off_topLine_false()
+
+                    it "does nothing if the rung is closed and on a true branch", ->
+                        expect(RSLParser.execute "OTL,O:2/0", dt_true_output_off_topLine_true_rung_closed()).toEqual dt_true_output_off_topLine_true_rung_closed()
 
                 describe "OTU", ->
                     it "finds the latched output", ->
-                        removeIndex = Find.find dt_true_output_on_latched["latch"], {file: "O", rank: 2, bit: 0}
+                        removeIndex = Find.find dt_true_output_on_latched()["latch"], {file: "O", rank: 2, bit: 0}
                         expect(removeIndex).toBe 0
 
                     it "returns the dataTable with chosen address turned off and removed from latch list", ->
-                        expect(RSLParser.execute "OTU,O:2/0", dt_true_output_on_latched).toEqual dt_true_output_off_unlatched
+                        expect(RSLParser.execute "OTU,O:2/0", dt_true_output_on_latched()).toEqual dt_true_output_off_unlatched()
+
+                    it "does nothing if the rung is closed and not on a branch", ->
+                        expect(RSLParser.execute "OTU,O:2/0", dt_true_output_on_latched_rungClosed()).toEqual dt_true_output_on_latched_rungClosed()
+
+                    it "does nothing if the rung is open and on a false branch", ->
+                        expect(RSLParser.execute "OTU,O:2/0", dt_true_output_on_latched_topLine_false()).toEqual dt_true_output_on_latched_topLine_false()
+
+                    it "does nothing if the rung is closed and on a true branch", ->
+                        expect(RSLParser.execute "OTU,O:2/0", dt_true_output_on_latched_topLine_true_rungClosed()).toEqual dt_true_output_on_latched_topLine_true_rungClosed()
 
             describe "branch instructions", ->
 
@@ -288,6 +422,7 @@
                     dt = dt_maker()
                     dt.rungs.push 0
                     dt.rungOpen = false
+                    dt.addOutput 2,0, false
                     return dt
 
             dt_true = ->
@@ -307,10 +442,22 @@
                     dt.rungs = [0]
                     return dt
 
+            dt_true_after_branch_rung = ->
+                    dt = dt_true_after_rung()
+                    dt.addOutput 2,1,false
+                    return dt
+
             dt_false_after_rung = ->
                     dt = new DataTable false
                     dt.rungOpen = false
                     dt.rungs = [0]
+                    dt.addOutput 2,0,false
+                    return dt
+
+            dt_false_after_branch_rung = ->
+                    dt = dt_false_after_rung()
+                    dt.addOutput 2,0,false
+                    dt.addOutput 2,1
                     return dt
 
             dt_any_true_after_rung = (dt_maker)->
@@ -330,6 +477,7 @@
                 delete dt.branches
                 dt.activeBranch = 0
                 dt.rungOpen = false
+                dt.addOutput 2,0,false
                 return dt
 
             dt_lab1_1_before = (truthArray)->
@@ -340,8 +488,7 @@
 
             dt_lab1_1_after = (truthArray)->
                 dt = dt_lab1_1_before(truthArray)
-                if (truthArray[0] and truthArray[1]) or truthArray[2]
-                   dt.addOutput 2,0
+                dt.addOutput 2,0, (truthArray[0] and truthArray[1]) or truthArray[2]
                 dt.rungs = [0]
                 dt.rungOpen = false
                 dt.addBranch()
@@ -382,6 +529,14 @@
                 it "returns closed rung when both inputs false", ->
                     expect(RSLParser.runRung rungText, dt_false_false()).toEqual dt_false_false_after_rung()
 
+                rungText2 = "SOR,0 BST,1 XIC,I:1/0 OTE,O:2/0 NXB,1 XIO,I:1/0 OTE,O:2/1 BND,1 EOR,0"
+
+                it "turns on outputs on true branches", ->
+                    expect(RSLParser.runRung rungText2, dt_true()).toEqual dt_true_after_branch_rung()
+
+                it "turns off outputs on false branches", ->
+                    expect(RSLParser.runRung rungText2, dt_false()).toEqual dt_false_after_branch_rung()
+
             describe "series parallel rung", ->
 
                 # This is Lab 1-1 in Petruzella
@@ -398,9 +553,9 @@
                     expect(RSLParser.runRung(rungText, dt_lab1_1_before([true, true, true])).O[2][0]).toBe true
 
                 it "sets output off otherwise", ->
-                    expect(RSLParser.runRung(rungText, dt_lab1_1_before([false, false, false])).O).not.toBeDefined()
-                    expect(RSLParser.runRung(rungText, dt_lab1_1_before([false, true, false])).O).not.toBeDefined()
-                    expect(RSLParser.runRung(rungText, dt_lab1_1_before([true, false, false])).O).not.toBeDefined()
+                    expect(RSLParser.runRung(rungText, dt_lab1_1_before([false, false, false])).O[2][0]).toBe false
+                    expect(RSLParser.runRung(rungText, dt_lab1_1_before([false, true, false])).O[2][0]).toBe false
+                    expect(RSLParser.runRung(rungText, dt_lab1_1_before([true, false, false])).O[2][0]).toBe false
 
                 it "does precisely what I think it does", ->
                     for i in [0...8]
@@ -473,8 +628,7 @@
                     dt = dt_lab1a_in(truthArray)
                     dt.rungs = [0,1]
                     dt.activeRung = 1
-                    if (truthArray[0] and truthArray[1]) or truthArray[2]
-                        dt.addOutput 2,0
+                    dt.addOutput 2,0, (truthArray[0] and truthArray[1]) or truthArray[2]
                     dt.rungOpen = false
                     dt.programOpen = false
                     return dt
@@ -495,9 +649,9 @@
                     dt.rungs = [0...17]
                     dt.activeRung = 16
                     for no_contact in [0,2,3,5,6,7,10,11,14]
-                        dt.addOutput 2,no_contact if truthArray[no_contact]
+                        dt.addOutput 2,no_contact, truthArray[no_contact]
                     for nc_contact in [1,4,8,9,12,13,15]
-                        dt.addOutput 2,nc_contact unless truthArray[nc_contact]
+                        dt.addOutput 2,nc_contact, not truthArray[nc_contact]
                     dt.rungOpen = false
                     dt.programOpen = false
                     return dt

@@ -48,38 +48,12 @@
             return dataTable
 
         @runRung: (rungText, dataTable)->
-            skipToNXB = skipToBND = skipToEOR = false
             for instruction in rungText.split " "
-                if skipToNXB
-                    unless instruction.match new RegExp "NXB,#{dataTable.activeBranch}"
-                        continue
-                    else
-                        skipToNXB = false
-                
-                if skipToBND
-                    unless instruction.match new RegExp "BND,#{dataTable.activeBranch}"
-                        continue
-                    else
-                        skipToBND = false
-                    
-                if skipToEOR
-                    unless instruction.match /EOR,\d+/
-                        continue
-                    else
-                        skipToEOR = false
-
-                dataTable = @execute instruction, dataTable
-
-                if dataTable.activeBranch > 1
-                    currentBranch = dataTable.branches[dataTable.activeBranch - 1]
-                    skipToNXB = currentBranch.onTopLine and not currentBranch.topLine
-                    skipToBND = not currentBranch.onTopLine and not currentBranch.bottomLine
-                else
-                    skipToEOR = not dataTable.rungOpen
-        
+                dataTable = @execute instruction, dataTable        
             return dataTable
 
         @runRoutine: (programText, dataTable)->
+            dataTable.rungs = []
             for rung in programText.match /SOR,\d+ .*E(OR|ND),\d+/g
                 dataTable = @runRung rung, dataTable
                 break unless dataTable.programOpen

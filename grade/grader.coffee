@@ -37,12 +37,23 @@
 
         addTest: (problem, description, points, testInput, testOutput)->
             @problems[problem].tests.push =>
-                if Find.match testOutput, RSLParser.runRoutine(@problems[problem].submission, testInput)
+                actualOutput = RSLParser.runRoutine @problems[problem].submission, testInput
+                if Find.match testOutput, actualOutput
                     return @testReport true, "Good!", points               
                 else
+                    description += "\n    Expected: #{Grader.printObject testOutput}\n    Received: #{Grader.printObject actualOutput}\n"
                     return @testReport false, description, points
 
 
+        @printObject: (thing)->
+            unless typeof thing is "object"
+                return thing
+
+            output = "{"
+            for key, value of thing
+                output += ", " unless output == "{"
+                output += "#{key}: #{Grader.printObject value}"
+            output += "}"
 
         addSimpleTest: (name, description, points, inputArray, outputArray)->
             dt_in =
@@ -72,6 +83,20 @@
 
         @len: (obj)->
             @keys(obj).length
+
+        @simpleDataTable: class simpleDataTable
+            constructor: (inputBits, outputBits)->
+                @I = {1: {}}
+                for bit, value of inputBits
+                    @I[1][bit] = value
+
+                @O = {2: {}}
+                for bit, value of outputBits
+                    @O[2][bit] = value
+
+        simpleAdd: (name, desc, points, inputBits, outputBitsStart, outputBitsFinish)->
+            @addTest name, desc, points, new Grader.simpleDataTable(inputBits, outputBitsStart), new Grader.simpleDataTable(inputBits, outputBitsFinish)
+
 
     module.exports = Grader
 ).call this
