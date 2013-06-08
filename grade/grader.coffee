@@ -7,9 +7,12 @@
 
     class Grader
         constructor: (@folderPath)->
-            @studentFiles = fs.readdirSync @folderPath
-            @exampleFiles = fs.readdirSync "#{@folderPath}/../Examples"
+            @studentFiles = Grader.filterRSL fs.readdirSync @folderPath
+            @exampleFiles = Grader.filterRSL fs.readdirSync "#{@folderPath}/../Examples"
             @feedback = ""
+
+        @filterRSL: (array)->
+            return Find.filter array, /^(\d+)-(\d+)([a-z]?)\.rsl$/i
 
         initializeProblems: ->
             @problems = {}
@@ -30,7 +33,7 @@
                         @score += points
                     else
                         @feedback += "#{problemName}: Make sure #{feedback}. -#{points} \n"
-            @grade = @score/(@max * 1.0)
+            @grade = Math.floor @score/(@max * 1.0)*100
 
         addTest: (problem, description, points, testInput, testOutput)->
             @problems[problem].tests.push =>

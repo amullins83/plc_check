@@ -2,6 +2,7 @@
     "use strict"
 
     Grader = require "../../grade/Grader.coffee"
+    Find = require "../../models/RSLParser/find.coffee"
     fs = require "fs"
 
     describe "Grader", ->
@@ -13,7 +14,7 @@
         submittedFiles = fs.readdirSync submissionPath
 
         examplePath = "./submissions/ch1_2/Examples"
-        exampleFiles = fs.readdirSync examplePath
+        exampleFiles = Find.filter fs.readdirSync(examplePath), /^(\d+)-(\d+)([a-z]?)\.rsl$/i
 
         
 
