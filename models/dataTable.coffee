@@ -26,10 +26,13 @@
             @latch = @latch || []
             @latch.push {file:file, rank:rank, bit:bit}
 
-        addOutput: (rank, bit)->
+        addOutput: (rank, bit, value)->
             @O = @O || {}
             @O[rank] = @O[rank] || {}
-            @O[rank][bit] = true
+            if typeof value is "undefined" or value
+                @O[rank][bit] = true
+            else
+                @O[rank][bit] = false
 
     module.exports = DataTable
 ).call this

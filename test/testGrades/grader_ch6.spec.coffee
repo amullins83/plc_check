@@ -27,6 +27,7 @@ describe "Grader_ch6", ->
     describe "run", ->
         myGrader = null
         expectedGrade = 100
+        expectedMax = 297
 
         beforeEach ->
             myGrader = new Grader6 submissionPath
@@ -34,3 +35,6 @@ describe "Grader_ch6", ->
 
         it "returns the right grade", ->
             expect(myGrader.grade).toBe expectedGrade
+
+        it "offers a maximum of #{expectedMax} points", ->
+            expect(myGrader.max).toBe expectedMax
