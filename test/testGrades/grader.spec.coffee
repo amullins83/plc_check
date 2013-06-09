@@ -59,6 +59,7 @@
                 myGrader.initializeProblems()
                 myGrader.addTest "1-1a", "this passes", 5, {}, {}
                 myGrader.addTest "2-2", "this fails", 5, {}, {hey: "ho"}
+                myGrader.addTest "5", "five is right out", 2, {should: not "get here"}, {}
 
             it "exists", ->
                 expect(myGrader.addTest).toBeDefined()
@@ -66,6 +67,9 @@
             it "adds a test function to the specified problem", ->
                 expect(myGrader.problems["1-1a"].tests.length).toBe 1
                 expect(myGrader.problems["2-2"].tests.length).toBe 1
+
+            it "automatically fails if no submission text exists", ->
+                expect(myGrader.problems["5"].tests[0]().result).toBe false
 
         describe "addSimpleTest", ->
 

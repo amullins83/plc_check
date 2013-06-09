@@ -54,9 +54,11 @@
 
         @runRoutine: (programText, dataTable)->
             dataTable.rungs = []
-            for rung in programText.match /SOR,\d+ .*E(OR|ND),\d+/g
-                dataTable = @runRung rung, dataTable
-                break unless dataTable.programOpen
+            rungs = programText.match /SOR,\d+ .*E(OR|ND),\d+/g
+            if rungs?
+                for rung in rungs
+                    dataTable = @runRung rung, dataTable
+                    break unless dataTable.programOpen
             return dataTable
     
     module.exports = RSLParser
