@@ -8,7 +8,6 @@
     class Grader
         constructor: (@folderPath)->
             @studentFiles = Grader.filterRSL fs.readdirSync @folderPath
-            @exampleFiles = Grader.filterRSL fs.readdirSync "#{@folderPath}/../Examples"
             @feedback = ""
 
         @filterRSL: (array)->
@@ -16,10 +15,10 @@
 
         initializeProblems: ->
             @problems = {}
-            for file in @exampleFiles
+            for file in @studentFiles
                 problemName = file.replace(/\.rsl$/, "")
                 @problems[problemName] =
-                    submission: fs.readFileSync("#{@folderPath}/#{file}").toString() if fs.existsSync "#{@folderPath}/#{file}"
+                    submission: fs.readFileSync("#{@folderPath}/#{file}").toString()
                     tests: []
             
 
@@ -36,13 +35,24 @@
             @grade = Math.floor @score/(@max * 1.0)*100
 
         addTest: (problem, description, points, testInput, testOutput)->
-            @problems[problem].tests.push =>
-                actualOutput = RSLParser.runRoutine @problems[problem].submission, testInput
-                if Find.match testOutput, actualOutput
-                    return @testReport true, "Good!", points               
-                else
-                    description += "\n    Expected: #{Grader.printObject testOutput}\n    Received: #{Grader.printObject actualOutput}\n"
-                    return @testReport false, description, points
+            @problems[problem] = @problems[problem] || {submission: "", tests:[]}
+
+            if @problems[problem].submission == ""
+                @problems[problem].tests.push =>
+                    return @testReport false, "to include this problem in your submission", points
+            else
+                @problems[problem].tests.push =>
+                    if typeof testInput == "function"
+                        actualInput = testInput()
+                    else
+                        actualInput = testInput
+    
+                    actualOutput = RSLParser.runRoutine @problems[problem].submission, actualInput
+                    if Find.match testOutput, actualOutput
+                        return @testReport true, "Good!", points               
+                    else
+                        description += "\n    Expected: #{Grader.printObject testOutput}\n    Received: #{Grader.printObject actualOutput}\n"
+                        return @testReport false, description, points
 
 
         @printObject: (thing)->
@@ -97,6 +107,18 @@
         simpleAdd: (name, desc, points, inputBits, outputBitsStart, outputBitsFinish)->
             @addTest name, desc, points, new Grader.simpleDataTable(inputBits, outputBitsStart), new Grader.simpleDataTable(inputBits, outputBitsFinish)
 
+        runThroughTwice: (problem, firstInput, secondInput)->
+            =>
+                initialDataTable = new DataTable
+                for bit, value of firstInput
+                    initialDataTable.I[1][bit] = value
+    
+                intermediateDataTable = RSLParser.runRoutine @problems[problem].submission, initialDataTable
+    
+                for bit, value of secondInput
+                    intermediateDataTable.I[1][bit] = value
+    
+                return RSLParser.runRoutine @problems[problem].submission, intermediateDataTable
 
     module.exports = Grader
 ).call this

@@ -605,18 +605,8 @@
              Test branching rung:
          Test runRoutine:
          Test Logical:
-             ☐ Test AND
-             ☐ Test OR
-             ☐ Test XOR
-             ☐ Test NOT
          Test Timer:
-             ☐ Test TON
-             ☐ Test TOF
-             ☐ Test RTO
-             ☐ Test RES
          Test Counter:
-             ☐ Test CTU
-             ☐ Test CTD
          Test Compare:
              ☐ Test LES
              ☐ Test LEQ
@@ -633,10 +623,21 @@
          Create Grader_ch6:
          Run against a few actual labs:
          Make script to automatically grade all submissions:
-             ☐ doesn't fail when labs are missing
+             
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Test AND @done (13-06-09 12:21)
+ ✔ Test OR @done (13-06-09 12:21)
+ ✔ Test XOR @done (13-06-09 12:21)
+ ✔ Test NOT @done (13-06-09 12:21)
+ ✔ Test TON @done (13-06-09 14:57)
+ ✔ Test TOF @done (13-06-09 14:57)
+ ✔ Test RTO @done (13-06-09 15:05)
+ ✔ Test CTU @done (13-06-09 15:27)
+ ✔ Test CTD @done (13-06-09 15:27)
+ ✔ Test RES @done (13-06-09 15:08)
+ ✔ doesn't fail when labs are missing @done (13-06-08 22:37)
  ✔ Outputs on branches don't turn on unless branch is active @done (13-06-08 10:20)
  ✘ Test Lab 6-11b @cancelled (13-06-08 10:21)
  ✔ Get basic class code to pass tests @done (13-06-08 09:29)

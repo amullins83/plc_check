@@ -324,19 +324,6 @@
             @addTest "6-30", "green light turns on if buttons pressed in order", 13, @runThroughTwice("6-30", {0:true, 1:false, 2:true},{0:false,1:true,2:true}), {O: {2: {0:true}}}
             @simpleAdd "6-30", "red light turns on if red button pressed first", 12, {0:false, 1:true, 2:true}, {1:false}, {1:true}
 
-        runThroughTwice: (problem, firstInput, secondInput)->
-
-            initialDataTable = new DataTable
-            for bit, value of firstInput
-                initialDataTable.I[1][bit] = value
-
-            intermediateDataTable = RSLParser.runRoutine @problems[problem].submission, initialDataTable
-
-            for bit, value of secondInput
-                intermediateDataTable.I[1][bit] = value
-
-            return RSLParser.runRoutine @problems[problem].submission, intermediateDataTable
-
         add_31: ->
         # 6-31.rsl
         # SOR,0 XIC,I:1/2 BST,1 XIC,I:1/0 XIO,I:1/1 XIO,O:2/1 NXB,1 XIC,O:2/0 BND,1 XIC,I:1/3 OTE,O:2/0 EOR,0

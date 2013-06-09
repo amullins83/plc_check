@@ -9,6 +9,7 @@
         Find = require "../../models/RSLParser/find.coffee"
         DataTable = require "../../models/dataTable.coffee"
         fs = require "fs"
+        RSLCounterTimer = require "../../models/RSLParser/RSLCounterTimer.coffee"
 
         it "should exist", ->
             expect(RSLParser).toBeDefined()
@@ -380,6 +381,359 @@
 
                     it "sets rungOpen to false if both branches false", ->
                         expect(RSLParser.execute("BND,1", dt_false_false()).rungOpen).toBe false
+
+            describe "logical function", ->
+
+                tens   = [false,true,false,true,false,true,false,true,false,true,false,true,false,true,false,true]
+                fives  = [true,false,true,false,true,false,true,false,true,false,true,false,true,false,true,false]
+                effs   = [true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true]
+                zeros  = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
+                threes = [true,true,false,false,true,true,false,false,true,true,false,false,true,true,false,false]
+                sees   = [false,false,true,true,false,false,true,true,false,false,true,true,false,false,true,true]
+
+                bitwiseAND = (a,b)->
+                    return a and b
+
+                bitwiseOR = (a,b)->
+                    return a or b
+
+                bitwiseXOR = (a,b)->
+                    return (a and not b) or (b and not a)
+
+                bitwiseNOT = (a)->
+                    return not a
+
+                dt_logical_in = (source_bits_A, source_bits_B)->
+                    dt = new DataTable
+                    for value, bit in source_bits_A
+                        dt.I[1][bit] = value
+
+                    dt.I[3] = {}
+
+                    for value, bit in source_bits_B
+                        dt.I[3][bit] = value
+
+                    return dt
+
+                dt_logical_out = (source_bits_A, source_bits_B, bitwiseFunction)->
+                    dt = dt_logical_in source_bits_A, source_bits_B
+                        
+                    dt.O = {2: {}}
+                        
+                    for bit,value of dt.I[1]
+                        dt.O[2][bit] = bitwiseFunction dt.I[1][bit], dt.I[3][bit]
+                        
+                    return dt
+
+                dt_logical_in_rung_closed = (source_bits_A, source_bits_B)->
+                    dt = dt_logical_in source_bits_A, source_bits_B
+
+                    dt.rungOpen = false
+
+                    return dt
+
+                dt_not_in = (source_bits_A)->
+                    dt = new DataTable
+
+                    for value, bit in source_bits_A
+                        dt.I[1][bit] = value
+
+                    return dt
+
+                dt_not_out = (source_bits_A)->
+                    dt = dt_not_in source_bits_A
+
+                    dt.O = {2: {}}
+
+                    for bit,value of dt.I[1]
+                        dt.O[2][bit] = not dt.I[1][bit]
+
+                    return dt
+
+                dt_not_in_rung_closed = (source_bits_A)->
+                    dt = dt_not_in source_bits_A
+
+                    dt.rungOpen = false
+
+                    return dt
+
+                dt_logical_in_branch_false = (source_bits_A, source_bits_B)->
+                    dt = dt_logical_in source_bits_A, source_bits_B
+
+                    dt.addBranch()
+
+                    dt.branches[0].topLine = false
+
+                    return dt
+
+                dt_not_in_branch_false = (source_bits_A)->
+                    dt = dt_not_in source_bits_A
+
+                    dt.addBranch()
+
+                    dt.branches[0].topLine = false
+
+                    return dt
+
+                logicalInstructions =
+                    "AND": bitwiseAND
+                    "OR" : bitwiseOR
+                    "XOR": bitwiseXOR
+
+                for instruction, bitwiseFunction of logicalInstructions
+                    describe instruction, ->
+
+                        it "returns a dataTable with destination rank equal to the #{instruction} of the source ranks if rung is open", ->
+                            for source_A in [zeros, effs, fives, tens, sees, threes]
+                                for source_B in [zeros, effs, fives, tens, sees, threes]
+                                    expect(RSLParser.execute "#{instruction},I:1,I:3,O:2", dt_logical_in(source_A, source_B) ).toEqual dt_logical_out source_A, source_B, bitwiseFunction
+
+                        it "does nothing if rung is closed", ->
+                            expect(RSLParser.execute "#{instruction},I:1,I:3,O:2", dt_logical_in_rung_closed(fives, effs)).toEqual dt_logical_in_rung_closed(fives,effs)
+
+                        it "does nothing if branch is false", ->
+                            expect(RSLParser.execute "#{instruction},I:1,I:3,O:2", dt_logical_in_branch_false(fives, effs)).toEqual dt_logical_in_branch_false(fives,effs)
+
+                describe "NOT", ->
+
+                    it "returns a dataTable with destination rank equal to the NOT of the source ranks if rung is open", ->
+                        for source_A in [zeros, effs, fives, tens, sees, threes]
+                            expect(RSLParser.execute "NOT,I:1,O:2", dt_not_in source_A ).toEqual dt_not_out source_A
+
+                    it "does nothing if rung is closed", ->
+                        expect(RSLParser.execute "NOT,I:1,O:2", dt_not_in_rung_closed fives).toEqual dt_not_in_rung_closed fives
+
+                    it "does nothing if branch is false", ->
+                        expect(RSLParser.execute "NOT,I:1,O:2", dt_not_in_branch_false(fives)).toEqual dt_not_in_branch_false(fives)
+
+            describe "timer functions", ->
+
+
+
+                dt_true = ->
+                    new DataTable true
+
+                dt_t4_0_ton_tick = (preset)->
+                    dt = new DataTable true
+
+                    dt.T4 = {0: new RSLCounterTimer.Timer 0, preset}
+
+                    dt.T4[0].tick()
+                    dt.T4[0].en = true
+
+                    return dt
+
+                testPreset = 3
+
+                testTimer = ->
+                    t = new RSLCounterTimer.Timer 0, testPreset
+                    t.tick()
+                    t.en = true
+                    return t
+
+                testTimerOff = ->
+                    t = new RSLCounterTimer.Timer 0, testPreset
+                    t.en = true
+                    t.dn = true
+                    t.tt = false
+                    return t
+
+                dt_t4_0_ton_tick_rung_closed = (preset)->
+                    dt = dt_t4_0_ton_tick preset
+                    dt.rungOpen = false
+                    return dt
+
+                dt_t4_0_ton_tick_branch_false = (preset)->
+                    dt = dt_t4_0_ton_tick preset
+                    dt.addBranch()
+                    dt.branches[0].topLine = false
+                    return dt
+
+                dt_false = ->
+                    dt = new DataTable false
+                    dt.rungOpen = false
+                    return dt
+
+                dt_t4_0_tof_tick = (preset)->
+                    dt = dt_false()
+                    dt.T4 = {0: new RSLCounterTimer.Timer 0, preset}
+                    dt.T4[0].tick()
+                    dt.T4[0].en = false
+                    dt.T4[0].dn = true
+                    return dt
+
+                dt_t4_0_tof_tick_rung_open = (preset)->
+                    dt = dt_t4_0_tof_tick preset
+                    dt.rungOpen = true
+                    return dt
+
+                dt_t4_0_tof_tick_branch_true = (preset)->
+                    dt = dt_t4_0_tof_tick_rung_open preset
+                    dt.addBranch()
+                    return dt
+
+                dt_t4_0_tof_tick_branch_false = (preset)->
+                    dt = dt_t4_0_tof_tick_branch_true preset
+                    dt.branches[0].topLine = false
+                    return dt
+
+
+                describe "TON", ->
+
+                    it "creates a timer file if it doesn't exist", ->
+                        expect(RSLParser.execute("TON,T4:0,10", dt_true()).T4[0]).toBeDefined()
+
+                    it "creates a timer at the specified address", ->
+                        expect(RSLParser.execute("TON,T4:0,#{testPreset}", dt_true()).T4[0]).toEqual testTimer()
+
+                    it "increments accumulator", ->
+                        expect(RSLParser.execute("TON,T4:0,#{testPreset}", dt_t4_0_ton_tick testPreset).T4[0].acc).toBe 2
+
+                    it "becomes done when preset reached", ->
+                        expect(RSLParser.execute("TON,T4:0,2", dt_t4_0_ton_tick 2).T4[0].dn).toBe true
+
+                    it "resets when rung is false", ->
+                        expect(RSLParser.execute("TON,T4:0,#{testPreset}", dt_t4_0_ton_tick_rung_closed testPreset).T4[0].acc).toBe 0
+
+                    it "resets when branch is false", ->
+                        expect(RSLParser.execute("TON,T4:0,#{testPreset}", dt_t4_0_ton_tick_branch_false testPreset).T4[0].acc).toBe 0
+
+                describe "TOF", ->
+
+                    it "creates a timer file if it doesn't exist", ->
+                        expect(RSLParser.execute("TOF,T4:0,10", dt_true()).T4[0]).toBeDefined()
+
+                    it "creates a timer at the specified address", ->
+                        expect(RSLParser.execute("TOF,T4:0,#{testPreset}", dt_true()).T4[0]).toEqual testTimerOff()
+
+                    it "increments accumulator", ->
+                        expect(RSLParser.execute("TOF,T4:0,#{testPreset}", dt_t4_0_tof_tick testPreset).T4[0].acc).toBe 2
+
+                    it "becomes done when enabled", ->
+                        expect(RSLParser.execute("TOF,T4:0,#{testPreset}", dt_true testPreset).T4[0].dn).toBe true
+
+                    it "done becomes false when preset reached", ->
+                        expect(RSLParser.execute("TOF,T4:0,2", dt_t4_0_tof_tick 2).T4[0].dn).toBe false
+
+                    it "resets when rung is true and not on a branch", ->
+                        expect(RSLParser.execute("TOF,T4:0,#{testPreset}", dt_t4_0_tof_tick_rung_open testPreset).T4[0].acc).toBe 0
+
+                    it "resets when rung is true and branch is true", ->
+                        expect(RSLParser.execute("TOF,T4:0,#{testPreset}", dt_t4_0_tof_tick_branch_true testPreset).T4[0].acc).toBe 0
+
+                describe "RTO", ->
+                    it "creates a timer file if it doesn't exist", ->
+                        expect(RSLParser.execute("RTO,T4:0,10", dt_true()).T4[0]).toBeDefined()
+
+                    it "creates a timer at the specified address", ->
+                        expect(RSLParser.execute("RTO,T4:0,#{testPreset}", dt_true()).T4[0]).toEqual testTimer()
+
+                    it "increments accumulator", ->
+                        expect(RSLParser.execute("RTO,T4:0,#{testPreset}", dt_t4_0_ton_tick testPreset).T4[0].acc).toBe 2
+
+                    it "becomes done when preset reached", ->
+                        expect(RSLParser.execute("RTO,T4:0,2", dt_t4_0_ton_tick 2).T4[0].dn).toBe true
+
+                    it "does nothing when rung is false", ->
+                        expect(RSLParser.execute("RTO,T4:0,#{testPreset}", dt_t4_0_ton_tick_rung_closed testPreset).T4[0].acc).toBe 1
+
+                    it "does nothing when on a false branch", ->
+                        expect(RSLParser.execute("RTO,T4:0,#{testPreset}", dt_t4_0_ton_tick_branch_false testPreset).T4[0].acc).toBe 1
+
+                describe "RES", ->
+
+                    it "resets an RTO timer", ->
+                        expect(RSLParser.execute("RES,T4:0", dt_t4_0_ton_tick testPreset).T4[0].acc).toBe 0
+
+                    it "resets a counter", ->
+                        testCounter = (preset)->
+                            c = new RSLCounterTimer.Counter 0, preset
+                            c.tickUp()
+                            return c
+
+                        dt_test_counter = ->
+                            dt = new DataTable
+
+                            dt.C5 = {0: testCounter 5}
+
+                            return dt
+
+                        expect(RSLParser.execute("RES,C5:0", dt_test_counter()).C5[0].acc).toBe 0
+
+            describe "counter functions", ->
+
+                testCounterUp = (preset)->
+                    c = new RSLCounterTimer.Counter 0, preset
+                    c.CU()
+                    return c
+
+                dt_test_counter_up = (accValue)->
+                    dt = new DataTable
+
+                    dt.C5 = {0: testCounterUp 5}
+                    dt.C5[0].acc = accValue
+
+                    return dt
+
+                testCounterDown = (preset)->
+                    c = new RSLCounterTimer.Counter 0, preset
+                    c.CD()
+                    return c
+
+                dt_test_counter_down = (accValue)->
+                    dt = new DataTable
+
+                    dt.C5 = {0: testCounterDown 5}
+                    dt.C5[0].acc = accValue
+
+                    return dt
+
+                testAcc = 3
+
+                describe "CTU", ->
+
+                    it "creates a counter file if it doesn't exist", ->
+                        expect(RSLParser.execute("CTU,C5:0,5", new DataTable).C5[0]).toBeDefined()
+
+                    it "creates a new counter at the specified address", ->
+                        expect(RSLParser.execute("CTU,C5:0,5", new DataTable).C5[0]).toEqual testCounterUp 5
+
+                    it "increments the accumulator", ->
+                        expect(RSLParser.execute("CTU,C5:0,5", dt_test_counter_up 3).C5[0].acc).toBe 4
+
+                    it "does nothing if rung closed", ->
+                        dt_test_counter_up_rung_closed = dt_test_counter_up testAcc
+                        dt_test_counter_up_rung_closed.rungOpen = false
+                        expect(RSLParser.execute("CTU,C5:0,5", dt_test_counter_up_rung_closed).C5[0].acc).toBe testAcc
+
+                    it "does nothing if branch false", ->
+                        dt_test_counter_up_branch_false = dt_test_counter_up testAcc
+                        dt_test_counter_up_branch_false.addBranch()
+                        dt_test_counter_up_branch_false.branches[0].topLine = false
+                        expect(RSLParser.execute("CTU,C5:0,5", dt_test_counter_up_branch_false).C5[0].acc).toBe testAcc
+
+                describe "CTD", ->
+
+                    it "creates a counter file if it doesn't exist", ->
+                        expect(RSLParser.execute("CTD,C5:0,5", new DataTable).C5[0]).toBeDefined()
+
+                    it "creates a new counter at the specified address", ->
+                        expect(RSLParser.execute("CTD,C5:0,5", new DataTable).C5[0]).toEqual testCounterDown 5
+
+                    it "increments the accumulator", ->
+                        expect(RSLParser.execute("CTD,C5:0,5", dt_test_counter_down 3).C5[0].acc).toBe 2
+
+                    it "does nothing if rung closed", ->
+                        dt_test_counter_down_rung_closed = dt_test_counter_down testAcc
+                        dt_test_counter_down_rung_closed.rungOpen = false
+                        expect(RSLParser.execute("CTD,C5:0,5", dt_test_counter_down_rung_closed).C5[0].acc).toBe testAcc
+
+                    it "does nothing if branch false", ->
+                        dt_test_counter_down_branch_false = dt_test_counter_down testAcc
+                        dt_test_counter_down_branch_false.addBranch()
+                        dt_test_counter_down_branch_false.branches[0].topLine = false
+                        expect(RSLParser.execute("CTD,C5:0,5", dt_test_counter_down_branch_false).C5[0].acc).toBe testAcc
+
 
         describe "runRung method", ->
 
