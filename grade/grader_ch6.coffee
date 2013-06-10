@@ -102,7 +102,7 @@
         # SOR,0 XIC,I:1/0 XIC,I:1/2 XIC,I:1/4 BST,1 XIC,I:1/1 NXB,1 BST,2 XIC,I:1/3 NXB,2 BST,3 XIC,I:1/5 NXB,3 XIC,O:2/0 BND,3 BND,2 BND,1 XIC,I:1/6 OTE,O:2/0 EOR,0
             @simpleAdd "6-04", "output O:2/0 turns on when all stop buttons closed and I:1/1 is closed", 1, {0:true, 1:true, 2:true, 3:false, 4:true, 5:false, 6:true}, {0:false}, {0:true}
             @simpleAdd "6-04", "output O:2/0 turns on when all stop buttons closed and I:1/3 is closed", 1, {0:true, 1:false, 2:true, 3:true, 4:true, 5:false, 6:true}, {0:false}, {0:true}
-            @simpleAdd "6-04", "output O:2/0 turns on when all stop buttons closed and I:1/5 is closed", 1, {0:true, 1:false, 2:true, 3:false, 4:true, 5:true, 6:true}, {0:false}, {0:true}
+            @addOrTest "6-04", "output O:2/0 turns on when all stop buttons closed and I:1/5 is closed", 1, [{I: {1: {0:true, 1:false, 2:true, 3:false, 4:true, 5:true, 6:true}}, O: {2: {0:false}}}, {I: {1: {0:true, 1:false, 2:true, 3:false, 4:true, 5:true, 6:false}}, O: {2: {0:false}}}], [{O: {2: {0:true}}}, {O: {2: {0:true}}}]
 
             @simpleAdd "6-04", "output O:2/0 turns off when stop button I:1/0 is open", 1, {0:false, 1:false, 2:true, 3:false, 4:true, 5:false, 6:true}, {0:true}, {0:false}
             @simpleAdd "6-04", "output O:2/0 turns off when stop button I:1/2 is open", 1, {0:true, 1:false, 2:false, 3:false, 4:true, 5:false, 6:true}, {0:true}, {0:false}

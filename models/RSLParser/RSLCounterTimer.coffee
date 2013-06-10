@@ -48,7 +48,7 @@
                     preset = parseInt presetString, 10
 
                     dataTable[file] = dataTable[file] || {}
-                    unless dataTable[file][number]?
+                    unless dataTable[file][number]? and (dataTable[file][number].constructor == Timer or dataTable[file][number].constructor == Counter)
                         if file == "T4"
                             dataTable["T4"][number] = new @Timer(number, preset)
                         else
@@ -65,28 +65,28 @@
         @timerInstruction: (onTimerAction, offTimerAction)->
             @counterTimerInstruction "T4", onTimerAction, offTimerAction
             
-        @TON: @timerInstruction (timer)->
+        @TON: @timerInstruction (timer)=>
             timer.tick()
             timer.en = true
-        , (timer)->    
+        , (timer)=>    
             timer.reset()
             timer.en = false
 
-        @TOF: @timerInstruction (timer)->
+        @TOF: @timerInstruction (timer)=>
             timer.reset()
             timer.dn = true
             timer.en = true
             timer.tt = false
-        , (timer)->
+        , (timer)=>
             timer.tick()
             timer.dn = timer.dn and timer.acc < timer.preset
             timer.en = false
             timer.tt = not timer.dn
 
-        @RTO: @timerInstruction (timer)->
+        @RTO: @timerInstruction (timer)=>
             timer.tick()
             timer.en = true
-        , (timer)->
+        , (timer)=>
             timer.en = false
             timer.tt = false
 
@@ -101,14 +101,14 @@
         @counterInstruction: (onCounterAction, offCounterAction)->
             @counterTimerInstruction "C5", onCounterAction, offCounterAction
             
-        @CTU: @counterInstruction (counter)->
+        @CTU: @counterInstruction (counter)=>
             counter.CU()
-        , (counter)->
+        , (counter)=>
             counter.cu = false
 
-        @CTD: @counterInstruction (counter)->
+        @CTD: @counterInstruction (counter)=>
             counter.CD()
-        , (counter)->
+        , (counter)=>
             counter.cd = false
 
     module.exports = RSLCounterTimer

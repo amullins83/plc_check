@@ -54,8 +54,10 @@
                         description += "\n    Expected: #{Grader.printObject testOutput}\n    Received: #{Grader.printObject actualOutput}\n"
                         return @testReport false, description, points
 
-
         @printObject: (thing)->
+            if typeof thing is "function"
+                return "[ function ]"
+
             unless typeof thing is "object"
                 return thing
 
@@ -64,6 +66,32 @@
                 output += ", " unless output == "{"
                 output += "#{key}: #{Grader.printObject value}"
             output += "}"
+
+        addOrTest: (problem, description, points, inputObjectSet, outputObjectSet)->
+            @problems[problem] = @problems[problem] || {submission: "", tests:[]}
+
+            if @problems[problem].submission == ""
+                @problems[problem].tests.push =>
+                    return @testReport false, "to include this problem in your submission", points
+            else
+                @problems[problem].tests.push =>
+                    pass = false
+                    for testInput, index in inputObjectSet
+                        testOutput = outputObjectSet[index]
+                        if typeof testInput == "function"
+                            actualInput = testInput()
+                        else
+                            actualInput = testInput
+    
+                        actualOutput = RSLParser.runRoutine @problems[problem].submission, actualInput
+                        if Find.match testOutput, actualOutput
+                            pass = true
+                            break
+
+                    if pass
+                        return @testReport true, "Good!", points               
+                    else
+                        return @testReport false, description, points
 
         addSimpleTest: (name, description, points, inputArray, outputArray)->
             dt_in =

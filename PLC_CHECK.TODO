@@ -618,9 +618,22 @@
 
      System:
          Grader Class:
-             ☐ Create a way to "OR" tests together
+             ✔ Create a way to "OR" tests together @done (13-06-09 16:13)
          Create Grader_ch1_2:
          Create Grader_ch6:
+         Create Grader_ch7:
+             ✔ Create Grader_ch7.spec @done (13-06-09 16:37)
+             ✔ Create Grader_ch7.coffee @done (13-06-09 16:37)
+             ✔ Create example labs @done (13-06-09 20:35)
+             ☐ 7-1
+             ☐ 7-5
+             ☐ 7-7
+             ☐ 7-9
+             ☐ 7-10
+             ☐ 7-13
+             ☐ 7-17a
+             ☐ 7-17b
+             ☐ 7-22
          Run against a few actual labs:
          Make script to automatically grade all submissions:
              
