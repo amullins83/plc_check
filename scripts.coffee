@@ -90,23 +90,23 @@ exports.compare = (path)->
 
 Grader_ch1_2 = require "./grade/grader_ch1_2.coffee"
 Grader_ch6   = require "./grade/grader_ch6.coffee"
+Grader_ch7   = require "./grade/Grader_ch7.coffee"
 
-exports.gradeAll = (submissionPath)->
+exports.gradeAll = ->
     chapterMap =
         ch1_2: Grader_ch1_2
         ch6:   Grader_ch6
+        ch7:   Grader_ch7
 
     for chapter, grader of chapterMap
-        fs.readdir submissionPath + "/" + chapter, (err, data)->
-            if err
-                return "error reading submission directory #{chapter}"
-
-            for folder in data
-                unless folder == "Examples" or folder == "zips"
-                    folderLocation = filePath(submissionPath + "/" + chapter, folder)
-                    if fs.statSync(folderLocation).isDirectory()
-                        gradingPath = folderLocation
-                        myGrader = new grader gradingPath
-                        feedbackText = myGrader.feedback + "\nGrade: " + myGrader.grade
-                        fs.writeFile gradingPath + "/feedback.txt", feedbackText
-
+        path = "./submissions/#{chapter}"
+        data = fs.readdirSync(path)
+            
+        for folder in data
+            folderLocation = "#{path}/#{folder}"
+            if fs.existsSync folderLocation
+                if fs.statSync(folderLocation).isDirectory()
+                    gradingPath = folderLocation
+                    myGrader = new grader gradingPath
+                    feedbackText = myGrader.feedback + "\nGrade: " + myGrader.grade
+                    fs.writeFile((gradingPath + "/" + "feedback.txt"), feedbackText)

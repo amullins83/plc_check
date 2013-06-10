@@ -18,7 +18,7 @@
 
         @find: (array, findObject)->
             for element, index in array
-                if @match element, findObject
+                if @match findObject, element
                     return index
             return -1
     
