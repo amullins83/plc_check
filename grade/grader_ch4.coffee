@@ -20,7 +20,9 @@
             @add_03()
             @add_04()
             @add_05()
+            @add_06()
             @add_07()
+            @add_08()
             @add_09()
             @add_10()
             @add_11()
@@ -49,6 +51,11 @@
 
         add_02: ->
         #SOR,0 XIO,I:1/0 BST,1 XIC,I:1/1 NXB,1 XIC,I:1/2 BND,1 XIC,I:1/3 XIC,I:1/4 BST,1 XIC,I:1/5 NXB,1 BST,2 XIC,I:1/6 NXB,2 XIC,I:1/7 BND,2 BND,1 OTE,O:2/0 EOR,0
+            @simpleAdd "4-02", "O:2/0 turns on when I:1/0 is off and I:1/1, 3, 4, and 5 are all on", 3, {0:false, 1:true, 3:true, 4:true, 5:true}, {0:false}, {0:true}
+            @simpleAdd "4-02", "O:2/0 turns on when I:1/0 is off and I:1/2, 3, 4, and 6 are all on", 3, {0:false, 2:true, 3:true, 4:true, 6:true}, {0:false}, {0:true}
+            @simpleAdd "4-02", "O:2/0 turns off when I:1/0 is on", 1, {0:true, 1:true, 3:true, 4:true, 5:true}, {0:true}, {0:false}
+            @simpleAdd "4-02", "O:2/0 turns off when I:1/3 is off", 1, {0:false, 1:true, 3:false, 4:true, 5:true}, {0:true}, {0:false}
+            @simpleAdd "4-02", "O:2/0 turns off when I:1/4 is off", 1, {0:false, 1:true, 3:true, 4:false, 5:true}, {0:true}, {0:false}
 
         add_03: ->
         #SOR,0 XIC,I:1/0 XIC,I:1/1 OTE,O:2/0 EOR,0
@@ -58,64 +65,154 @@
 
         add_04: ->
         #SOR,0 BST,1 XIC,I:1/0 NXB,1 XIC,I:1/1 BND,1 OTE,O:2/0 EOR,0
-        
+            @simpleAdd "4-04", "O:2/0 turns on when I:1/0 is on", 1, {0:true}, {0:false}, {0:true}
+            @simpleAdd "4-04", "O:2/0 turns on when I:1/1 is on", 1, {1:true}, {0:false}, {0:true}
+            @simpleAdd "4-04", "O:2/0 turns off when I:1/0 and I:1/1 are both off", 1, {}, {0:true}, {0:false}
+
         add_05: ->
         #SOR,0 BST,1 XIC,I:1/0 NXB,1 XIC,I:1/1 BND,1 XIC,I:1/2 OTE,O:2/0 EOR,0
+            @simpleAdd "4-05", "O:2/0 turns on when I:1/0 and I:1/2 are on", 1, {0:true, 2:true}, {0:false}, {0:true}
+            @simpleAdd "4-05", "O:2/0 turns on when I:1/1 and I:1/2 are on", 1, {1:true, 2:true}, {0:false}, {0:true}
+            @simpleAdd "4-05", "O:2/0 turns off when I:1/2 off", 1, {0:true, 1:true}, {0:true}, {0:false}
+            @simpleAdd "4-05", "O:2/0 turns off when neither I:1/0 nor I:1/1 is on", 1, {2:true}, {0:true}, {0:false}
 
         add_06: ->        
         #SOR,0 BST,1 XIC,I:1/0 NXB,1 XIC,I:1/1 BND,1 BST,1 XIC,I:1/2 NXB,1 XIC,I:1/3 BND,1 OTE,O:2/0 EOR,0
-
+            @simpleAdd "4-06", "O:2/0 turns on when I:1/0 and I:1/2 are on", 1, {0:true, 2:true}, {}, {0:true}
+            @simpleAdd "4-06", "O:2/0 turns on when I:1/1 and I:1/3 are on", 1, {1:true, 3:true}, {}, {0:true}
+            @simpleAdd "4-06", "O:2/0 turns on when I:1/0 and I:1/3 are on", 1, {0:true, 3:true}, {}, {0:true}
+            @simpleAdd "4-06", "O:2/0 turns on when I:1/1 and I:1/2 are on", 1, {1:true, 2:true}, {}, {0:true}
+            @simpleAdd "4-06", "O:2/0 turns off when neither I:1/0 nor I:1/1 on", 1, {2:true, 3:true}, {0:true}, {0:false}
+        
         add_07: ->
         #SOR,0 BST,1 XIC,I:1/0 XIC,I:1/1 NXB,1 XIC,I:1/2 BND,1 OTE,O:2/0 EOR,0
+            @simpleAdd "4-07", "O:2/0 turns on when I:1/0 and I:1/1 are on", 1, {0:true, 1:true}, {}, {0:true}
+            @simpleAdd "4-07", "O:2/0 turns on when I:1/2 is on", 1, {2:true}, {}, {0:true}
+            @simpleAdd "4-07", "O:2/0 turns off when I:1/1 and I:1/2 are off", 1, {0:true}, {0:true}, {0:false}
+            @simpleAdd "4-07", "O:2/0 turns off when I:1/0 and I:1/2 are off", 1, {1:true}, {0:true}, {0:false}
 
         add_08: ->
         #SOR,0 BST,1 XIC,I:1/0 XIC,I:1/1 NXB,1 XIC,I:1/2 XIC,I:1/3 BND,1 OTE,O:2/0 EOR,0
-        #
+            @simpleAdd "4-08", "O:2/0 turns on when I:1/0 and I:1/1 are on", 2, {0:true, 1:true}, {}, {0:true}
+            @simpleAdd "4-08", "O:2/0 turns on when I:1/2 and I:1/3 are on", 1, {2:true, 3:true}, {}, {0:true}
+            @simpleAdd "4-08", "O:2/0 turns off when I:1/0 and I:1/2 are off", 1, {1:true, 3:true}, {0:true}, {0:false}
+            @simpleAdd "4-08", "O:2/0 turns off when I:1/1 and I:1/3 are off", 1, {0:true, 2:true}, {0:true}, {0:false}
+
         add_09: ->
         #SOR,0 XIC,I:1/0 XIC,I:1/1 OTE,O:2/0 EOR,0
+            @simpleAdd "4-09", "O:2/0 turns on when I:1/0 and I:1/1 are both on", 1, {0:true, 1:true}, {0:false}, {0:true}
+            @simpleAdd "4-09", "O:2/0 turns off when I:1/0 off", 1, {1:true}, {0:true}, {0:false}
+            @simpleAdd "4-09", "O:2/0 turns off when I:1/1 off", 1, {0:true}, {0:true}, {0:false}
 
         add_10: ->
         #SOR,0 BST,1 XIC,I:1/0 NXB,1 XIC,I:1/1 BND,1 XIC,I:1/2 XIC,I:1/3 OTE,O:2/0 EOR,0
+            @simpleAdd "4-10", "O:2/0 turns on when I:1/0, 2, and 3 are on", 1, {0:true, 2:true, 3:true}, {}, {0:true}
+            @simpleAdd "4-10", "O:2/0 turns on when I:1/1, 2, and 3 are on", 1, {1:true, 2:true, 3:true}, {}, {0:true}
+            @simpleAdd "4-10", "O:2/0 turns off when both I:1/0 and I:1/1 are off", 1, {2:true, 3:true}, {0:true}, {0:false}
+            @simpleAdd "4-10", "O:2/0 turns off when I:1/2 is off", 1, {0:true, 1:true, 2:false, 3:true}, {0:true}, {0:false}
+            @simpleAdd "4-10", "O:2/0 turns off when I:1/3 is off", 1, {0:true, 1:true, 2:true, 3:false}, {0:true}, {0:false}
 
         add_11: ->
         #SOR,0 BST,1 XIC,I:1/0 XIO,I:1/1 XIC,I:1/2 NXB,1 BST,2 XIO,I:1/3 NXB,2 XIC,I:1/4 BND,2 BND,1 OTE,O:2/0 EOR,0
+            @simpleAdd "4-11", "O:2/0 turns on when I:1/0 and I:1/2 are on and I:1/1 is off", 1, {0:true, 1:false, 2:true, 3:true}, {}, {0:true}
+            @simpleAdd "4-11", "O:2/0 turns on when I:1/3 is off", 1, {0:false, 1:true, 2:false, 3:false}, {}, {0:true}
+            @simpleAdd "4-11", "O:2/0 turns on when I:1/4 is on", 1, {0:false, 1:true, 2:false, 3:true, 4:true}, {}, {0:true}
+            @simpleAdd "4-11", "O:2/0 turns off when I:1/3 is on and I:1/4 and I:1/0 are off,", 3, {0:false, 1:true, 2:false, 3:true, 4:false}, {0:true}, {0:false}
 
         add_12: ->
         #SOR,0 BST,1 BST,2 XIO,I:1/0 NXB,2 XIO,I:1/1 BND,2 XIC,I:1/2 NXB,1 XIC,I:1/3 XIC,I:1/4 BND,1 OTE,O:2/0 EOR,0
+            @simpleAdd "4-12", "O:2/0 turns on when I:1/0 is off and I:1/2 is on", 1, {0:false, 2:true}, {}, {0:true}
+            @simpleAdd "4-12", "O:2/0 turns on when I:1/1 is off and I:1/2 is on", 1, {1:false, 2:true}, {}, {0:true}
+            @simpleAdd "4-12", "O:2/0 turns on when I:1/3 and I:1/4 are on", 1, {3:true, 4:true}, {}, {0:true}
+            @simpleAdd "4-12", "O:2/0 turns off when I:1/0 and I:1/1 are both on", 2, {0:true, 1:true, 2:true}, {0:true}, {0:false}
+            @simpleAdd "4-12", "O:2/0 turns off when I:1/2 is off and either I:1/3 or I:1/4 is off", 1, {2:false, 3:true}, {0:true}, {0:false}
 
         add_13: ->
         #SOR,0 BST,1 XIO,I:1/0 XIC,I:1/1 XIO,I:1/2 NXB,1 XIC,I:1/3 XIO,I:1/4 XIC,I:1/5 BND,1 OTE,O:2/0 EOR,0
+            @simpleAdd "4-13", "O:2/0 turns on when I:1/0 and I:1/2 are off and I:1/1 is on", 2, {0:false, 1:true, 2:false}, {}, {0:true}
+            @simpleAdd "4-13", "O:2/0 turns on when I:1/3 and I:1/5 are on and I:1/4 is off", 2, {3:true, 4:false, 5:true}, {}, {0:true}
+            @simpleAdd "4-13", "O:2/0 turns off when I:1/0 on and I:1/4 on", 2, {0:true, 1:true, 2:false, 3:true, 4:true, 5:true}, {0:true}, {0:false}
+            @simpleAdd "4-13", "O:2/0 turns off when I:1/1 off and I:1/3 off", 1, {0:false, 1:false, 2:false, 3:false, 4:false, 5:true}, {0:true}, {0:false}
 
         add_14: ->
         #SOR,0 BST,1 XIO,I:1/0 XIC,I:1/1 NXB,1 XIC,I:1/0 XIO,I:1/1 BND,1 OTE,O:2/0 EOR,0
+            @simpleAdd "4-14", "O:2/0 turns on when I:1/0 off and I:1/1 on", 1, {0:false, 1:true}, {}, {0:true}
+            @simpleAdd "4-14", "O:2/0 turns on when I:1/0 on and I:1/1 off", 1, {0:true, 1:false}, {}, {0:true}
+            @simpleAdd "4-14", "O:2/0 turns off when both inputs are on", 1, {0:true, 1:true}, {0:true}, {0:false}
+            @simpleAdd "4-14", "O:2/0 turns off when neither input is on", 2, {}, {0:true}, {0:false}
 
         add_15: ->
         #SOR,0 BST,1 XIC,I:1/0 NXB,1 XIC,I:1/1 BND,1 XIO,I:1/2 XIO,I:1/3 OTE,O:2/0 EOR,0
+            @simpleAdd "4-15", "O:2/0 turns on when I:1/0 is on and I:1/2 and 3 are off", 2, {0:true}, {}, {0:true}
+            @simpleAdd "4-15", "O:2/0 turns off when I:1/3 is on", 1, {0:true, 3:true}, {0:true}, {0:false}
+            @simpleAdd "4-15", "O:2/0 turns off when I:1/2 is on", 1, {1:true, 2:true}, {0:true}, {0:false}
+            @simpleAdd "4-15", "O:2/0 turns off when neither I:1/0 nor I:1/1 is on", 1, {}, {0:true}, {0:false}
 
         add_16: ->
         #SOR,0 BST,1 XIC,I:1/0 NXB,1 XIC,I:1/1 BND,1 XIC,I:1/2 XIO,I:1/3 OTE,O:2/0 EOR,0
+            @simpleAdd "4-16", "O:2/0 turns on when I:1/0 and I:1/2 are on and I:1/3 is off", 2, {0:true, 2:true, 3:false}, {}, {0:true}
+            @simpleAdd "4-16", "O:2/0 turns off when I:1/3 is on", 1, {0:true, 2:true, 3:true}, {0:true}, {0:false}
+            @simpleAdd "4-16", "O:2/0 turns on when I:1/1 and I:1/2 are on and I:1/3 is off", 1, {0:false, 1:true, 2:true, 3:false}, {}, {0:true}
+            @simpleAdd "4-16", "O:2/0 turns off when I:1/2 is off", 1, {0:true, 2:false, 3:false}, {0:true}, {0:false}
+            
 
         add_17: ->
         #SOR,0 BST,1 XIO,I:1/0 XIC,I:1/1 NXB,1 XIC,I:1/0 XIO,I:1/1 BND,1 OTE,O:2/0 EOR,0
+            @simpleAdd "4-17", "O:2/0 turns on when I:1/0 off and I:1/1 on", 1, {0:false, 1:true}, {}, {0:true}
+            @simpleAdd "4-17", "O:2/0 turns on when I:1/0 on and I:1/1 off", 1, {0:true, 1:false}, {}, {0:true}
+            @simpleAdd "4-17", "O:2/0 turns off when both inputs are on", 1, {0:true, 1:true}, {0:true}, {0:false}
+            @simpleAdd "4-17", "O:2/0 turns off when neither input is on", 2, {}, {0:true}, {0:false}
 
         add_18: ->
         #SOR,0 BST,1 XIC,I:1/0 NXB,1 BST,2 XIC,I:1/1 NXB,2 XIC,O:2/0 BND,2 BND,1 XIC,I:1/2 XIC,I:1/3 OTE,O:2/0 EOR,0
+            @simpleAdd "4-18", "O:2/0 turns on when I:1/0, 2, and 3 are all on", 2, {0:true, 2:true, 3:true}, {}, {0:true}
+            @simpleAdd "4-18", "O:2/0 turns on when I:1/1, 2, and 3 are all on", 1, {1:true, 2:true, 3:true}, {}, {0:true}
+            @simpleAdd "4-18", "O:2/0 stays on if I:1/2 and I:1/3 are on", 1, {2:true, 3:true}, {0:true}, {0:true}
+            @simpleAdd "4-18", "O:2/0 turns off if I:1/2 is off", 1, {0:true, 1:true, 2:false, 3:true}, {0:true}, {0:false}
+            @simpleAdd "4-18", "O:2/0 turns off if I:1/3 is off", 1, {0:true, 1:true, 2:true, 3:false}, {0:true}, {0:false}
+            
 
         add_19: ->
         #SOR,0 XIO,I:1/0 XIO,I:1/1 XIC,I:1/2 XIC,I:1/3 OTE,O:2/0 EOR,0
+            @simpleAdd "4-19", "O:2/0 turns on when I:1/0 and I:1/1 are off and I:1/2 and I:1/3 are on", 1, {0:false, 1:false, 2:true, 3:true}, {}, {0:true}
+            @simpleAdd "4-19", "O:2/0 turns off when I:1/0 is on", 1, {0:true, 1:false, 2:true, 3:true}, {0:true}, {0:false}
+            @simpleAdd "4-19", "O:2/0 turns off when I:1/1 is on", 1, {0:false, 1:true, 2:true, 3:true}, {0:true}, {0:false}
+            @simpleAdd "4-19", "O:2/0 turns off when I:1/2 is off", 1, {0:false, 1:false, 2:false, 3:true}, {0:true}, {0:false}
+            @simpleAdd "4-19", "O:2/0 turns off when I:1/3 is off", 1, {0:false, 1:false, 2:true, 3:false}, {0:true}, {0:false}
+            
 
         add_20: ->
         #SOR,0 BST,1 XIC,I:1/0 XIC,I:1/1 NXB,1 XIC,I:1/2 BND,1 OTE,O:2/0 EOR,0
+            @simpleAdd "4-20", "O:2/0 turns on when I:1/0 and I:1/1 are on", 1, {0:true, 1:true}, {}, {0:true}
+            @simpleAdd "4-20", "O:2/0 turns on when I:1/2 is on", 1, {2:true}, {}, {0:true}
+            @simpleAdd "4-20", "O:2/0 turns off when I:1/1 and I:1/2 are off", 1, {0:true}, {0:true}, {0:false}
+            @simpleAdd "4-20", "O:2/0 turns off when I:1/0 and I:1/2 are off", 1, {1:true}, {0:true}, {0:false}
 
         add_21: ->
         #SOR,0 BST,1 XIC,I:1/0 NXB,1 XIC,I:1/1 BND,1 BST,1 XIC,I:1/2 NXB,1 XIC,I:1/3 BND,1 OTE,O:2/0 EOR,0
+            @simpleAdd "4-21", "O:2/0 turns on when I:1/0 and I:1/2 are on", 1, {0:true, 2:true}, {}, {0:true}
+            @simpleAdd "4-21", "O:2/0 turns on when I:1/1 and I:1/3 are on", 1, {1:true, 3:true}, {}, {0:true}
+            @simpleAdd "4-21", "O:2/0 turns on when I:1/0 and I:1/3 are on", 1, {0:true, 3:true}, {}, {0:true}
+            @simpleAdd "4-21", "O:2/0 turns on when I:1/1 and I:1/2 are on", 1, {1:true, 2:true}, {}, {0:true}
+            @simpleAdd "4-21", "O:2/0 turns off when neither I:1/0 nor I:1/1 on", 1, {2:true, 3:true}, {0:true}, {0:false}
 
         add_22: ->
         #SOR,0 BST,1 XIC,I:1/0 XIC,I:1/1 NXB,1 XIC,I:1/2 BND,1 XIC,I:1/3 XIO,I:1/4 OTE,O:2/0 EOR,0
+            @simpleAdd "4-22", "O:2/0 turns on when I:1/0, 1, and 3 are on and I:1/4 is off", 1, {0:true, 1:true, 3:true}, {}, {0:true}
+            @simpleAdd "4-22", "O:2/0 turns on when I:1/2 and 3 are on and I:1/4 is off", 1, {2:true, 3:true}, {}, {0:true}
+            @simpleAdd "4-22", "O:2/0 turns off when I:1/1 and I:1/2 are off", 1, {0:true, 3:true}, {0:true}, {0:false}
+            @simpleAdd "4-22", "O:2/0 turns off when I:1/0 and I:1/2 are off", 1, {1:true, 3:true}, {0:true}, {0:false}
+            @simpleAdd "4-22", "O:2/0 turns off when I:1/3 is off", 1, {2:true, 3:false}, {0:true}, {0:false}
+            @simpleAdd "4-22", "O:2/0 turns off when I:1/4 is on", 1, {2:true, 3:true, 4:true}, {0:true}, {0:false}
 
         add_23: ->
         #SOR,0 BST,1 XIC,I:1/0 XIO,I:1/1 NXB,1 BST,2 XIC,I:1/2 XIO,I:1/3 NXB,2 XIC,I:1/4 XIO,I:1/5 BND,2 BND,1 OTE,O:2/0 EOR,0
-
+            @simpleAdd "4-23", "O:2/0 turns on when I:1/0 on and I:1/1 off", 1, {0:true}, {}, {0:true}
+            @simpleAdd "4-23", "O:2/0 turns on when I:1/2 on and I:1/3 off", 1, {2:true}, {}, {0:true}
+            @simpleAdd "4-23", "O:2/0 turns on when I:1/4 on and I:1/5 off", 1, {4:true}, {}, {0:true}
+            @simpleAdd "4-23", "O:2/0 turns off when all outputs on", 2, {0:true, 1:true, 2:true, 3:true, 4:true, 5:true}, {0:true}, {0:false}
+            @simpleAdd "4-23", "O:2/0 turns off when all outputs off", 2, {}, {0:true}, {0:false}
+            
         add_24: ->
         #SOR,0 XIC,I:1/0 AND,B3:5,B3:7,B3:10 EOR,0
             @addTest "4-24", "B3:10 is the AND of B3:5 and B3:7 if I:1/0 is on", 4, {I: {1: {0:true}}, B3: {5: @fives(), 7: @threes()}}, {B3: {10: @and_array @fives(), @threes()}} 
