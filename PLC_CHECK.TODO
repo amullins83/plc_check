@@ -621,10 +621,10 @@
              ✔ Create a way to "OR" tests together @done (13-06-09 16:13)
          Create Grader_ch1_2:
          Create Grader_ch4:
-             ☐ Create Grader_ch4.spec
-             ☐ Create Grader_ch4.coffee
-             ☐ 4-1
-             ☐ 4-2
+             ✔ Create Grader_ch4.spec @done (13-06-10 12:46)
+             ✔ Create Grader_ch4.coffee @done (13-06-10 12:46)
+             ✔ 4-1 @done (13-06-10 12:46)
+             ✔ 4-2 @done (13-06-10 12:46)
              ☐ 4-3
              ☐ 4-4
              ☐ 4-5
@@ -646,10 +646,10 @@
              ☐ 4-21
              ☐ 4-22
              ☐ 4-23
-             ☐ 4-24
-             ☐ 4-25
-             ☐ 4-26
-             ☐ 4-27
+             ✔ 4-24 @done (13-06-10 12:47)
+             ✔ 4-25 @done (13-06-10 12:47)
+             ✔ 4-26 @done (13-06-10 12:47)
+             ✔ 4-27 @done (13-06-10 12:47)
          Create Grader_ch6:
          Create Grader_ch7:
              ✔ Create Grader_ch7.spec @done (13-06-09 16:37)
