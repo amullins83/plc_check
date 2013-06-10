@@ -618,58 +618,71 @@
 
      System:
          Grader Class:
-             ✔ Create a way to "OR" tests together @done (13-06-09 16:13)
          Create Grader_ch1_2:
+             ☐ Refactor with lessons learned (simpleAdd, etc.)
          Create Grader_ch4:
-             ✔ Create Grader_ch4.spec @done (13-06-10 12:46)
-             ✔ Create Grader_ch4.coffee @done (13-06-10 12:46)
-             ✔ 4-1 @done (13-06-10 12:46)
-             ✔ 4-2 @done (13-06-10 12:46)
-             ☐ 4-3
-             ☐ 4-4
-             ☐ 4-5
-             ☐ 4-6
-             ☐ 4-7
-             ☐ 4-8
-             ☐ 4-9
-             ☐ 4-10
-             ☐ 4-11
-             ☐ 4-12
-             ☐ 4-13
-             ☐ 4-14
-             ☐ 4-15
-             ☐ 4-16
-             ☐ 4-17
-             ☐ 4-18
-             ☐ 4-19
-             ☐ 4-20
-             ☐ 4-21
-             ☐ 4-22
-             ☐ 4-23
-             ✔ 4-24 @done (13-06-10 12:47)
-             ✔ 4-25 @done (13-06-10 12:47)
-             ✔ 4-26 @done (13-06-10 12:47)
-             ✔ 4-27 @done (13-06-10 12:47)
          Create Grader_ch6:
+             ☐ Test more actual labs, add OR tests
          Create Grader_ch7:
-             ✔ Create Grader_ch7.spec @done (13-06-09 16:37)
-             ✔ Create Grader_ch7.coffee @done (13-06-09 16:37)
-             ✔ Create example labs @done (13-06-09 20:35)
-             ✔ 7-1 @done (13-06-10 10:57)
-             ✔ 7-5 @done (13-06-10 10:57)
-             ✔ 7-7 @done (13-06-10 10:57)
-             ✔ 7-9 @done (13-06-10 10:57)
-             ✔ 7-10 @done (13-06-10 10:57)
-             ✔ 7-13 @done (13-06-10 10:57)
-             ✔ 7-17a @done (13-06-10 10:57)
-             ✔ 7-17b @done (13-06-10 10:57)
-             ✔ 7-22 @done (13-06-10 10:57)
+         Create Grader_ch8:
+             ☐ Create grader_ch8.coffee
+             ☐ Create grader_ch8.spec.coffee
+             ☐ Create example labs
+             ☐ 8-1
+             ☐ 8-2
+             ☐ 8-3
+             ☐ 8-7a
+             ☐ 8-7b
+             ☐ 8-22
+             ☐ 8-38
          Run against a few actual labs:
          Make script to automatically grade all submissions:
              
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Create a way to "OR" tests together @done (13-06-09 16:13)
+ ✔ Create Grader_ch4.spec @done (13-06-10 12:46)
+ ✔ Create Grader_ch4.coffee @done (13-06-10 12:46)
+ ✔ 4-1 @done (13-06-10 12:46)
+ ✔ 4-2 @done (13-06-10 12:46)
+ ✔ 4-3 @done (13-06-10 14:53)
+ ✔ 4-4 @done (13-06-10 14:53)
+ ✔ 4-5 @done (13-06-10 14:53)
+ ✔ 4-6 @done (13-06-10 15:38)
+ ✔ 4-7 @done (13-06-10 15:38)
+ ✔ 4-8 @done (13-06-10 15:38)
+ ✔ 4-9 @done (13-06-10 15:38)
+ ✔ 4-10 @done (13-06-10 15:38)
+ ✔ 4-11 @done (13-06-10 15:38)
+ ✔ 4-12 @done (13-06-10 15:38)
+ ✔ 4-13 @done (13-06-10 15:38)
+ ✔ 4-14 @done (13-06-10 15:38)
+ ✔ 4-15 @done (13-06-10 15:38)
+ ✔ 4-16 @done (13-06-10 15:38)
+ ✔ 4-17 @done (13-06-10 16:05)
+ ✔ 4-18 @done (13-06-10 16:05)
+ ✔ 4-19 @done (13-06-10 16:05)
+ ✔ 4-20 @done (13-06-10 16:05)
+ ✔ 4-21 @done (13-06-10 16:05)
+ ✔ 4-22 @done (13-06-10 16:05)
+ ✔ 4-23 @done (13-06-10 16:06)
+ ✔ 4-24 @done (13-06-10 12:47)
+ ✔ 4-25 @done (13-06-10 12:47)
+ ✔ 4-26 @done (13-06-10 12:47)
+ ✔ 4-27 @done (13-06-10 12:47)
+ ✔ Create Grader_ch7.spec @done (13-06-09 16:37)
+ ✔ Create Grader_ch7.coffee @done (13-06-09 16:37)
+ ✔ Create example labs @done (13-06-09 20:35)
+ ✔ 7-1 @done (13-06-10 10:57)
+ ✔ 7-5 @done (13-06-10 10:57)
+ ✔ 7-7 @done (13-06-10 10:57)
+ ✔ 7-9 @done (13-06-10 10:57)
+ ✔ 7-10 @done (13-06-10 10:57)
+ ✔ 7-13 @done (13-06-10 10:57)
+ ✔ 7-17a @done (13-06-10 10:57)
+ ✔ 7-17b @done (13-06-10 10:57)
+ ✔ 7-22 @done (13-06-10 10:57)
  ✔ Test AND @done (13-06-09 12:21)
  ✔ Test OR @done (13-06-09 12:21)
  ✔ Test XOR @done (13-06-09 12:21)
