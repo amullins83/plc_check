@@ -54,6 +54,7 @@
 
         @runRoutine: (programText, dataTable)->
             dataTable.rungs = []
+            programText = programText.replace /OR ,/, "OR," 
             rungs = programText.match /SOR,\d+ .*E(OR|ND),\d+/g
             if rungs?
                 for rung in rungs
