@@ -11,7 +11,8 @@
             expect(Grader).toBeDefined()
 
         submissionPath = "./submissions/ch1_2/Dishon"
-        submittedFiles = fs.readdirSync submissionPath
+        submittedFiles = Find.filter fs.readdirSync(submissionPath), /^(\d+)-(\d+)([a-z]?)\.rsl$/i
+
 
         examplePath = "./submissions/ch1_2/Examples"
         exampleFiles = Find.filter fs.readdirSync(examplePath), /^(\d+)-(\d+)([a-z]?)\.rsl$/i
@@ -106,6 +107,25 @@
             it "returns an object with result and feedback keys", ->
                 report = myGrader.testReport true, "hey", 5
                 expect(report).toEqual {result: true, feedback: "hey", points: 5}
+
+        describe "addOrTest", ->
+            myGrader = null
+
+            beforeEach ->
+                myGrader = new Grader submissionPath
+                myGrader.initializeProblems()
+
+            it "adds a test that passes when any give condition set is true", ->
+                myGrader.addOrTest("2-2", "output O:2/0 should be on if I:1/0 is on or off", 5, [{I: {1: {0:true}}}, {I: {1: {0:false}}}], [{O: {2: {0:true}}}, {O: {2: {0:true}}}])
+                expect(myGrader.problems["2-2"].tests[0]().result).toBe true
+
+            it "pushes a test that returns a test report", ->
+                failDescription = "nothing to see here"
+                points = 5
+                myGrader.addOrTest("2-2", failDescription, points, [{I: {1: {0:false}}}], [{O: {2: {0:true}}}])
+                myGrader.addOrTest("2-2", failDescription, points, [{I: {1: {0:false}}}], [{O: {2: {0:false}}}])
+                expect(myGrader.problems["2-2"].tests[0]()).toEqual myGrader.testReport false, failDescription, points
+                expect(myGrader.problems["2-2"].tests[1]()).toEqual myGrader.testReport true,  "Good!", points
 
         describe "run", ->
             myGrader = null

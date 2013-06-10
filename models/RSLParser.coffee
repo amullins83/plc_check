@@ -19,8 +19,8 @@
             "SOR,(\\d+)": RSLStartEnd.SOR
             , "EOR,(\\d+)": RSLStartEnd.EOR
             , "END,(\\d+)": RSLStartEnd.END
-            , "XIC,(\\w+):(\\d+)\\/(\\d{1,2})": RSLInput.XIC
-            , "XIO,(\\w+):(\\d+)\\/(\\d{1,2})": RSLInput.XIO
+            , "XIC,(\\w+):(\\d+)\\/(\\w{1,2})": RSLInput.XIC
+            , "XIO,(\\w+):(\\d+)\\/(\\w{1,2})": RSLInput.XIO
             , "OTE,(\\w+):(\\d+)\\/(\\d{1,2})": RSLOutput.OTE
             , "OTL,(\\w+):(\\d+)\\/(\\d{1,2})": RSLOutput.OTL
             , "OTU,(\\w+):(\\d+)\\/(\\d{1,2})": RSLOutput.OTU
@@ -42,7 +42,7 @@
     
         @execute: (instruction, dataTable)->
             for re, f of @functionMap
-                matchValues = instruction.match new RegExp(re) 
+                matchValues = instruction.match new RegExp(re, "i") 
                 if matchValues?
                     dataTable = f matchValues, dataTable
             return dataTable

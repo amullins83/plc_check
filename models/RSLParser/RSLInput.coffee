@@ -9,7 +9,12 @@
             (matchValues, dataTable)->
                 [matchText, file, rankString, bitString] = matchValues
                 rank = parseInt rankString, 10
-                bit = parseInt bitString, 10
+                
+                if isNaN bitString
+                    bit = bitString.toLowerCase()
+                else
+                    bit = parseInt bitString, 10
+
                 dataTable[file] = dataTable[file] || {}
                 dataTable[file][rank] = dataTable[file][rank] || {}
                 dataTable[file][rank][bit] = dataTable[file][rank][bit] || false
