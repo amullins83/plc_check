@@ -78,11 +78,16 @@
             @addSimpleTest "1-6", "output O:2/0 is off unless inputs 0, 4, 5 are all on and one of inputs 1, 2, and 3 is on", 3, [false, true, false, false, true, true], []
 
         add_2_1_tests: ->
-            @addSimpleTest "2-1", "output O:2/7 is on when input I:1/1 is on", 2, [false, true, false, false, false, false, false, false, false], [7]
-            @addSimpleTest "2-1", "output O:2/2 is on when input I:1/8 is on", 2, [false, false, false, false, false, false, false, false, true], [2]
+            @simpleAdd "2-1", "output O:2/7 is on when input I:1/1 is on", 2, {1:true}, {}, {7:true}
+            @simpleAdd "2-1", "output O:2/2 is on when input I:1/8 is on", 2, {8:true}, {}, {2:true}
 
         add_2_2_tests: ->
-            @addSimpleTest "2-2", "the test input from the book returns the expected output", 16, [true, false, true, true, true, false, false, false, true, true, false, false, true, true, false, true], [0,1,2,3]
+            for on_off, bit in ["on", "off", "on", "on", "off", "on", "on", "on", "off", "off", "on", "on", "off", "off", "on", "off"]
+                input = {}
+                output = {}
+                input[bit] = true
+                output[bit] = on_off == "on"
+                @simpleAdd "2-2", "O:2/#{bit} turns #{on_off} when I:1/#{bit} is on", 1, input, {}, output
 
     module.exports = Grader_ch1_2
 ).call this

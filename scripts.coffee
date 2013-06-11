@@ -5,25 +5,24 @@ filePath = (path, name)->
     return path + "/" + name
 
 rename = exports.rename = (path, findExpression, replaceExpression)->
-    fs.readdir path, (err, data)->
-        for file in data
-            fileLocation = filePath path, file
-            replaceVariables = replaceExpression.match /\$(\d+)/g
-            interpolatedExpression = replaceExpression
-            if replaceVariables? and file.match(findExpression)?
-                for variable, index in file.match findExpression
-                    interpolatedExpression = interpolatedExpression.replace new RegExp("\\$#{index}","g"), variable.toLowerCase()
-            newName = file.replace findExpression, interpolatedExpression
-            newPath = filePath path, newName
-            fs.renameSync fileLocation, newPath
+    data = fs.readdirSync path
+    for file in data
+        fileLocation = filePath path, file
+        replaceVariables = replaceExpression.match /\$(\d+)/g
+        interpolatedExpression = replaceExpression
+        if replaceVariables? and file.match(findExpression)?
+            for variable, index in file.match findExpression
+                interpolatedExpression = interpolatedExpression.replace new RegExp("\\$#{index}","g"), variable.toLowerCase()
+        newName = file.replace findExpression, interpolatedExpression
+        newPath = filePath path, newName
+        fs.renameSync fileLocation, newPath
 
 renameAll = exports.renameAll = (path, findExpression, replaceExpression)->
-    fs.readdir path, (err, data)->
-        if err
-            return "Error reading #{path}"
-
-        for folder in data
-            rename path + "/" + folder, findExpression, replaceExpression
+    data = fs.readdirSync path
+        
+    for folder in data
+        if fs.statSync(filePath(path, folder)).isDirectory()
+            rename filePath(path, folder), findExpression, replaceExpression
 
 exports.summarize = (path, keepExpression)->
     fs.readdir path, (err, data)->
@@ -89,14 +88,20 @@ exports.compare = (path)->
                         fs.writeFileSync(filePath(folderLocation, "diffs.txt"), diffs(studentLabs, answers))
 
 Grader_ch1_2 = require "./grade/grader_ch1_2.coffee"
+Grader_ch4   = require "./grade/grader_ch4.coffee"
+Grader_ch5   = require "./grade/grader_ch5.coffee"
 Grader_ch6   = require "./grade/grader_ch6.coffee"
 Grader_ch7   = require "./grade/Grader_ch7.coffee"
+Grader_ch8   = require "./grade/grader_ch8.coffee"
 
 exports.gradeAll = ->
     chapterMap =
         ch1_2: Grader_ch1_2
+        ch4:   Grader_ch4
+        ch5:   Grader_ch5
         ch6:   Grader_ch6
         ch7:   Grader_ch7
+        ch8:   Grader_ch8
 
     for chapter, grader of chapterMap
         path = "./submissions/#{chapter}"
