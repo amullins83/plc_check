@@ -619,22 +619,42 @@
      System:
          Grader Class:
          Create Grader_ch1_2:
-             ☐ Refactor with lessons learned (simpleAdd, etc.)
+             ✔ Refactor with lessons learned (simpleAdd, etc.) @done (13-06-10 23:11)
          Create Grader_ch4:
+         Create Grader_ch5:
+             ☐ Create grader_ch5.coffee
+             ☐ Create grader_ch5.spec.coffee
+             ☐ Create example labs
+             ☐ 5-2
+             ☐ 5-3
+             ☐ 5-4
+             ☐ 5-5a
+             ☐ 5-5b
+             ☐ 5-6
+             ☐ 5-7
+             ☐ 5-8
+             ☐ 5-9
+             ☐ 5-10
+             ☐ 5-11
+             ☐ 5-12a
+             ☐ 5-12b
+             ☐ 5-13
+             ☐ 5-14a
+             ☐ 5-14b
          Create Grader_ch6:
              ☐ Test more actual labs, add OR tests
          Create Grader_ch7:
          Create Grader_ch8:
-             ☐ Create grader_ch8.coffee
-             ☐ Create grader_ch8.spec.coffee
-             ☐ Create example labs
-             ☐ 8-1
-             ☐ 8-2
-             ☐ 8-3
-             ☐ 8-7a
-             ☐ 8-7b
-             ☐ 8-22
-             ☐ 8-38
+             ✔ Create grader_ch8.coffee @done (13-06-10 23:13)
+             ✔ Create grader_ch8.spec.coffee @done (13-06-10 23:13)
+             ✔ Create example labs @done (13-06-10 23:13)
+             ✔ 8-1 @done (13-06-10 23:13)
+             ✔ 8-2 @done (13-06-10 23:13)
+             ✔ 8-3 @done (13-06-10 23:13)
+             ✔ 8-7a @done (13-06-10 23:13)
+             ✔ 8-7b @done (13-06-10 23:13)
+             ✔ 8-22 @done (13-06-10 23:13)
+             ✔ 8-38 @done (13-06-10 23:13)
          Run against a few actual labs:
          Make script to automatically grade all submissions:
              

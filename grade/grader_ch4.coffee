@@ -1,7 +1,6 @@
 (->
     "use strict"
     RSLParser = require "../models/RSLParser.coffee"
-    Timer = require("../models/RSLParser/RSLCounterTimer.coffee").Timer
     DataTable = require "../models/dataTable.coffee"
     fs = require "fs"
     Grader = require "./grader.coffee"
