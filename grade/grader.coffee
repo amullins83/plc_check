@@ -133,7 +133,7 @@
                     @O[2][bit] = value
 
         simpleAdd: (name, desc, points, inputBits, outputBitsStart, outputBitsFinish)->
-            @addTest name, desc, points, new Grader.simpleDataTable(inputBits, outputBitsStart), new Grader.simpleDataTable(inputBits, outputBitsFinish)
+            @addTest name, desc, points, {I: {1: inputBits}, O: {2: outputBitsStart}}, {O: {2: outputBitsFinish}}
 
         runThroughTwice: (problem, firstInput, secondInput)->
             =>
