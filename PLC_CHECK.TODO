@@ -622,25 +622,25 @@
              ✔ Refactor with lessons learned (simpleAdd, etc.) @done (13-06-10 23:11)
          Create Grader_ch4:
          Create Grader_ch5:
-             ☐ Create grader_ch5.coffee
-             ☐ Create grader_ch5.spec.coffee
-             ☐ Create example labs
-             ☐ 5-2
-             ☐ 5-3
-             ☐ 5-4
-             ☐ 5-5a
-             ☐ 5-5b
-             ☐ 5-6
-             ☐ 5-7
-             ☐ 5-8
-             ☐ 5-9
-             ☐ 5-10
-             ☐ 5-11
-             ☐ 5-12a
-             ☐ 5-12b
-             ☐ 5-13
-             ☐ 5-14a
-             ☐ 5-14b
+             ✔ Create grader_ch5.coffee @done (13-06-11 16:08)
+             ✔ Create grader_ch5.spec.coffee @done (13-06-11 16:08)
+             ✔ Create example labs @done (13-06-11 16:08)
+             ✔ 5-2 @done (13-06-11 16:08)
+             ✔ 5-3 @done (13-06-11 16:08)
+             ✔ 5-4 @done (13-06-11 16:08)
+             ✔ 5-5a @done (13-06-11 16:08)
+             ✔ 5-5b @done (13-06-11 16:08)
+             ✔ 5-6 @done (13-06-11 16:08)
+             ✔ 5-7 @done (13-06-11 16:08)
+             ✔ 5-8 @done (13-06-11 16:08)
+             ✔ 5-9 @done (13-06-11 16:08)
+             ✔ 5-10 @done (13-06-11 16:08)
+             ✔ 5-11 @done (13-06-11 16:08)
+             ✔ 5-12a @done (13-06-11 16:08)
+             ✔ 5-12b @done (13-06-11 16:08)
+             ✔ 5-13 @done (13-06-11 16:08)
+             ✔ 5-14a @done (13-06-11 16:08)
+             ✔ 5-14b @done (13-06-11 16:08)
          Create Grader_ch6:
              ☐ Test more actual labs, add OR tests
          Create Grader_ch7:
