@@ -618,49 +618,50 @@
 
      System:
          Grader Class:
+             ☐ Have addTest return the resulting dataTable
          Create Grader_ch1_2:
-             ✔ Refactor with lessons learned (simpleAdd, etc.) @done (13-06-10 23:11)
          Create Grader_ch4:
          Create Grader_ch5:
-             ✔ Create grader_ch5.coffee @done (13-06-11 16:08)
-             ✔ Create grader_ch5.spec.coffee @done (13-06-11 16:08)
-             ✔ Create example labs @done (13-06-11 16:08)
-             ✔ 5-2 @done (13-06-11 16:08)
-             ✔ 5-3 @done (13-06-11 16:08)
-             ✔ 5-4 @done (13-06-11 16:08)
-             ✔ 5-5a @done (13-06-11 16:08)
-             ✔ 5-5b @done (13-06-11 16:08)
-             ✔ 5-6 @done (13-06-11 16:08)
-             ✔ 5-7 @done (13-06-11 16:08)
-             ✔ 5-8 @done (13-06-11 16:08)
-             ✔ 5-9 @done (13-06-11 16:08)
-             ✔ 5-10 @done (13-06-11 16:08)
-             ✔ 5-11 @done (13-06-11 16:08)
-             ✔ 5-12a @done (13-06-11 16:08)
-             ✔ 5-12b @done (13-06-11 16:08)
-             ✔ 5-13 @done (13-06-11 16:08)
-             ✔ 5-14a @done (13-06-11 16:08)
-             ✔ 5-14b @done (13-06-11 16:08)
          Create Grader_ch6:
              ☐ Test more actual labs, add OR tests
          Create Grader_ch7:
          Create Grader_ch8:
-             ✔ Create grader_ch8.coffee @done (13-06-10 23:13)
-             ✔ Create grader_ch8.spec.coffee @done (13-06-10 23:13)
-             ✔ Create example labs @done (13-06-10 23:13)
-             ✔ 8-1 @done (13-06-10 23:13)
-             ✔ 8-2 @done (13-06-10 23:13)
-             ✔ 8-3 @done (13-06-10 23:13)
-             ✔ 8-7a @done (13-06-10 23:13)
-             ✔ 8-7b @done (13-06-10 23:13)
-             ✔ 8-22 @done (13-06-10 23:13)
-             ✔ 8-38 @done (13-06-10 23:13)
          Run against a few actual labs:
          Make script to automatically grade all submissions:
              
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Refactor with lessons learned (simpleAdd, etc.) @done (13-06-10 23:11)
+ ✔ Create grader_ch5.coffee @done (13-06-11 16:08)
+ ✔ Create grader_ch5.spec.coffee @done (13-06-11 16:08)
+ ✔ Create example labs @done (13-06-11 16:08)
+ ✔ 5-2 @done (13-06-11 16:08)
+ ✔ 5-3 @done (13-06-11 16:08)
+ ✔ 5-4 @done (13-06-11 16:08)
+ ✔ 5-5a @done (13-06-11 16:08)
+ ✔ 5-5b @done (13-06-11 16:08)
+ ✔ 5-6 @done (13-06-11 16:08)
+ ✔ 5-7 @done (13-06-11 16:08)
+ ✔ 5-8 @done (13-06-11 16:08)
+ ✔ 5-9 @done (13-06-11 16:08)
+ ✔ 5-10 @done (13-06-11 16:08)
+ ✔ 5-11 @done (13-06-11 16:08)
+ ✔ 5-12a @done (13-06-11 16:08)
+ ✔ 5-12b @done (13-06-11 16:08)
+ ✔ 5-13 @done (13-06-11 16:08)
+ ✔ 5-14a @done (13-06-11 16:08)
+ ✔ 5-14b @done (13-06-11 16:08)
+ ✔ Create grader_ch8.coffee @done (13-06-10 23:13)
+ ✔ Create grader_ch8.spec.coffee @done (13-06-10 23:13)
+ ✔ Create example labs @done (13-06-10 23:13)
+ ✔ 8-1 @done (13-06-10 23:13)
+ ✔ 8-2 @done (13-06-10 23:13)
+ ✔ 8-3 @done (13-06-10 23:13)
+ ✔ 8-7a @done (13-06-10 23:13)
+ ✔ 8-7b @done (13-06-10 23:13)
+ ✔ 8-22 @done (13-06-10 23:13)
+ ✔ 8-38 @done (13-06-10 23:13)
  ✔ Create a way to "OR" tests together @done (13-06-09 16:13)
  ✔ Create Grader_ch4.spec @done (13-06-10 12:46)
  ✔ Create Grader_ch4.coffee @done (13-06-10 12:46)
