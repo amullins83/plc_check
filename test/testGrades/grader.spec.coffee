@@ -3,6 +3,7 @@
 
     Grader = require "../../grade/Grader.coffee"
     Find = require "../../models/RSLParser/find.coffee"
+    DataTable = require "../../models/dataTable.coffee"
     fs = require "fs"
 
     describe "Grader", ->
@@ -72,7 +73,7 @@
             it "automatically fails if no submission text exists", ->
                 expect(myGrader.problems["5"].tests[0]().result).toBe false
 
-        describe "addSimpleTest", ->
+        describe "simpleAdd", ->
 
             myGrader = null
 
@@ -81,18 +82,18 @@
                 myGrader.initializeProblems()
 
             it "exists", ->
-                expect(myGrader.addSimpleTest).toBeDefined()
+                expect(myGrader.simpleAdd).toBeDefined()
 
-            it "adds an equivalent test based on arrays instead of dataTable objects", ->
-                myGrader.addTest "2-2", "this should always fail",  5, {I: {1: {0: false}}}, {O: {2: {0: true} } }
-                myGrader.addSimpleTest "2-2", "this should always fail", 5, [false], [0]
+            it "adds an equivalent test", ->
+                myGrader.addTest "2-2", "this should always fail",  5, {I: {1: {0: false}}, O: {2: {}}}, {O: {2: {0: true}}}
+                myGrader.simpleAdd "2-2", "this should always fail", 5, {0:false}, {}, {0:true}
                 expect(myGrader.problems["2-2"].tests.length).toBe 2
-                expect(myGrader.problems["2-2"].tests[0]()).toEqual myGrader.problems["2-2"].tests[1]()
+                expect(myGrader.problems["2-2"].tests[1]()).toEqual myGrader.problems["2-2"].tests[0]()
 
                 myGrader.addTest "2-1", "this should always pass", 5, {I: {1: {0: true}}}, {}
-                myGrader.addSimpleTest "2-1", "this should always pass", 5, [true], []
+                myGrader.simpleAdd "2-1", "this should always pass", 5, {0:true}, {}, {}
 
-                expect(myGrader.problems["2-1"].tests[0]()).toEqual myGrader.problems["2-1"].tests[1]()
+                expect(myGrader.problems["2-1"].tests[1]()).toEqual myGrader.problems["2-1"].tests[0]()
                 
 
         describe "testReport", ->
