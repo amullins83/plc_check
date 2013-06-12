@@ -893,7 +893,7 @@
 
             describe "series parallel rung", ->
 
-                # This is Lab 1-1 in Petruzella
+                # This is Lab 1-01 in Petruzella
                 rungText = "SOR,0 BST,1 XIC,I:1/0 XIC,I:1/1 NXB,1 XIC,I:1/2 BND,1 OTE,O:2/0 EOR,0"
 
                 it "sets output on when both I:1/0 and I:1/1 are on", ->
@@ -972,9 +972,9 @@
             it "exists", ->
                 expect(RSLParser.runRoutine).toBeDefined()
 
-            describe "lab 1-1a", ->
+            describe "lab 1-01a", ->
 
-                lab1a = fs.readFileSync("./submissions/ch1_2/Examples/1-1a.rsl").toString()
+                lab1a = fs.readFileSync("./submissions/ch1_2/Examples/1-01a.rsl").toString()
 
                 dt_lab1a_in = dt_in
 
@@ -992,9 +992,9 @@
                         truthArray = [(i >> 2 & 1) == 1, (i >> 1 & 1) == 1, (i & 1) == 1]
                         expect(RSLParser.runRoutine lab1a, dt_lab1a_in(truthArray)).toEqual dt_lab1a_out(truthArray)
 
-            describe "lab 2-2", ->
+            describe "lab 2-02", ->
 
-                lab22 = fs.readFileSync("./submissions/ch1_2/Examples/2-2.rsl").toString()
+                lab22 = fs.readFileSync("./submissions/ch1_2/Examples/2-02.rsl").toString()
 
                 dt_lab22_in = dt_in
 
