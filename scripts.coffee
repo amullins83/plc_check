@@ -1,5 +1,6 @@
 "use strict"
 fs = require "fs"
+Find = require "./models/RSLParser/find.coffee"
 
 filePath = (path, name)->
     return path + "/" + name
@@ -23,6 +24,35 @@ renameAll = exports.renameAll = (path, findExpression, replaceExpression)->
     for folder in data
         if fs.statSync(filePath(path, folder)).isDirectory()
             rename filePath(path, folder), findExpression, replaceExpression
+
+autoRenameAll = exports.autoRenameAll = ->
+    
+    replacements =
+        dotsToDashes:
+            regex   : /(\d+)\.(\w+)\.rsl/
+            replace : "$1-$2.rsl"
+    
+        toLowerCase:
+            regex   : /([A-Z])/
+            replace : "$1"
+    
+        removeLeading:
+            regex   : /^[\w\s]+(\d+)[-\.]/
+            replace : "$1-"
+    
+        addZeros:
+            regex   : /-(\d)([A-Za-z]?)\.rsl/
+            replace : "-0$1$2.rsl"
+
+    chapters = fs.readdirSync("./submissions")
+
+    Find.filterOut(chapters, /^\./)
+
+    for chapter in chapters
+        if fs.statSync("./submissions/#{chapter}").isDirectory()
+            for name, {regex: regex, replace: replace} of replacements
+                renameAll "./submissions/#{chapter}", regex, replace
+
 
 exports.summarize = (path, keepExpression)->
     fs.readdir path, (err, data)->
