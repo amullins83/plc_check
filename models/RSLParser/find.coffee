@@ -28,5 +28,11 @@
                 output.push element if element.match regExp
             return output
 
+        @filterOut: (array, regExp)->
+            output = []
+            for element in array
+                output.push element unless element.match regExp
+            return output
+
     module.exports = Find
 ).call this
