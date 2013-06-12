@@ -216,9 +216,9 @@
             @checkPreset "7-17#{letter}", 1, 250, {T4: {0: doneTimer0, 2: {dn:false}}}
             @checkPreset "7-17#{letter}", 2,  50, {T4: {0: doneTimer0, 1: doneTimer1, 2: {dn:false}}}
 
-            @addTest "7-17#{letter}", "output O:2/0 on when timer T4:0 timing", 2, {T4: {2: {dn:false}}}, {O: {2: {0:true}}}
-            @addTest "7-17#{letter}", "output O:2/1 on when timer T4:0 timing", 2, {T4: {0: doneTimer0, 2: {dn:false}}}, {O: {2: {1:true}}}
-            @addTest "7-17#{letter}", "output O:2/2 on when timer T4:0 timing", 1, {T4: {0: doneTimer0, 1: doneTimer1, 2: {dn:false}}}, {O: {2: {2:true}}}
+            @addTest "7-17#{letter}", "output O:2/0 on when timer T4:0 timing", 2, {T4: {2: {dn:false}}}, {O: {2: {0:true, 1:false, 2:false}}}
+            @addTest "7-17#{letter}", "output O:2/2 on when timer T4:1 timing", 2, {T4: {0: doneTimer0, 2: {dn:false}}}, {O: {2: {2:true, 0:false, 1:false}}}
+            @addTest "7-17#{letter}", "output O:2/1 on when timer T4:2 timing", 1, {T4: {0: doneTimer0, 1: doneTimer1, 2: {dn:false}}}, {O: {2: {1:true, 0:false, 2:false}}}
 
         
         add_22: ->
