@@ -49,10 +49,10 @@
     
                     actualOutput = RSLParser.runRoutine @problems[problem].submission, actualInput
                     if Find.match testOutput, actualOutput
-                        return @testReport true, "Good!", points               
+                        return @testReport true, "Good!", points
                     else
-                        description += "\n    Expected: #{Grader.printObject testOutput}\n    Received: #{Grader.printObject actualOutput}\n"
-                        return @testReport false, description, points
+                        debug = "\n    Expected: #{Grader.printObject testOutput}\n    Received: #{Grader.printObject actualOutput}\n"
+                        return @testReport false, description, points, debug
 
         @printObject: (thing)->
             if typeof thing is "function"
@@ -110,8 +110,8 @@
 
             @addTest name, description, points, dt_in, dt_out
 
-        testReport: (result, feedback, points)->
-            {result:result, feedback:feedback, points:points}
+        testReport: (result, feedback, points, debug)->
+            {result:result, feedback:feedback, points:points, debug: debug}
 
         @keys: (obj)->
             prop for prop of obj
