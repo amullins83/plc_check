@@ -59,16 +59,16 @@
             beforeEach ->
                 myGrader = new Grader submissionPath
                 myGrader.initializeProblems()
-                myGrader.addTest "1-1a", "this passes", 5, {}, {}
-                myGrader.addTest "2-2", "this fails", 5, {}, {hey: "ho"}
+                myGrader.addTest "1-01a", "this passes", 5, {}, {}
+                myGrader.addTest "2-002", "this fails", 5, {}, {hey: "ho"}
                 myGrader.addTest "5", "five is right out", 2, {should: not "get here"}, {}
 
             it "exists", ->
                 expect(myGrader.addTest).toBeDefined()
 
             it "adds a test function to the specified problem", ->
-                expect(myGrader.problems["1-1a"].tests.length).toBe 1
-                expect(myGrader.problems["2-2"].tests.length).toBe 1
+                expect(myGrader.problems["1-01a"].tests.length).toBe 1
+                expect(myGrader.problems["2-002"].tests.length).toBe 1
 
             it "automatically fails if no submission text exists", ->
                 expect(myGrader.problems["5"].tests[0]().result).toBe false
@@ -85,29 +85,36 @@
                 expect(myGrader.simpleAdd).toBeDefined()
 
             it "adds an equivalent test", ->
-                myGrader.addTest "2-2", "this should always fail",  5, {I: {1: {0: false}}, O: {2: {}}}, {O: {2: {0: true}}}
-                myGrader.simpleAdd "2-2", "this should always fail", 5, {0:false}, {}, {0:true}
-                expect(myGrader.problems["2-2"].tests.length).toBe 2
-                expect(myGrader.problems["2-2"].tests[1]()).toEqual myGrader.problems["2-2"].tests[0]()
+                myGrader.addTest "2-02", "this should always fail",  5, {I: {1: {0: false}}, O: {2: {}}}, {O: {2: {0: true}}}
+                myGrader.simpleAdd "2-02", "this should always fail", 5, {0:false}, {}, {0:true}
+                expect(myGrader.problems["2-02"].tests.length).toBe 2
+                expect(myGrader.problems["2-02"].tests[1]()).toEqual myGrader.problems["2-02"].tests[0]()
 
-                myGrader.addTest "2-1", "this should always pass", 5, {I: {1: {0: true}}}, {}
-                myGrader.simpleAdd "2-1", "this should always pass", 5, {0:true}, {}, {}
+                myGrader.addTest "2-01", "this should always pass", 5, {I: {1: {0: true}}}, {}
+                myGrader.simpleAdd "2-01", "this should always pass", 5, {0:true}, {}, {}
 
-                expect(myGrader.problems["2-1"].tests[1]()).toEqual myGrader.problems["2-1"].tests[0]()
+                expect(myGrader.problems["2-01"].tests[1]()).toEqual myGrader.problems["2-01"].tests[0]()
                 
 
         describe "testReport", ->
             myGrader = null
+            report = null
 
             beforeEach ->
                 myGrader = new Grader submissionPath
+                report = myGrader.testReport true, "hey", 5, "ho"
 
             it "exists", ->
-                expect(myGrader.testReport).toBeDefined()
+                expect(typeof myGrader.testReport).toEqual "function"
 
-            it "returns an object with result and feedback keys", ->
-                report = myGrader.testReport true, "hey", 5
-                expect(report).toEqual {result: true, feedback: "hey", points: 5}
+            it "returns an object with result key boolean", ->
+                expect(typeof report.result).toEqual "boolean"
+
+            it "returns an object with feedback string", ->
+                expect(typeof report.feedback).toEqual "string"
+
+            it "returns an object with debug string", ->
+                expect(typeof report.debug).toEqual "string"
 
         describe "addOrTest", ->
             myGrader = null
@@ -117,16 +124,16 @@
                 myGrader.initializeProblems()
 
             it "adds a test that passes when any give condition set is true", ->
-                myGrader.addOrTest("2-2", "output O:2/0 should be on if I:1/0 is on or off", 5, [{I: {1: {0:true}}}, {I: {1: {0:false}}}], [{O: {2: {0:true}}}, {O: {2: {0:true}}}])
-                expect(myGrader.problems["2-2"].tests[0]().result).toBe true
+                myGrader.addOrTest("2-02", "output O:2/0 should be on if I:1/0 is on or off", 5, [{I: {1: {0:true}}}, {I: {1: {0:false}}}], [{O: {2: {0:true}}}, {O: {2: {0:true}}}])
+                expect(myGrader.problems["2-02"].tests[0]().result).toBe true
 
             it "pushes a test that returns a test report", ->
                 failDescription = "nothing to see here"
                 points = 5
-                myGrader.addOrTest("2-2", failDescription, points, [{I: {1: {0:false}}}], [{O: {2: {0:true}}}])
-                myGrader.addOrTest("2-2", failDescription, points, [{I: {1: {0:false}}}], [{O: {2: {0:false}}}])
-                expect(myGrader.problems["2-2"].tests[0]()).toEqual myGrader.testReport false, failDescription, points
-                expect(myGrader.problems["2-2"].tests[1]()).toEqual myGrader.testReport true,  "Good!", points
+                myGrader.addOrTest("2-02", failDescription, points, [{I: {1: {0:false}}}], [{O: {2: {0:true}}}])
+                myGrader.addOrTest("2-02", failDescription, points, [{I: {1: {0:false}}}], [{O: {2: {0:false}}}])
+                expect(myGrader.problems["2-02"].tests[0]()).toEqual myGrader.testReport false, failDescription, points
+                expect(myGrader.problems["2-02"].tests[1]()).toEqual myGrader.testReport true,  "Good!", points
 
         describe "run", ->
             myGrader = null
@@ -150,8 +157,8 @@
                 beforeEach -> 
                     myGrader = new Grader submissionPath
                     myGrader.initializeProblems()
-                    myGrader.addTest "1-1a", "this passes", 15, {}, {}
-                    myGrader.addTest "1-2", "this fails", 5, {}, {hey:"ho"}
+                    myGrader.addTest "1-01a", "this passes", 15, {}, {}
+                    myGrader.addTest "1-02", "this fails", 5, {}, {hey:"ho"}
                     myGrader.run()
                 
                 it "sets max equal to total possible points", ->
