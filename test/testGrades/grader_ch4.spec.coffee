@@ -79,7 +79,7 @@ describe "Grader_ch4", ->
 
         beforeEach ->
             myGrader = new Grader4 submissionPath
-            fs.writeFile "./chapter4Feedback.txt", myGrader.feedback
+            fs.writeFile "./test/testGrades/chapter4Feedback.txt", myGrader.feedback
 
         it "returns the right grade", ->
             expect(myGrader.grade).toBe expectedGrade
