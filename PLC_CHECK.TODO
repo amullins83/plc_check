@@ -628,6 +628,11 @@
          Create Grader_ch8:
          Run against a few actual labs:
          Make script to automatically grade all submissions:
+         Make script to automatically rename all submissions:
+             ☐ Convert #{chapter}.#{problem}.rsl to #{chapter}-#{problem}.rsl
+             ☐ Convert capitals to lowercase
+             ☐ Add leading zero to single-digit problem numbers
+             ☐ Remove leading text (Chapter 7-11.rsl becomes 7-11.rsl)
              
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
