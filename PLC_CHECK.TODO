@@ -607,6 +607,10 @@
          Test Logical:
          Test Timer:
          Test Counter:
+         Test One-shot:
+             ☐ Sample rung
+             ☐ Test code
+             ☐ Refactor
          Test Compare:
              ☐ Test LES
              ☐ Test LEQ
@@ -618,7 +622,6 @@
 
      System:
          Grader Class:
-             ☐ Have addTest return the resulting dataTable
          Create Grader_ch1_2:
          Create Grader_ch4:
          Create Grader_ch5:
@@ -633,10 +636,50 @@
              ☐ Convert capitals to lowercase
              ☐ Add leading zero to single-digit problem numbers
              ☐ Remove leading text (Chapter 7-11.rsl becomes 7-11.rsl)
-             
+     
+     Refactoring:
+         Scripts:
+             ☐ Move find to a separate folder
+             ☐ Move each REPL script to a separate file
+             ☐ Make REPL scripts object-oriented
+
+         RSLParser:
+             Replace static method interface with object oriented:
+                 RSLParser main:
+                     ☐ Pull functionMap keys and values from included files instead of hard-coding here
+                     ☐ ProgramText and DataTable member variables
+                     ☐ Utilize DataTable class
+                 ☐ Inputs
+                 ☐ Outputs
+                 ☐ Branches
+                 ☐ Timers and Counters
+                 ☐ Logical blocks
+                 ☐ Start / End
+                 ☐ One-shot
+                 ☐ Comparisons
+                 Grader:
+                     ☐ Create multi-part problem method to automatically generate related a/b code
+Web Interface:
+    ☐ Bootstrap
+    ☐ Karma setup
+    ☐ Heroku setup
+    ☐ MongoLabs or whatever
+    ☐ s3 bucket
+    ☐ Student login
+    ☐ Uploader
+    Response to upload:
+        ☐ Unzip
+        ☐ Rename
+        ☐ Grade
+        ☐ Show feedback
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✘ Have addTest return the resulting dataTable @cancelled (13-06-12 01:41)
+ ✔ Convert #{chapter}.#{problem}.rsl to #{chapter}-#{problem}.rsl @done (13-06-12 01:41)
+ ✔ Convert capitals to lowercase @done (13-06-12 01:41)
+ ✔ Add leading zero to single-digit problem numbers @done (13-06-12 01:41)
+ ✔ Remove leading text (Chapter 7-11.rsl becomes 7-11.rsl) @done (13-06-12 01:41)
  ✔ Refactor with lessons learned (simpleAdd, etc.) @done (13-06-10 23:11)
  ✔ Create grader_ch5.coffee @done (13-06-11 16:08)
  ✔ Create grader_ch5.spec.coffee @done (13-06-11 16:08)
