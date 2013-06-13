@@ -4,7 +4,7 @@
     process.env.test = true
 
     describe "Find", ->
-        Find = require("../../models/RSLParser/find.coffee")
+        Find = require("../../models/find.coffee")
     
         testArray = [
             {

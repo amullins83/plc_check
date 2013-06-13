@@ -7,7 +7,7 @@
     DataTable = require "../models/dataTable.coffee"
     fs = require "fs"
     Grader = require "./grader.coffee"
-    Find = require "../models/RSLParser/find.coffee"
+    Find = require "../models/find.coffee"
 
     class Grader_ch8 extends Grader
         constructor: (@folderPath)->

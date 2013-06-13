@@ -1,7 +1,7 @@
 (->
     "use strict"
 
-    Find = require "./find.coffee"
+    Find = require "../find.coffee"
 
     class RSLOutput
         constructor: ->

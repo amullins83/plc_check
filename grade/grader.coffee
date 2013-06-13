@@ -2,7 +2,7 @@
     "use strict"
     fs = require "fs"
     RSLParser = require "../models/RSLParser.coffee"
-    Find = require "../models/RSLParser/find.coffee"
+    Find = require "../models/find.coffee"
     DataTable = require "../models/dataTable.coffee"
 
     class Grader
