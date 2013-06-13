@@ -1,4 +1,6 @@
 submissions
 node_modules
+node_modules/*
+node_modules/**/*
 plc.sublime-project
 plc.sublime-workspace
