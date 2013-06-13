@@ -4,3 +4,5 @@ node_modules/*
 node_modules/**/*
 plc.sublime-project
 plc.sublime-workspace
+node_modules/.bin/*
+node_modules/angular/*
