@@ -6,7 +6,7 @@
     describe "RSLParser", ->
         
         RSLParser = require "../../models/RSLParser.coffee"
-        Find = require "../../models/RSLParser/find.coffee"
+        Find = require "../../models/find.coffee"
         DataTable = require "../../models/dataTable.coffee"
         fs = require "fs"
         RSLCounterTimer = require "../../models/RSLParser/RSLCounterTimer.coffee"

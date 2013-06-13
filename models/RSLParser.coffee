@@ -1,7 +1,7 @@
 (->
 
     "use strict"
-    Find = require "./RSLParser/find.coffee"
+    Find = require "./find.coffee"
     RSLStartEnd = require "./RSLParser/RSLStartEnd.coffee"
     RSLInput = require "./RSLParser/RSLInput.coffee"
     RSLOutput = require "./RSLParser/RSLOutput.coffee"
