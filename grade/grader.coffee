@@ -137,7 +137,7 @@
 
         runThroughTwice: (problem, firstInput, secondInput)->
             =>
-                initialDataTable = new DataTable
+                initialDataTable = new DataTable()
                 for bit, value of firstInput
                     initialDataTable.I[1][bit] = value
     
@@ -147,6 +147,17 @@
                     intermediateDataTable.I[1][bit] = value
     
                 return RSLParser.runRoutine @problems[problem].submission, intermediateDataTable
+
+        runThroughXtimes: (problem, inputArray)->
+            =>
+                dt = new DataTable()
+
+                for inputObject in inputArray
+                    for bit, value of inputObject
+                        dt.I[1][bit] = value
+                    dt = RSLParser.runRoutine @problems[problem].submission, dt
+
+                return dt
 
     module.exports = Grader
 ).call this

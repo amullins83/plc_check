@@ -4,6 +4,7 @@
     Grader = require "../../grade/Grader.coffee"
     Find = require "../../models/find.coffee"
     DataTable = require "../../models/dataTable.coffee"
+    RSLParser = require "../../models/RSLParser.coffee"
     fs = require "fs"
 
     describe "Grader", ->
@@ -185,5 +186,74 @@
 
                 it "sets score equal to total points earned", ->
                     expect(myGrader.score).toBe 15
+
+        describe "runThroughTwice", ->
+            
+            describe 'returns a function', ->
+                myGrader = firstInput = secondInput = programText = null
+
+                beforeEach ->
+                    myGrader = new Grader submissionPath
+                    firstInput = {0:true, 1:false}
+                    secondInput = {0:false, 1:true}
+                    programText = """
+                        SOR,0 XIO,I:1/0 XIC,O:2/1 OTE,O:2/0 EOR,0
+                        SOR,1 XIO,I:1/1 XIO,O:2/0 OTE,O:2/1 EOR,1
+                        SOR,2 END,2
+                    """
+                    myGrader.problems = 
+                        test:
+                            submission: programText
+                            tests: []
+                    
+                
+                it ".", ->
+                    expect(typeof myGrader.runThroughTwice("test", firstInput, secondInput)).toBe "function"
+
+                it "that runs through the program twice", ->
+                    runThrough = myGrader.runThroughTwice("test", firstInput, secondInput)
+
+                    initialDataTable = new DataTable()
+                    for bit, value of firstInput
+                        initialDataTable.I[1][bit] = value
+
+                    intermediateDataTable = RSLParser.runRoutine programText, initialDataTable
+
+                    for bit, value of secondInput
+                        intermediateDataTable.I[1][bit] = value
+
+                    finalDataTable = RSLParser.runRoutine programText, intermediateDataTable
+
+                    expect(runThrough()).toEqual finalDataTable
+
+        describe "runThroughXtimes", ->
+            
+            describe 'returns a function', ->
+                myGrader = inputArray = programText = null
+                
+                beforeEach ->
+                    myGrader = new Grader submissionPath
+                    inputArray = ({0: i % 2 == 0} for i in [0...50])
+                    programText = "SOR,0 XIC,I:1/0 CTU,C5:0,50 EOR,0 SOR,1 END,1"
+                    myGrader.problems = 
+                        test:
+                            submission: programText
+                            tests: []
+                    
+                
+                it ".", ->
+                    expect(typeof myGrader.runThroughXtimes("test", inputArray)).toBe "function"
+
+                it "that runs through the program n times (with n=50)", ->
+                    runThrough = myGrader.runThroughXtimes("test", inputArray)
+
+                    dt = new DataTable()
+                    
+                    for inputObject in inputArray
+                        dt.I[1] = inputObject
+    
+                        dt = RSLParser.runRoutine programText, dt
+
+                    expect(runThrough()).toEqual dt
 
 ).call this
