@@ -29,7 +29,7 @@ autoRenameAll = exports.autoRenameAll = ->
     
     replacements =
         dotsToDashes:
-            regex   : /(\d+)\.(\w+)\.rsl/
+            regex   : /(\d+)\.([\(\)\w]+)\.rsl/
             replace : "$1-$2.rsl"
     
         toLowerCase:
@@ -41,8 +41,12 @@ autoRenameAll = exports.autoRenameAll = ->
             replace : "$1-"
     
         addZeros:
-            regex   : /-(\d)([A-Za-z]?)\.rsl/
+            regex   : /-(\d)\(?([A-Za-z]?)\)?\.rsl/
             replace : "-0$1$2.rsl"
+
+        removeParens:
+            regex   : /\((\w+)\)/
+            replace : "$1"
 
     chapters = fs.readdirSync("./submissions")
 
