@@ -352,8 +352,10 @@
             @simpleAdd "6-34", "O:2/0 turns on when I:1/0 is on", 3, {0:true, 1:true}, {0:false}, {0:true}
             @simpleAdd "6-34", "O:2/0 turns off when I:1/1 is off", 2, {0:false, 1:false}, {0:true}, {0:false}
             @simpleAdd "6-34", "O:2/1 turns on when O:2/0 on and I:1/2 on", 3, {0:false, 1:true, 2:true}, {0:true}, {1:true}
+
             @addOrTest "6-34", "O:2/2 turns on when O:2/1 on", 3, [{I: {1: {0:false, 1:true, 2:true, 3:true}}, O:{2: {0:true, 1:true}}}, {I: {1: {0:false, 1:true, 2:true, 3:false}}, O:{2: {0:true, 1:true}}}], [{O:{2: {2:true}}},{O:{2:{2:true}}}]
             @addOrTest "6-34", "O:2/3 and O:2/4 turn on when O:2/1 off and I:1/4 on", 4, [{I: {1:{0:false, 1:false, 2:false, 3:false, 4:true}}}, {I: {1:{0:false, 1:false, 2:false, 3:true, 4:true}}}], [{O: {2:{3:true, 4:true}}},{O: {2:{3:true, 4:true}}}]
+
         
     module.exports = Grader_ch6
 ).call this
