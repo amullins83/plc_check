@@ -135,6 +135,25 @@
                 expect(myGrader.problems["2-02"].tests[0]()).toEqual myGrader.testReport false, failDescription, points
                 expect(myGrader.problems["2-02"].tests[1]()).toEqual myGrader.testReport true,  "Good!", points
 
+        describe "simpleAddOr", ->
+            myGrader = null
+
+            beforeEach ->
+                myGrader = new Grader submissionPath
+                myGrader.initializeProblems()
+
+            it "adds an equivalent OR test", ->
+                myGrader.addOrTest "2-02", "this should always fail",  5, [{I: {1: {0: false}}, O: {2: {}}}, {I: {1: {1:false}}, O: {2: {}}}], [{O: {2: {0: true}}}, {O: {2: {0:true}}}]
+                myGrader.simpleAddOr "2-02", "this should always fail", 5, [{0:false}, {1:false}], [{}, {}], [{0:true}, {0:true}]
+                expect(myGrader.problems["2-02"].tests.length).toBe 2
+                expect(myGrader.problems["2-02"].tests[1]()).toEqual myGrader.problems["2-02"].tests[0]()
+
+                myGrader.addOrTest "2-01", "this should always pass", 5, [{I: {1: {0: true}}}, {I: {1: {0:false}}}], [{}, {}]
+                myGrader.simpleAdd "2-01", "this should always pass", 5, [{0:true}, {0:false}], [{},{}], [{},{}]
+
+                expect(myGrader.problems["2-01"].tests[1]()).toEqual myGrader.problems["2-01"].tests[0]()
+             
+
         describe "run", ->
             myGrader = null
 

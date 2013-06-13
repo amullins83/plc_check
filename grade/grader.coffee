@@ -93,22 +93,22 @@
                     else
                         return @testReport false, description, points
 
-        addSimpleTest: (name, description, points, inputArray, outputArray)->
-            dt_in =
-                I:
-                    1:{}
+        simpleAddOr: (problem, description, points, inputArray, initOutputArray, finalOutputArray)->
+            orTestInitialTable = []
+            orTestFinalTable = []
 
-            if inputArray?
-                for value, bit in inputArray
-                    dt_in.I[1][bit] = value
+            for inputObject, index in inputArray
+                orTestInitialTable.push {I: {1: inputObject}}
+                if initOutputArray? and initOutputArray[index]?
+                    orTestInitialTable[index].O = {2: initOutputArray[index]}
+                else
+                    orTestInitialTable[index].O = {2: {}}
+                if finalOutputArray? and finalOutputArray[index]?
+                    orTestFinalTable.push {O: {2: finalOutputArray[index]}}
+                else
+                    orTestFinalTable.push {O: {2: {}}}
 
-            dt_out = {}
-            if outputArray?
-                for bit in outputArray
-                    dt_out.O = dt_out.O || {2: {}}
-                    dt_out.O[2][bit] = true
-
-            @addTest name, description, points, dt_in, dt_out
+            @addOrTest problem, description, points, orTestInitialTable, orTestFinalTable
 
         testReport: (result, feedback, points, debug)->
             {result:result, feedback:feedback, points:points, debug: debug}
