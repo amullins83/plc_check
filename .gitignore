@@ -2,3 +2,13 @@ submissions
 node_modules
 plc.sublime-project
 plc.sublime-workspace
+*.sh
+*.exe
+*.cpp
+*.txt
+Procfile
+Homework
+.sass-cache
+.grunt
+karma.conf.js
+Gruntfile.js
