@@ -287,9 +287,9 @@
         # SOR,0 XIC,I:1/0 BST,1 XIC,I:1/1 NXB,1 XIC,O:2/0 BND,1 XIO,I:1/2 XIO,O:2/1 BST,1 OTE,O:2/0 NXB,1 OTE,O:2/2 BND,1 EOR,0
         # SOR,1 XIC,I:1/0 BST,1 XIC,I:1/2 NXB,1 XIC,O:2/1 BND,1 XIO,I:1/1 XIO,O:2/0 BST,1 OTE,O:2/1 NXB,1 OTE,O:2/3 BND,1 EOR,1
 
-            @simpleAdd "6-27", "forward starts when fwd button pressed", 4, {0:true, 1:true, 2:false}, {0:false, 1:false}, {0:true, 1:false}
-            @simpleAdd "6-27", "reverse starts when rev button pressed", 4, {0:true, 1:false, 2:true}, {0:false, 1:false}, {0:false, 1:true}
-            @simpleAdd "6-27", "stop button stops everything", 8, {0:false}, {0:true, 1:true}, {0:false, 1:false}
+            @addOrTest "6-27", "forward starts when fwd button pressed", 4, [{I: {1:{0:true, 1:true, 2:false}}, O: {2: {0:false, 1:false}}}, {I: {1:{0:true, 1:true, 2:false, 3:true}}, O: {2: {0:false, 1:false}}}], [{O: {2: {0:true, 1:false}}},{O: {2: {0:true, 1:false}}}]
+            @addOrTest "6-27", "reverse starts when rev button pressed", 4, [{I: {1: {0:true, 1:false, 2:true}}, O: { 2: {0:false, 1:false}}}, {I: {1: {0:true, 1:false, 2:true, 3:true}}, O: { 2: {0:false, 1:false}}}], [{O: {2:{0:false, 1:true}}}, {O: {2:{0:false, 1:true}}}]
+            @addOrTest "6-27", "stop button stops everything", 8, [{I: {1: {0:false}}, O: {2: {0:true, 1:true}}}, {I: {1: {0:false, 3:true}}, O: {2: {0:true, 1:true}}}], [{O: {2: {0:false, 1:false}}}, {O: {2: {0:false, 1:false}}}]
 
         add_28: ->
         # 6-28.rsl
@@ -352,8 +352,10 @@
             @simpleAdd "6-34", "O:2/0 turns on when I:1/0 is on", 3, {0:true, 1:true}, {0:false}, {0:true}
             @simpleAdd "6-34", "O:2/0 turns off when I:1/1 is off", 2, {0:false, 1:false}, {0:true}, {0:false}
             @simpleAdd "6-34", "O:2/1 turns on when O:2/0 on and I:1/2 on", 3, {0:false, 1:true, 2:true}, {0:true}, {1:true}
-            @simpleAdd "6-34", "O:2/2 turns on when O:2/1 on and I:1/3 on", 3, {0:false, 1:true, 2:true, 3:true}, {0:true, 1:true}, {2:true}
-            @simpleAdd "6-34", "O:2/3 and O:2/4 turn on when O:2/1 and I:1/3 off and I:1/4 on", 4, {0:false, 1:false, 2:false, 3:false, 4:true}, {}, {3:true, 4:true}
+
+            @addOrTest "6-34", "O:2/2 turns on when O:2/1 on", 3, [{I: {1: {0:false, 1:true, 2:true, 3:true}}, O:{2: {0:true, 1:true}}}, {I: {1: {0:false, 1:true, 2:true, 3:false}}, O:{2: {0:true, 1:true}}}], [{O:{2: {2:true}}},{O:{2:{2:true}}}]
+            @addOrTest "6-34", "O:2/3 and O:2/4 turn on when O:2/1 off and I:1/4 on", 4, [{I: {1:{0:false, 1:false, 2:false, 3:false, 4:true}}}, {I: {1:{0:false, 1:false, 2:false, 3:true, 4:true}}}], [{O: {2:{3:true, 4:true}}},{O: {2:{3:true, 4:true}}}]
+
         
     module.exports = Grader_ch6
 ).call this
