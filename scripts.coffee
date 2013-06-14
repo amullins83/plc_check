@@ -1,6 +1,6 @@
 "use strict"
 fs = require "fs"
-Find = require "./models/RSLParser/find.coffee"
+Find = require "./models/find.coffee"
 
 filePath = (path, name)->
     return path + "/" + name
