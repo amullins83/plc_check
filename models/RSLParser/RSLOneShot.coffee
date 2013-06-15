@@ -5,19 +5,30 @@
         constructor: ->
     
         @OSR: (matchValues, dataTable)->
-            [matchText, file, rank, bit] = matchValues
-            if dataTable[file][rank][bit]
-                return false
-            else
-                dataTable[file][rank][bit] = true
-                dataTable["oneShots"] = dataTable["oneShots"] || []
-                findObject = {file:file, rank:rank, bit:bit}
-                foundOneShots = dataTable["oneShots"].find findObject
-                if foundOneShots.length == 0
-                    dataTable["oneShots"].push {file: file, rank: rank, bit: bit, active: true}
+            [matchText, file, rankString, bitString] = matchValues
+            rank = parseInt(rankString, 10)
+            bit = parseInt(bitString, 10)
+
+            dataTable[file] = dataTable[file] || {}
+            dataTable[file][rank] = dataTable[file][rank] || {}
+            dataTable[file][rank][bit] = dataTable[file][rank][bit] || false
+
+            if dataTable.rungOpen and (dataTable.activeBranch == 0 or (dataTable.branches[dataTable.activeBranch - 1].onTopLine and dataTable.branches[dataTable.activeBranch - 1].topLine) or (not dataTable.branches[dataTable.activeBranch - 1].onTopLine and dataTable.branches[dataTable.activeBranch - 1].bottomLine))
+                if dataTable[file][rank][bit] == true
+                    if dataTable.activeBranch != 0
+                        branch = dataTable.branches[dataTable.activeBranch - 1]
+                        if branch.onTopLine?
+                            branch.topLine = false
+                        else
+                            branch.bottomLine = false
+                    else
+                        dataTable.rungOpen = false
                 else
-                    dataTable["oneShots"].update findObject, {file: file, rank: rank, bit: bit, active:true}
-                return dataTable
+                    dataTable[file][rank][bit] = true
+            else
+                dataTable[file][rank][bit] = false
+
+            return dataTable
 
     module.exports = RSLOneShot
 ).call this
