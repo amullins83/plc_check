@@ -287,7 +287,7 @@
         # SOR,0 XIC,I:1/0 BST,1 XIC,I:1/1 NXB,1 XIC,O:2/0 BND,1 XIO,I:1/2 XIO,O:2/1 BST,1 OTE,O:2/0 NXB,1 OTE,O:2/2 BND,1 EOR,0
         # SOR,1 XIC,I:1/0 BST,1 XIC,I:1/2 NXB,1 XIC,O:2/1 BND,1 XIO,I:1/1 XIO,O:2/0 BST,1 OTE,O:2/1 NXB,1 OTE,O:2/3 BND,1 EOR,1
 
-            @addOrTest "6-27", "forward starts when fwd button pressed", 4, [{I: {1:{0:true, 1:true, 2:false}}, O: {2: {0:false, 1:false}}}, {I: {1:{0:true, 1:true, 2:false, 3:true}}, O: {2: {0:false, 1:false}}}], [{O: {2: {0:true, 1:false}}},{O: {2: {0:true, 1:false}}}]
+            @addOrTest "6-27", "forward starts when fwd button pressed", 4, [{I: {1: {0:true, 1:true, 2:false}}, O: {2: {0:false, 1:false}}}, {I: {1:{0:true, 1:true, 2:false, 3:true}}, O: {2: {0:false, 1:false}}}], [{O: {2: {0:true, 1:false}}},{O: {2: {0:true, 1:false}}}]
             @addOrTest "6-27", "reverse starts when rev button pressed", 4, [{I: {1: {0:true, 1:false, 2:true}}, O: { 2: {0:false, 1:false}}}, {I: {1: {0:true, 1:false, 2:true, 3:true}}, O: { 2: {0:false, 1:false}}}], [{O: {2:{0:false, 1:true}}}, {O: {2:{0:false, 1:true}}}]
             @addOrTest "6-27", "stop button stops everything", 8, [{I: {1: {0:false}}, O: {2: {0:true, 1:true}}}, {I: {1: {0:false, 3:true}}, O: {2: {0:true, 1:true}}}], [{O: {2: {0:false, 1:false}}}, {O: {2: {0:false, 1:false}}}]
 
