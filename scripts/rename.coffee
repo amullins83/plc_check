@@ -2,7 +2,6 @@
 
     "use strict"
     fs = require "fs"
-    Find = require "./models/find.coffee"
     
     filePath = (path, name)->
         return path + "/" + name
