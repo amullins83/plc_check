@@ -296,10 +296,10 @@
         # SOR,0 XIO,I:1/0 XIC,I:1/2 BST,1 XIC,I:1/1 NXB,1 XIC,O:2/0 BND,1 XIO,I:1/5 OTE,O:2/0 EOR,0
         # SOR,1 XIO,I:1/0 XIC,I:1/4 BST,1 XIC,I:1/3 NXB,1 XIC,O:2/1 BND,1 XIO,I:1/6 OTE,O:2/1 EOR,1
 
-            @simpleAdd "6-28", "output O:2/0 turns on if start button pressed, master stop is off, and overload is off", 4, {0:false, 1:true, 2:true, 5:false}, {0:false}, {0:true}
-            @simpleAdd "6-28", "outputs can be stopped by master stop", 3, {0:true}, {0:true, 1:true}, {0:false, 1:false}
-            @simpleAdd "6-28", "output O:2/1 turns on if start button pressed, master stop is off, and overload is off", 4, {0:false, 3:true, 4:true, 6:false}, {1:false}, {1:true}
-            @simpleAdd "6-28", "output can be stopped by overload on", 3, {5:true, 6:true}, {0:true, 1:true}, {0:false, 1:false}
+            @simpleAddOr "6-28", "output O:2/0 turns on if start button pressed, master stop is off, and overloads are ok", 4, [{1:true, 2:true, 5:false, 6:false}, {0:true, 1:true, 2:true, 5:false, 6:false}, {0:false, 1:true, 2:true, 5:true, 6:true}, {0:true, 1:true, 2:true, 5:true, 6:true}], [{0:false}, {0:false}, {0:false}, {0:false}], [{0:true}, {0:true}, {0:true}, {0:true}]
+            @simpleAddOr "6-28", "outputs can be stopped by master stop", 3, [{0:true, 2:true, 4:true}, {0:true, 2:true, 4:true, 5:true, 6:true}, {2:true, 4:true}, {2:true, 4:true, 5:true, 6:true}], [{0:true, 1:true}, {0:true, 1:true}, {0:true, 1:true}, {0:true, 1:true}], [{0:false, 1:false}, {0:false, 1:false}, {0:false, 1:false}, {0:false, 1:false}]
+            @simpleAddOr "6-28", "output O:2/1 turns on if start button pressed, master stop is off, and overloads are ok", 4, [{3:true, 4:true}, {3:true, 4:true, 5:true, 6:true}, {0:true, 3:true, 4:true}, {0:true, 3:true, 4:true, 5:true, 6:true}], [{}, {}, {}, {}], [{1:true}, {1:true}, {1:true}, {1:true}]
+            @simpleAddOr "6-28", "output can be stopped by overloads failing", 3, [{2:true, 4:true, 5:true, 6:true}, {2:true, 4:true}, {0:true, 2:true, 4:true, 5:true, 6:true}, {0:true, 2:true, 4:true}], [{0:true, 1:true}, {0:true, 1:true}, {0:true, 1:true}, {0:true, 1:true}], [{0:false, 1:false}, {0:false, 1:false}, {0:false, 1:false}, {0:false, 1:false}]
 
         add_29: ->
         # 6-29.rsl

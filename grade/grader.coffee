@@ -25,6 +25,7 @@
         run: ->
             @score = @max = 0
             for problemName, problem of @problems
+                failedAny = false
                 for test in problem.tests
                     {result:result, feedback:feedback, points:points} = test()
                     @max += points
@@ -32,14 +33,22 @@
                         @score += points
                     else
                         @feedback += "#{problemName}: Make sure #{feedback}. -#{points} \n"
+                        failedAny = true
+                if failedAny
+                    @feedback += "\n"
             @grade = Math.floor @score/(@max * 1.0)*100
 
         addTest: (problem, description, points, testInput, testOutput)->
             @problems[problem] = @problems[problem] || {submission: "", tests:[]}
 
             if @problems[problem].submission == ""
-                @problems[problem].tests.push =>
-                    return @testReport false, "to include this problem in your submission", points
+                if @problems[problem].tests.length == 0
+                    @problems[problem].tests.push =>
+                        return @testReport false, "to include this problem in your submission", points
+                else
+                    oldPoints = @problems[problem].tests[0]().points
+                    @problems[problem].tests[0] = =>
+                        return @testReport false, "to include this problem in your submission", oldPoints + points
             else
                 @problems[problem].tests.push =>
                     if typeof testInput == "function"
