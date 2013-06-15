@@ -608,8 +608,8 @@
          Test Timer:
          Test Counter:
          Test One-shot:
-             ☐ Sample rung
-             ☐ Test code
+             ✔ Sample rung @done (13-06-15 00:02)
+             ✔ Test code @done (13-06-15 00:02)
              ☐ Refactor
          Test Compare:
              ☐ Test LES
