@@ -10,7 +10,7 @@ models.ready ->
 
 exports.name = (req, res)->
   res.json
-  	name: 'TSTC Leadership Institute'
+  	name: 'PLC Grader'
 
 renderJSON = (res)->
 	(err, objects)->
