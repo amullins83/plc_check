@@ -2,7 +2,6 @@
     "use strict"
 
     RSLBranch = require "./RSLParser/RSLBranch.coffee"
-    RSLStartEnd = require "./RSLParser/RSLStartEnd.coffee"
 
     class DataTable
         constructor: (inputTrue)->
