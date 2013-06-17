@@ -662,8 +662,8 @@
 Web Interface:
     ✔ Bootstrap @done (13-06-17 10:43)
     ☐ Karma setup
-    ☐ Heroku setup
-    ☐ MongoLabs or whatever
+    ✔ Heroku setup @done (13-06-17 15:27)
+    ✔ MongoLabs or whatever @done (13-06-17 16:17)
     ☐ s3 bucket
     ☐ Student login
     ☐ Uploader
