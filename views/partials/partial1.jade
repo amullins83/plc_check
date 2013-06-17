@@ -2,24 +2,22 @@
 	.span1
 	.span3(style="text-align:center;")
 		.row-fluid
-			h2 Choose Assignment and Submission
+			h2 Choose Chapter and Problem
 		.row-fluid
-			select(name="assignment", id="assignment")
-				option(value="") Choose an assignment...
+			select(name="chapter", id="chapter")
+				option(value="") Choose a chapter...
 				option(ng-repeat="assignment in assignments", value="{{ assignment }}") {{ assignment.name }}
 		.row-fluid
-			select(name="submission", id="submission")
-				option(value="") Choose a submission...
+			select(name="problem", id="problem")
+				option(value="") Choose a problem...
 				option(ng-repeat="submission in submissionTypes", value="{{ submission }}") {{ submission }}
-		.row-fluid(style="text-align:center") Word count: 
-			span(valid-color)
 		.row-fluid(style="text-align:center")
 			button(id="Save", name="Save", valid-button, style="margin-right:10px;") Save 
 			a(id="Post", name="Post", href="{{ selectedAssignment | activeURL }}", style="margin-left:10px;", target="_blank") Post
 		.row-fluid(style="text-align:center;", id="feedback")
 	.span7(style="text-align:center;")
-		.row-fluid
-			h2 Write your post here
-		.row-fluid
-			textarea(ng-model="text", class="tliText", autofocus)
+		//- .row-fluid
+		//- 	h2 Write your post here
+		//- .row-fluid
+		//- 	textarea(ng-model="text", class="tliText", autofocus)
 	.span1

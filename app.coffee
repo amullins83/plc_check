@@ -3,7 +3,7 @@
 express = require('express')
 routes = require('./routes')
 api = require('./routes/api')
-models = require('./models')
+#models = require('./models')
 
 app = module.exports = express()
 

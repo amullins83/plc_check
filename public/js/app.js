@@ -1,7 +1,8 @@
+(function() {
   'use strict';
 angular.module('wordCounter', ['wordCounter.filters', 'wordCounter.services', 'wordCounter.directives']).config([
     '$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
-      $routeProvider.when('/wordCount', {
+      $routeProvider.when('/uploader', {
         templateUrl: 'partial/1',
         controller: WordCountCtrl
       });
@@ -13,8 +14,9 @@ angular.module('wordCounter', ['wordCounter.filters', 'wordCounter.services', 'w
         templateUrl: 'partial/3'
       });
       $routeProvider.otherwise({
-        redirectTo: '/wordCount'
+        redirectTo: '/uploader'
       });
       return $locationProvider.html5Mode(true);
     }
   ]);
+}).call(this);
