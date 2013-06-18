@@ -115,12 +115,12 @@
         # SOR,2 XIC,T4:0/DN OTE,O:2/0 EOR,2
 
             @addTest "7-07", "timer T4:0 enables when I:1/0 and I:1/1 are on", 2, {I: {1: {0:true, 1:true}}}, {T4: {0: {en: true}}}
-            @addTest "7-07", "timer T4:0 preset is 100", 1, {I: {1: {0:true, 1:true}}}, {T4: {0: {preset: 100}}}
+            @addTest "7-07", "timer T4:0 preset is 100", 2, {I: {1: {0:true, 1:true}}}, {T4: {0: {preset: 100}}}
             @addTest "7-07", "timer T4:0 remains enabled when I:1/0 off", 2, {I: {1: {0:false, 1:true}}, T4: {0: @t4_0_timing}}, {T4: {0: {en:true}}}
             @addTest "7-07", "timer T4:0 resets when I:1/1 off", 2, {I: {1: {0:true, 1:false}}, T4: {0: @t4_0_timing}}, {T4: {0: {en:false, acc:0}}}
             @t4_0_timing = @make_t4_0_timing()
-            @addTest "7-07", "output O:2/3 turns on when timer enabled but not done", 2, {I: {1: {1:true}}, T4: {0: @t4_0_timing}, O: {2: {3:false}}}, {O: {2: {3:true}}}
-            @addTest "7-07", "output O:2/0 turns on when timer done", 2, {I: {1: {1:true}}, T4: {0: @t4_0_about_done}, O: {2: {0:false}}}, {O: {2: {0:true}}}
+            @addTest "7-07", "output O:2/3 turns on when timer enabled but not done", 3, {I: {1: {1:true}}, T4: {0: @t4_0_timing}, O: {2: {3:false}}}, {O: {2: {3:true}}}
+            
 
         add_09: ->
         # SOR,0 XIC,I:1/0 BST,1 TOF,T4:1,50 NXB,1 BST,2 TOF,T4:2,100 NXB,2 TOF,T4:3,150 BND,2 BND,1 EOR,0

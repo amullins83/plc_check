@@ -21,3 +21,8 @@ karma.conf.js
 Gruntfile.js
 submissions.zip
 *.zip
+trial
+scripts.coffee
+grade.coffee
+run.coffee
+rename.coffee

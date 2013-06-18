@@ -1,6 +1,6 @@
 .row
 	.span12
-		p This is the timeline for TLI catch-up:
+		p This is the timeline for ELMT 1201 - 4008 in Summer 2013:
 
 	table
 		thead
@@ -8,12 +8,9 @@
 				th Date
 				th Assignment
 				th Posting URL
-				th Reflection URL
 		tbody
 			tr(ng-repeat="assignment in assignments")
 				td {{ assignment.date | prettyDate }}
 				td {{ assignment.name }}
 				td 
-					a(href="{{ assignment.postURL }}") Post
-				td 
-					a(href="{{ assignment.reflectURL }}") Reflect
+					a(href="{{ assignment.postURL }}") Submit to Moodle
