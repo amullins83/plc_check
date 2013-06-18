@@ -616,7 +616,7 @@
              ✔ Test LEQ @done (13-06-16 13:28)
              ✔ Test GRT @done (13-06-16 13:28)
              ✔ Test GEQ @done (13-06-16 13:28)
-             ☐ Test LIM
+             ✔ Test LIM @done (13-06-18 14:43)
              ✔ Test EQU @done (13-06-16 13:28)
              ✔ Test NEQ @done (13-06-16 13:28)
 
@@ -632,16 +632,17 @@
          Run against a few actual labs:
          Make script to automatically grade all submissions:
          Make script to automatically rename all submissions:
-             ☐ Convert #{chapter}.#{problem}.rsl to #{chapter}-#{problem}.rsl
-             ☐ Convert capitals to lowercase
-             ☐ Add leading zero to single-digit problem numbers
-             ☐ Remove leading text (Chapter 7-11.rsl becomes 7-11.rsl)
+             ✔ Convert #{chapter}.#{problem}.rsl to #{chapter}-#{problem}.rsl @done (13-06-18 14:43)
+             ✔ Convert capitals to lowercase @done (13-06-18 14:43)
+             ✔ Add leading zero to single-digit problem numbers @done (13-06-18 14:43)
+             ✔ Remove leading text (Chapter 7-11.rsl becomes 7-11.rsl) @done (13-06-18 14:43)
+             ☐ Remove spaces
      
      Refactoring:
          Scripts:
-             ☐ Move find to a separate folder
-             ☐ Move each REPL script to a separate file
-             ☐ Make REPL scripts object-oriented
+             ✔ Move find to a separate folder @done (13-06-18 14:43)
+             ✔ Move each REPL script to a separate file @done (13-06-18 14:43)
+             ✘ Make REPL scripts object-oriented @cancelled (13-06-18 14:44)
 
          RSLParser:
              Replace static method interface with object oriented:
@@ -663,7 +664,7 @@ Web Interface:
     ✔ Bootstrap @done (13-06-17 10:43)
     ☐ Karma setup
     ✔ Heroku setup @done (13-06-17 15:27)
-    ✔ MongoLabs or whatever @done (13-06-17 16:17)
+    ✔ MongoLab or whatever @done (13-06-17 16:17)
     ☐ s3 bucket
     ☐ Student login
     ☐ Uploader
