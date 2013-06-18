@@ -1,7 +1,10 @@
 ( ->
     "use strict"
-    autoRenameAll = ->
-        
+    renameAll = require "./renameAll.coffee"
+    fs = require "fs"
+    Find = require "../models/find.coffee"
+
+    autoRenameAll = ->    
         replacements =
             dotsToDashes:
                 regex   : /(\d+)\.([\(\)\w]+)\.rsl/
@@ -22,15 +25,12 @@
             removeParens:
                 regex   : /\((\w+)\)/
                 replace : "$1"
-    
         chapters = fs.readdirSync("./submissions")
-    
         Find.filterOut(chapters, /^\./)
-    
         for chapter in chapters
             if fs.statSync("./submissions/#{chapter}").isDirectory()
                 for name, {regex: regex, replace: replace} of replacements
                     renameAll "./submissions/#{chapter}", regex, replace
 
-	module.exports = autoRenameAll 
+    module.exports = autoRenameAll 
 ).call this

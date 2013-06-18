@@ -1,5 +1,5 @@
 ( ->
     "use strict"
-    require("./autoRenameAll")()
-    require("./gradeAll")()
+    require("./autoRenameAll.coffee")()
+    require("./gradeAll.coffee")()
 ).call this
