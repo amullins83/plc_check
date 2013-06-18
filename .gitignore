@@ -20,3 +20,4 @@ Homework/*
 karma.conf.js
 Gruntfile.js
 submissions.zip
+*.zip
