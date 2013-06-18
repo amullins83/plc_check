@@ -9,6 +9,7 @@
     RSLBranch = require "./RSLParser/RSLBranch.coffee"
     RSLLogical = require "./RSLParser/RSLLogical.coffee"
     RSLCounterTimer = require "./RSLParser/RSLCounterTimer.coffee"
+    RSLComparisons = require "./RSLParser/RSLComparisons.coffee"
     
     
     class RSLParser
@@ -38,7 +39,13 @@
             , "RES,(\\w+):(\\d+)":    RSLCounterTimer.RES
             , "CTU,C5:(\\d+),(\\d+)": RSLCounterTimer.CTU
             , "CTD,C5:(\\d+),(\\d+)": RSLCounterTimer.CTD
-    
+            , "LES,(\\w+):(\\d+),(\\w+):(\\d+)": RSLComparisons.LES
+            , "GRT,(\\w+):(\\d+),(\\w+):(\\d+)": RSLComparisons.GRT
+            , "EQU,(\\w+):(\\d+),(\\w+):(\\d+)": RSLComparisons.EQU
+            , "NEQ,(\\w+):(\\d+),(\\w+):(\\d+)": RSLComparisons.NEQ
+            , "LEQ,(\\w+):(\\d+),(\\w+):(\\d+)": RSLComparisons.LEQ
+            , "GEQ,(\\w+):(\\d+),(\\w+):(\\d+)": RSLComparisons.GEQ
+            , "LIM,(\\w+):(\\d+),(\\w+):(\\d+),(\\w+):(\\d+)": RSLComparisons.LIM
     
         @execute: (instruction, dataTable)->
             for re, f of @functionMap

@@ -14,11 +14,13 @@ plc.sublime-workspace
 *.txt
 Procfile
 Homework
+Homework/*
 .sass-cache
 .grunt
 karma.conf.js
 Gruntfile.js
 submissions.zip
+*.zip
 trial
 scripts.coffee
 grade.coffee
