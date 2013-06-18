@@ -26,3 +26,5 @@ scripts.coffee
 grade.coffee
 run.coffee
 rename.coffee
+*.log
+.bashrc
