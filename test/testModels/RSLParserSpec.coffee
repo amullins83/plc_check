@@ -763,7 +763,212 @@
                 it "closes branch on the second pass", ->
                     expect(RSLParser.execute("OSR,B3:0/0", dt_branch_secondPass).branches[0].topLine).toBe false
 
+            describe "Comparisons", ->
 
+                convertToBitHash = (number)->
+                    temp = number
+                    output = {}
+                    for bit in [0...16]
+                        output[bit] = not not ((temp >> bit) & 1)
+
+
+                dt_B3_0_and_B3_1 = (B30, B31)->
+                    dt = new DataTable
+                    dt.B3 = {0: convertToBitHash(B30), 1: convertToBitHash(B31)}
+                    return dt
+
+                comparisons =
+                    LES:
+                        whenLess: true
+                        whenGreater: false
+                        whenEqual: false
+                    GRT:
+                        whenLess: false
+                        whenGreater: true
+                        whenEqual: false
+                    EQU:
+                        whenLess: false
+                        whenGreater: false
+                        whenEqual: true
+                    NEQ:
+                        whenLess: true
+                        whenGreater: true
+                        whenEqual: false
+                    LEQ:
+                        whenLess: true
+                        whenGreater: false
+                        whenEqual: true
+                    GEQ:
+                        whenLess: false
+                        whenGreater: true
+                        whenEqual: true
+
+                dt_less = ->
+                    dt_B3_0_and_B3_1 500, 5000
+                dt_greater = ->
+                    dt_B3_0_and_B3_1 5000, 500
+                dt_equal = ->
+                    dt_B3_0_and_B3_1 1000, 1000
+
+                dt_limit = ->
+                    dt = new DataTable
+                    dt.B3 = {0:convertToBitHash(100), 1: convertToBitHash(1000), 2: convertToBitHash(2000)}
+                    return dt
+
+                dt_limit_between = ->
+                    dt_limit()
+
+                dt_limit_outside = ->
+                    dt = dt_limit()
+                    dt.B3[1] = convertToBitHash(0)
+                    return dt
+
+                dt_limit_at_low = ->
+                    dt = dt_limit()
+                    dt.B3[1] = dt.B3[0]
+                    return dt
+
+                dt_limit_at_high = ->
+                    dt = dt_limit()
+                    dt.B3[1] = dt.B3[2]
+                    return dt
+
+                dt_circleLimit_at_low = ->
+                    dt = new DataTable
+                    dt.B3 = {0:convertToBitHash(2000), 1:convertToBitHash(100), 2:convertToBitHash(100)}
+                    return dt
+
+                dt_circleLimit_outside = ->
+                    dt = dt_circleLimit_at_low()
+                    dt.B3[1] = convertToBitHash(0)
+                    return dt
+
+                dt_circleLimit_inside = ->
+                    dt = dt_circleLimit_at_low()
+                    dt.B3[1] = convertToBitHash(1000)
+                    return dt
+
+                dt_circleLimit_at_high = ->
+                    dt = dt_circleLimit_at_low()
+                    dt.B3[1] = convertToBitHash(2000)
+                    return dt
+
+                describe "LES", ->
+                        comparison = "LES"
+                        whenLess = comparisons[comparison].whenLess
+                        whenGreater = comparisons[comparison].whenGreater
+                        whenEqual = comparisons[comparison].whenEqual
+    
+                        it "is #{whenLess} if source A less than source B", ->
+                            expect(RSLParser.execute("#{comparison},B3:0,B3:1", dt_less()).rungOpen).toBe whenLess
+    
+                        it "is #{whenGreater} if source A greater than source B", ->
+                            expect(RSLParser.execute("#{comparison},B3:0,B3:1", dt_greater()).rungOpen).toBe whenGreater
+    
+                        it "is #{whenEqual} if source A equal to source B", ->
+                            expect(RSLParser.execute("#{comparison},B3:0,B3:1", dt_equal()).rungOpen).toBe whenEqual
+
+                describe "GRT", ->
+                        comparison = "GRT"
+                        whenLess = comparisons[comparison].whenLess
+                        whenGreater = comparisons[comparison].whenGreater
+                        whenEqual = comparisons[comparison].whenEqual
+    
+                        it "is #{whenLess} if source A less than source B", ->
+                            expect(RSLParser.execute("#{comparison},B3:0,B3:1", dt_less()).rungOpen).toBe whenLess
+    
+                        it "is #{whenGreater} if source A greater than source B", ->
+                            expect(RSLParser.execute("#{comparison},B3:0,B3:1", dt_greater()).rungOpen).toBe whenGreater
+    
+                        it "is #{whenEqual} if source A equal to source B", ->
+                            expect(RSLParser.execute("#{comparison},B3:0,B3:1", dt_equal()).rungOpen).toBe whenEqual
+
+                describe "EQU", ->
+                        comparison = "EQU"
+                        whenLess = comparisons[comparison].whenLess
+                        whenGreater = comparisons[comparison].whenGreater
+                        whenEqual = comparisons[comparison].whenEqual
+    
+                        it "is #{whenLess} if source A less than source B", ->
+                            expect(RSLParser.execute("#{comparison},B3:0,B3:1", dt_less()).rungOpen).toBe whenLess
+    
+                        it "is #{whenGreater} if source A greater than source B", ->
+                            expect(RSLParser.execute("#{comparison},B3:0,B3:1", dt_greater()).rungOpen).toBe whenGreater
+    
+                        it "is #{whenEqual} if source A equal to source B", ->
+                            expect(RSLParser.execute("#{comparison},B3:0,B3:1", dt_equal()).rungOpen).toBe whenEqual
+
+                describe "NEQ", ->
+                        comparison = "NEQ"
+                        whenLess = comparisons[comparison].whenLess
+                        whenGreater = comparisons[comparison].whenGreater
+                        whenEqual = comparisons[comparison].whenEqual
+    
+                        it "is #{whenLess} if source A less than source B", ->
+                            expect(RSLParser.execute("#{comparison},B3:0,B3:1", dt_less()).rungOpen).toBe whenLess
+    
+                        it "is #{whenGreater} if source A greater than source B", ->
+                            expect(RSLParser.execute("#{comparison},B3:0,B3:1", dt_greater()).rungOpen).toBe whenGreater
+    
+                        it "is #{whenEqual} if source A equal to source B", ->
+                            expect(RSLParser.execute("#{comparison},B3:0,B3:1", dt_equal()).rungOpen).toBe whenEqual
+
+                describe "LEQ", ->
+                        comparison = "LEQ"
+                        whenLess = comparisons[comparison].whenLess
+                        whenGreater = comparisons[comparison].whenGreater
+                        whenEqual = comparisons[comparison].whenEqual
+    
+                        it "is #{whenLess} if source A less than source B", ->
+                            expect(RSLParser.execute("#{comparison},B3:0,B3:1", dt_less()).rungOpen).toBe whenLess
+    
+                        it "is #{whenGreater} if source A greater than source B", ->
+                            expect(RSLParser.execute("#{comparison},B3:0,B3:1", dt_greater()).rungOpen).toBe whenGreater
+    
+                        it "is #{whenEqual} if source A equal to source B", ->
+                            expect(RSLParser.execute("#{comparison},B3:0,B3:1", dt_equal()).rungOpen).toBe whenEqual
+
+                describe "GEQ", ->
+                        comparison = "GEQ"
+                        whenLess = comparisons[comparison].whenLess
+                        whenGreater = comparisons[comparison].whenGreater
+                        whenEqual = comparisons[comparison].whenEqual
+    
+                        it "is #{whenLess} if source A less than source B", ->
+                            expect(RSLParser.execute("#{comparison},B3:0,B3:1", dt_less()).rungOpen).toBe whenLess
+    
+                        it "is #{whenGreater} if source A greater than source B", ->
+                            expect(RSLParser.execute("#{comparison},B3:0,B3:1", dt_greater()).rungOpen).toBe whenGreater
+    
+                        it "is #{whenEqual} if source A equal to source B", ->
+                            expect(RSLParser.execute("#{comparison},B3:0,B3:1", dt_equal()).rungOpen).toBe whenEqual
+
+
+                describe "LIM", ->
+
+                    it "is true when input between low and high", ->
+                        expect(RSLParser.execute("LIM,B3:0,B3:1,B3:2", dt_limit_between()).rungOpen).toBe true
+
+                    it "is false when input less than low", ->
+                        expect(RSLParser.execute("LIM,B3:0,B3:1,B3:2", dt_limit_outside()).rungOpen).toBe false
+
+                    it "is true when input equals low", ->
+                        expect(RSLParser.execute("LIM,B3:0,B3:1,B3:2", dt_limit_at_low()).rungOpen).toBe true
+
+                    it "is true when input equal high", ->
+                        expect(RSLParser.execute("LIM,B3:0,B3:1,B3:2", dt_limit_at_high()).rungOpen).toBe true
+
+                    it "is true when input outside improper low/high", ->
+                        expect(RSLParser.execute("LIM,B3:0,B3:1,B3:2", dt_circleLimit_outside()).rungOpen).toBe true
+
+                    it "is false when input inside improper low/high", ->
+                        expect(RSLParser.execute("LIM,B3:0,B3:1,B3:2", dt_circleLimit_inside()).rungOpen).toBe false
+
+                    it "is false when input equals improper low", ->
+                        expect(RSLParser.execute("LIM,B3:0,B3:1,B3:2", dt_circleLimit_at_low()).rungOpen).toBe false
+
+                    it "is false when input equals improper high", ->
+                        expect(RSLParser.execute("LIM,B3:0,B3:1,B3:2", dt_circleLimit_at_high()).rungOpen).toBe false
 
         describe "runRung method", ->
 

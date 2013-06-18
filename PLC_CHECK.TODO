@@ -612,13 +612,13 @@
              ✔ Test code @done (13-06-15 00:02)
              ☐ Refactor
          Test Compare:
-             ☐ Test LES
-             ☐ Test LEQ
-             ☐ Test GRT
-             ☐ Test GEQ
+             ✔ Test LES @done (13-06-16 13:28)
+             ✔ Test LEQ @done (13-06-16 13:28)
+             ✔ Test GRT @done (13-06-16 13:28)
+             ✔ Test GEQ @done (13-06-16 13:28)
              ☐ Test LIM
-             ☐ Test EQU
-             ☐ Test NEQ
+             ✔ Test EQU @done (13-06-16 13:28)
+             ✔ Test NEQ @done (13-06-16 13:28)
 
      System:
          Grader Class:
