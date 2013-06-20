@@ -3,7 +3,7 @@
   "use strict";
 
 var bcryptUtils = require("./util/bcryptUtils"),
-  UserSchema = require("./userSchema"),
+  UserSchema = require("./UserSchema"),
   SocialMediaUserSchema = require("./SocialMediaUserSchema"),
   PasswordResetTokenSchema = require("./PasswordResetTokenSchema"),
   mongoose = require("mongoose"),
