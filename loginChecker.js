@@ -15,14 +15,19 @@ var connectString = "";
 if(!process.env.TEST_MODE) {
   if(typeof(process.argv[2]) !== "undefined")
     connectString = process.argv[2];
-  else if(typeof(process.env.MONGODB_CONNECT) !== "undefined")
-    connectString = process.env.MONGODB_CONNECT;
+  else if(typeof(process.env.MONGOLAB_URI) !== "undefined")
+    connectString = process.env.MONGOLAB_URI;
 }
 
 if(connectString === "")
   connectString = "mongodb://localhost:27017/login-utils-test";
 
-module.exports.mongoose = mongoose.connect(connectString);
+module.exports.mongoose = mongoose.connect(connectString, function(err, res) {
+  if(err)
+    console.log("Failed to connect");
+  else
+    console.log("Connected!");
+});
 
 var User = mongoose.model("User", UserSchema);
 var SocialMediaUser = mongoose.model("SocialMediaUser", SocialMediaUserSchema);
