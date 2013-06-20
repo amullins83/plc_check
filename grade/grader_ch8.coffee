@@ -108,15 +108,13 @@
 #       SOR,4 XIC,I:1/6 BST,1 RES,C5:2 NXB,1 RES,C5:3 BND,1 EOR,4
 #       SOR,5 END,5
 
-            @simpleAdd "8-02", "O:2/0 starts when I:1/0 pressed", 2, {0:true, 1:true}, {}, {0:true}
-            @simpleAdd "8-02", "O:2/0 stops when I:1/1 open", 2, {0:true, 1:false}, {0:true}, {0:false}
             @checkCounterPreset "8-02", 1, 10, {I: {1: {3:true}}}
-            @addTest "8-02", "counter C5:2 counts up when I:1/3 is on", 4, {I: {1: {3:true}}}, {C5: {2: {acc: 1}}}
+            @addTest "8-02", "counter C5:2 counts up when I:1/3 is on", 5, {I: {1: {3:true}}}, {C5: {2: {acc: 1}}}
             @checkCounterPreset "8-02", 3, 300, {C5: {1: @makeCounterDone 1, 10}}
-            @addTest "8-02", "counter C5:3 counts up when C5:1 is done", 4, {C5: {1: @makeCounterDone 1, 10}}, {C5: {3: {acc: 1}}}
+            @addTest "8-02", "counter C5:3 counts up when C5:1 is done", 5, {C5: {1: @makeCounterDone 1, 10}}, {C5: {3: {acc: 1}}}
             @addTest "8-02", "counter C5:1 resets when it is done", 3, {C5: {1: @makeCounterDone 1, 10}}, {C5: {1: {acc: 0}}}
-            @addTest "8-02", "counter C5:2 resets when reset button is on", 3, {I: {1: {6:true}}, C5: {2: @makeCounter1 2, 3}}, {C5: {2: {acc: 0}}} 
-            @addTest "8-02", "counter C5:3 resets when reset button is on", 3, {I: {1: {6:true}}, C5: {3: @makeCounter1 2, 3}}, {C5: {3: {acc: 0}}} 
+            @addTest "8-02", "counter C5:2 resets when reset button is on", 4, {I: {1: {6:true}}, C5: {2: @makeCounter1 2, 3}}, {C5: {2: {acc: 0}}} 
+            @addTest "8-02", "counter C5:3 resets when reset button is on", 4, {I: {1: {6:true}}, C5: {3: @makeCounter1 2, 3}}, {C5: {3: {acc: 0}}} 
             
 
         add_03: ->
@@ -124,9 +122,9 @@
 #       SOR,1 XIC,I:1/3 CTU,C5:0,14 EOR,1
 #       SOR,2 BST,1 XIC,I:1/6 NXB,1 XIC,C5:0/DN BND,1 RES,C5:0 EOR,2
 #       SOR,3 END,3
-            @simpleAdd "8-03", "O:2/0 turns on when I:1/0 and I:1/1 on and C5:0 not done", 1, {0:true, 1:true}, {}, {0:true}
-            @addOrTest "8-03", "C5:0 preset is either 13 or 14 (depends on implementation, rung order, etc.).", 4, [{I: {1: {3:true}}}, {I: {1: {3:true}}}], [{C5: {0: {preset: 13}}}, {C5: {0: {preset: 14}}}]
-            @addTest "8-03", "C5:0 resets when I:1/6 is on", 2, {I: {1: {3:true, 6:true}}}, {C5: {0: {acc: 0}}}
+            @addTest "8-03", "O:2/0 turns on when I:1/0 and I:1/1 on and C5:0 not done", 1, {I: {1: {0:true, 1:true}}, C5: {0: @makeCounter1 0, 13}}, {O: {2: {0:true}}}
+            @addOrTest "8-03", "C5:0 preset is either 13 or 14 (depends on implementation, rung order, etc.).", 4, [{I: {1: {3:true}}, C5: {0: @makeCounter1 0, 13}}, {I: {1: {3:true}}, C5: {0: @makeCounter1 0, 13}}], [{C5: {0: {preset: 13}}}, {C5: {0: {preset: 14}}}]
+            @addTest "8-03", "C5:0 resets when I:1/6 is on", 2, {I: {1: {3:true, 6:true}}, C5: {0: @makeCounter1 0, 13}}, {C5: {0: {acc: 0}}}
             @addTest "8-03", "C5:0 resets when preset count is reached", 3, {C5: {0: @makeCounterDone 0, 14}}, {C5: {0: {acc: 0}}}
             @addTest "8-03", "O:2/0 stops when C5:0 done", 2, {I: {1: {1:true}}, C5: {0: @makeCounterDone 0, 14}}, {O: {2: {0:false}}}
             

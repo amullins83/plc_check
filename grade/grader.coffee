@@ -25,45 +25,39 @@
         run: ->
             @score = @max = 0
             for problemName, problem of @problems
-                failedAny = false
-                for test in problem.tests
-                    {result:result, feedback:feedback, points:points} = test()
+                if problem.submission == ""
+                    points += problem.tests.map((test)-> return test().points).reduce( (value, sum)-> sum + value)
                     @max += points
-                    if result
-                        @score += points
-                    else
-                        @feedback += "#{problemName}: Make sure #{feedback}. -#{points} \n"
-                        failedAny = true
-                if failedAny
-                    @feedback += "\n"
+                    @feedback += "#{problemName}: Make sure to include this problem in your submission. -#{points} \n\n"
+                else
+                    failedAny = false
+                    for test in problem.tests
+                        {result:result, feedback:feedback, points:points} = test()
+                        @max += points
+                        if result
+                            @score += points
+                        else
+                            @feedback += "#{problemName}: Make sure #{feedback}. -#{points} \n"
+                            failedAny = true
+                    if failedAny
+                        @feedback += "\n"
             @grade = Math.floor @score/(@max * 1.0)*100
 
         addTest: (problem, description, points, testInput, testOutput)->
             @problems[problem] = @problems[problem] || {submission: "", tests:[]}
 
-            if @problems[problem].submission == ""
-                @problems[problem].tests.push =>
-                    return @testReport false, "to include this problem in your submission", points
-                if @problems[problem].tests.length == 0
-                    @problems[problem].tests.push =>
-                        return @testReport false, "to include this problem in your submission", points
+            @problems[problem].tests.push =>
+                if typeof testInput == "function"
+                    actualInput = testInput()
                 else
-                    oldPoints = @problems[problem].tests[0]().points
-                    @problems[problem].tests[0] = =>
-                        return @testReport false, "to include this problem in your submission", oldPoints + points
-            else
-                @problems[problem].tests.push =>
-                    if typeof testInput == "function"
-                        actualInput = testInput()
-                    else
-                        actualInput = testInput
+                    actualInput = testInput
     
-                    actualOutput = RSLParser.runRoutine @problems[problem].submission, actualInput
-                    if Find.match testOutput, actualOutput
-                        return @testReport true, "Good!", points
-                    else
-                        debug = "\n    Expected: #{Grader.printObject testOutput}\n    Received: #{Grader.printObject actualOutput}\n"
-                        return @testReport false, description, points, debug
+                actualOutput = RSLParser.runRoutine @problems[problem].submission, actualInput
+                if Find.match testOutput, actualOutput
+                    return @testReport true, "Good!", points
+                else
+                    debug = "\n    Expected: #{Grader.printObject testOutput}\n    Received: #{Grader.printObject actualOutput}\n"
+                    return @testReport false, description, points, debug
 
         @printObject: (thing)->
             if typeof thing is "function"

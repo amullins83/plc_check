@@ -71,9 +71,7 @@
                 expect(myGrader.problems["1-01a"].tests.length).toBe 1
                 expect(myGrader.problems["2-002"].tests.length).toBe 1
 
-            it "automatically fails if no submission text exists", ->
-                expect(myGrader.problems["5"].tests[0]().result).toBe false
-
+            
         describe "simpleAdd", ->
 
             myGrader = null
