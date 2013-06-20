@@ -1,1 +1,1 @@
-web: PORT=3000; coffee app.coffee
+web: coffee app.coffee
