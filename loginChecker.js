@@ -10,7 +10,7 @@ var bcryptUtils = require("./util/bcryptUtils"),
   moment = require("moment"),
   crypto = require('crypto');
 
-mongoose.connect(process.env.MONGOLAB_CONNECT);
+module.exports.mongoose = mongoose.connect(process.env.MONGOLAB_CONNECT);
 
 var User = mongoose.model("User", UserSchema);
 var SocialMediaUser = mongoose.model("SocialMediaUser", SocialMediaUserSchema);
