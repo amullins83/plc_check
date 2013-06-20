@@ -2,7 +2,7 @@
 
   "use strict";
 
-var bcryptUtils = require("./util/bcryptUtils"),
+var bcryptUtils = require("./node_modules/login-utils/lib/util/bcryptUtils"),
   UserSchema = require("./UserSchema"),
   SocialMediaUserSchema = require("./SocialMediaUserSchema"),
   PasswordResetTokenSchema = require("./PasswordResetTokenSchema"),
