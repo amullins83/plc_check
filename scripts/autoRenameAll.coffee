@@ -25,6 +25,11 @@
             removeParens:
                 regex   : /\((\w+)\)/
                 replace : "$1"
+
+            removeSpaces:
+                regex   : /\s/g
+                replace : ""
+                
         chapters = fs.readdirSync("./submissions")
         Find.filterOut(chapters, /^\./)
         for chapter in chapters

@@ -636,7 +636,7 @@
              ✔ Convert capitals to lowercase @done (13-06-18 14:43)
              ✔ Add leading zero to single-digit problem numbers @done (13-06-18 14:43)
              ✔ Remove leading text (Chapter 7-11.rsl becomes 7-11.rsl) @done (13-06-18 14:43)
-             ☐ Remove spaces
+             ✔ Remove spaces @done (13-06-20 16:53)
      
      Refactoring:
          Scripts:
