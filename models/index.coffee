@@ -23,11 +23,11 @@
 		return false
 	
 	mongoose = require "mongoose"
-	if process.env.test
+	if process.env.TEST_MODE
 		mongoose.connect "mongodb://localhost/test"
 	else
-		mongoose.connect "mongodb://#{process.env.MONGOLAB_USER}:#{process.env.MONGOLAB_PASS}@#{process.env.MONGOLAB_URL}/#{process.env.MONGOLAB_DB}"
-	
+		mongoose.connect process.env.MONGOLAB_URI
+			
 	Model = mongoose.model
 	Schema = mongoose.Schema
 	db = exports.db = mongoose.connection
