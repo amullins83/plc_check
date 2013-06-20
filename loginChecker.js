@@ -10,7 +10,19 @@ var bcryptUtils = require("./node_modules/login-utils/lib/util/bcryptUtils"),
   moment = require("moment"),
   crypto = require('crypto');
 
-module.exports.mongoose = mongoose.connect(process.env.MONGODB_CONNECT);
+var connectString = "";
+
+if(!process.env.TEST_MODE) {
+  if(typeof(process.argv[2]) !== "undefined")
+    connectString = process.argv[2];
+  else if(typeof(process.env.MONGODB_CONNECT) !== "undefined")
+    connectString = process.env.MONGODB_CONNECT;
+}
+
+if(connectString === "")
+  connectString = "mongodb://localhost:27017/login-utils-test";
+
+module.exports.mongoose = mongoose.connect(connectString);
 
 var User = mongoose.model("User", UserSchema);
 var SocialMediaUser = mongoose.model("SocialMediaUser", SocialMediaUserSchema);
