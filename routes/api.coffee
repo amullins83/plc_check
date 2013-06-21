@@ -1,12 +1,12 @@
 #Serve JSON to our AngularJS client
-#models = models || require "../models"
+models = models || require "../models"
 http = require "http"
 url = require "url"
 querystring = require "querystring"
 Assignment = {}
 
-#models.ready ->
-#	Assignment = models.Assignment
+models.ready ->
+	Assignment = models.Assignment
 
 exports.name = (req, res)->
   res.json
