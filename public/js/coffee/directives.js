@@ -1,4 +1,5 @@
-  'use strict';  angular.module('wordCounter.directives', []).directive('appVersion', [
+(function() {
+  'use strict';  angular.module('plcGrader.directives', []).directive('appVersion', [
     'version', function(version) {
       return function(scope, elm, attrs) {
         return elm.text(version);
@@ -19,10 +20,11 @@
           return elm.css({
             color: textColor
           });
-        });
+        };
 
         $(document).on("keyup", "textarea", setColor);
         $(document).on("ready", setColor);
       };
     }
   ]);
+}).call(this);

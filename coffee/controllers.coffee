@@ -1,25 +1,39 @@
-'use strict'
+(->
+    'use strict'
 
-# Controllers
+    # Controllers
 
-AppCtrl = ($scope, $http)->
-  $http({method: 'GET', url: '/api/name'}).success((data, status, headers, config)->
-											$scope.name = data.name
-  ).error (data, status, headers, config)->
-    $scope.name = 'Error!'
+    AppCtrl = ($scope, $http)->
+        $http(
+            method: 'GET'
+            url: '/api/name'
+        ).success( (data, status, headers, config)->
+            $scope.name = data.name
+        ).error (data, status, headers, config)->
+            $scope.name = 'Error!'
 
-class WordCountCtrl
-	constructor: ($scope)->
-		$(document).on "ready", ->
-			$scope.text = window.localStorage["text"]
-			
-		$(document).on "keyup", "textarea", ->
-			window.localStorage["text"] = $("textarea").val()
+    class UploadCtrl
+        constructor: (@$scope, @$http)->
+            @getAssignments()
 
-	@$inject: ['$scope']
+        getAssignments: ->
+            @$http(
+                method: 'GET'
+                url: 'api/assignments'
+            ).success( (data, status, headers, config)->
+                @$scope.assignments = data
+                console.log "Assignments retrieved."
+            ).error (data, status, headers, config)->
+                @$scope.assignments = []
+                console.log "Error retrieving assignments"
 
 
-class TimeLineCtrl
-	constructor: ->
-		
-	@$inject: [];
+        @$inject: ['$scope', '$http']
+
+
+    class TimeLineCtrl
+        constructor: ->
+        
+        @$inject: [];
+
+).call this

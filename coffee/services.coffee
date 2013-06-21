@@ -1,9 +1,11 @@
-'use strict'
+(->
+    'use strict'
 
-# Services
+    # Services
 
 
-# Demonstrate how to register services
-# In this case it is a simple value service.
-mod = angular.module('wordCounter.services', [])
-mod.value('version', '0.1').value('minWords', 150).value('maxWords', 300)
+    # Demonstrate how to register services
+    # In this case it is a simple value service.
+    mod = angular.module('plcGrader.services', [])
+    mod.value('version', '0.1').value('minWords', 150).value('maxWords', 300)
+).call this

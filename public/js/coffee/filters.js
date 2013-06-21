@@ -1,4 +1,5 @@
-  'use strict';  angular.module('wordCounter.filters', []).filter('interpolate', [
+(function() {
+  'use strict';  angular.module('plcGrader.filters', []).filter('interpolate', [
     'version', function(version) {
       return function(text) {
         return String(text).replace(/\%VERSION\%/mg, version);
@@ -9,10 +10,11 @@
       var count;
 
       count = String(text).split(" ").length;
-      if ((text == null) || text.length === 0) {
+      if ((text === null) || text.length === 0) {
         return 0;
       } else {
         return count;
       }
     };
   });
+}).call(this);

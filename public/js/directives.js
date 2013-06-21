@@ -1,4 +1,5 @@
-  'use strict';  angular.module('wordCounter.directives', []).directive('appVersion', [
+(function() {
+  'use strict';  angular.module('plcGrader.directives', []).directive('appVersion', [
     'version', function(version) {
       return function(scope, elm, attrs) {
         return elm.text(version);
@@ -16,7 +17,7 @@
           } else {
             textColor = "#ff8888";
           }
-		  elm.text(numWords);
+      elm.text(numWords);
           return elm.css({
             color: textColor
           });
@@ -41,3 +42,4 @@
       };
     }
   ]);
+}).call(this);

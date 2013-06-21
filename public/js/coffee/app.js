@@ -1,5 +1,6 @@
+(function() {
   'use strict';
-angular.module('wordCounter', ['wordCounter.filters', 'wordCounter.services', 'wordCounter.directives']).config([
+angular.module('plcGrader', ['plcGrader.filters', 'plcGrader.services', 'plcGrader.directives']).config([
     '$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
       $routeProvider.when('/wordCount', {
         templateUrl: 'partial/1',
@@ -15,3 +16,4 @@ angular.module('wordCounter', ['wordCounter.filters', 'wordCounter.services', 'w
       return $locationProvider.html5Mode(true);
     }
   ]);
+}).call(this);
