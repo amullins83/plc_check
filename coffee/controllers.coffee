@@ -1,39 +1,51 @@
-(->
-    'use strict'
+'use strict'
 
-    # Controllers
+class AppCtrl
 
-    AppCtrl = ($scope, $http)->
-        $http(
+    constructor: (@$scope, @$http)->
+        @getName()
+        @getAssignments()
+        @getSelectedAssignment()
+        @getProblems()
+
+    getName: ->
+        @$http(
             method: 'GET'
             url: '/api/name'
-        ).success( (data, status, headers, config)->
-            $scope.name = data.name
-        ).error (data, status, headers, config)->
-            $scope.name = 'Error!'
+        ).success( (data, status, headers, config)=>
+            @$scope.name = data.name
+        ).error (data, status, headers, config)=>
+            @$scope.name = 'Error!'
 
-    class UploadCtrl
-        constructor: (@$scope, @$http)->
-            @getAssignments()
+    getAssignments: ->
+        @$http(
+            method: 'GET'
+            url: 'api/assignments'
+        ).success( (data, status, headers, config)=>
+            @$scope.assignments = data
+            console.log "Assignments retrieved."
+        ).error (data, status, headers, config)=>
+            @$scope.assignments = []
+            console.log "Error retrieving assignments"
 
-        getAssignments: ->
-            @$http(
-                method: 'GET'
-                url: 'api/assignments'
-            ).success( (data, status, headers, config)->
-                @$scope.assignments = data
-                console.log "Assignments retrieved."
-            ).error (data, status, headers, config)->
-                @$scope.assignments = []
-                console.log "Error retrieving assignments"
+    getSelectedAssignment: ->
+        @$scope.selectedAssignment = @$scope.assignments[0].id
+
+    getProblems: ->
+        @$scope.problems = @$scope.assignments[0].problems
+
+    @$inject: ['$scope', '$http']
 
 
-        @$inject: ['$scope', '$http']
+class UploadCtrl
 
 
-    class TimeLineCtrl
-        constructor: ->
-        
-        @$inject: [];
+    @$inject: ['$scope', '$http']
 
-).call this
+
+class TimeLineCtrl
+    constructor: ->
+       
+    @$inject: []
+
+Controllers = {"AppCtrl": AppCtrl, "UploadCtrl": UploadCtrl, "TimeLineCtrl":TimeLineCtrl}

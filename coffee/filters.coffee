@@ -1,4 +1,4 @@
-(->
+
     'use strict'
 
     # Filters
@@ -14,4 +14,3 @@
                 return 0
             else
                 return count
-).call this

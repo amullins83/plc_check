@@ -4,11 +4,11 @@
     .row-fluid
         select(name="chapter", id="chapter")
             option(value="") Choose a chapter...
-            option(ng-repeat="assignment in assignments", value="{{ assignment }}") {{ assignment.name }}
+            option(ng-repeat="assignment in assignments", value="{{ assignment.id }}") {{ assignment.name }}
     .row-fluid
         select(name="problem", id="problem")
             option(value="") Choose a problem...
-            option(ng-repeat="submission in submissionTypes", value="{{ submission }}") {{ submission }}
+            option(ng-repeat="problem in problems", value="{{ problem.id }}") {{ problem.name }}
     .row-fluid(style="text-align:center")
         button(id="Save", name="Save", valid-button, style="margin-right:10px;") Save 
         a(id="Post", name="Post", href="{{ selectedAssignment | activeURL }}", style="margin-left:10px;", target="_blank") Post

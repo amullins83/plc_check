@@ -1,4 +1,3 @@
-(->
 	'use strict'
 
 	# Directives
@@ -25,4 +24,3 @@
 				$(document).ready setColor
 				$(document).on "keyup", "textarea", setColor
 	])
-).call this

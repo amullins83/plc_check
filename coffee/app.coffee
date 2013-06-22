@@ -1,9 +1,9 @@
-(->
+
 	'use strict'
 
 	# Declare app level module which depends on filters, and services
 
-	angular.module('plc-grader', [
+	angular.module('plcGrader', [
 		'plcGrader.filters',
 		'plcGrader.services',
 		'plcGrader.directives'
@@ -11,9 +11,8 @@
 			'$routeProvider',
 			'$locationProvider',
 			($routeProvider, $locationProvider)->
-				$routeProvider.when('/wordCount', {templateUrl: 'partial/1', controller: WordCountCtrl})
-				$routeProvider.when('/timeLine', {templateUrl: 'partial/2', controller: TimeLineCtrl})
-				$routeProvider.otherwise({redirectTo: '/wordCount'})
+				$routeProvider.when('/uploader', {templateUrl: 'partial/1', controller: Controllers.UploadCtrl})
+				$routeProvider.when('/timeLine', {templateUrl: 'partial/2', controller: Controllers.TimeLineCtrl})
+				$routeProvider.otherwise({redirectTo: '/uploader'})
 				$locationProvider.html5Mode(true)
 	]
-).call this
