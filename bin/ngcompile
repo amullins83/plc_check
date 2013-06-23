@@ -1,0 +1,1 @@
+coffee -cbw -o ./public/js/ ./coffee/*.coffee

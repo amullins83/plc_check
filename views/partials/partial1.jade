@@ -2,14 +2,14 @@
     .row-fluid
         h2 Choose Chapter and Problem
     .row-fluid
-        select(name="chapter", id="chapter")
+        select(name="chapterSelect", id="chapterSelect", ng-model="selectedAssignmentId")
             option(value="") Choose a chapter...
-            option(ng-repeat="assignment in assignments", value="{{ assignment.id }}") {{ assignment.name }}
+            option(ng-repeat="assignment in assignments", value="{{ assignment._id.$oid }}") {{ assignment.name }}
     .row-fluid
-        select(name="problem", id="problem")
+        select(name="problemSelect", id="problemSelect")
             option(value="") Choose a problem...
-            option(ng-repeat="problem in problems", value="{{ problem.id }}") {{ problem.name }}
+            option(ng-repeat="problem in problems", value="{{ problem.id }}") {{ problem.id }}
     .row-fluid(style="text-align:center")
         button(id="Save", name="Save", valid-button, style="margin-right:10px;") Save 
-        a(id="Post", name="Post", href="{{ selectedAssignment | activeURL }}", style="margin-left:10px;", target="_blank") Post
+        a(id="Post", name="Post", href="{{ postURL }}", style="margin-left:10px;", target="_blank") Post
     .row-fluid(style="text-align:center;", id="feedback")

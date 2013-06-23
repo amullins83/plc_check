@@ -6,13 +6,14 @@
 	angular.module('plcGrader', [
 		'plcGrader.filters',
 		'plcGrader.services',
-		'plcGrader.directives'
+		'plcGrader.directives',
+		'mongolab'
 	]).config [
 			'$routeProvider',
 			'$locationProvider',
 			($routeProvider, $locationProvider)->
-				$routeProvider.when('/uploader', {templateUrl: 'partial/1', controller: Controllers.UploadCtrl})
-				$routeProvider.when('/timeLine', {templateUrl: 'partial/2', controller: Controllers.TimeLineCtrl})
+				$routeProvider.when('/uploader', {templateUrl: 'partial/1', controller: UploadCtrl})
+				$routeProvider.when('/timeLine', {templateUrl: 'partial/2', controller: TimeLineCtrl})
 				$routeProvider.otherwise({redirectTo: '/uploader'})
 				$locationProvider.html5Mode(true)
 	]
