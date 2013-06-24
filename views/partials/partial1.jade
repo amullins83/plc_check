@@ -4,7 +4,7 @@
     .row-fluid
         select(name="chapterSelect", id="chapterSelect", ng-model="selectedAssignmentId")
             option(value="") Choose a chapter...
-            option(ng-repeat="assignment in assignments", value="{{ assignment._id.$oid }}") {{ assignment.name }}
+            option(ng-repeat="assignment in assignments", value="{{ assignment.id }}") {{ assignment.name }}
     .row-fluid
         select(name="problemSelect", id="problemSelect")
             option(value="") Choose a problem...

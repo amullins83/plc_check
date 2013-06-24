@@ -19,6 +19,7 @@ class AppCtrl
 
 class UploadCtrl
     constructor: (@$scope, Assignment)->
+        @$scope.assignments = []
         @$scope.assignments = Assignment.query()
         @$scope.problems = []
         @$scope.$watch "selectedAssignmentId", =>

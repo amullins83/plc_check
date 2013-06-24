@@ -23,18 +23,25 @@ exports.assignments =
 	get: (req, res)->
 		query = url.parse(req.url).query
 		findObject = {}
-		if query?
-			for keyVal in query.split("&")
-				findObject[keyVal.split("=")[0]] = unescape(keyVal.split("=")[1]).replace("+", " ")
-		Assignment.find(findObject).sort("date").exec renderJSON(res)
+		if req.params.id?
+			return Assignment.findOne({id:req.params.id}).exec renderJSON(res)
+		else
+			if query?
+				for keyVal in query.split("&")
+					findObject[keyVal.split("=")[0]] = unescape(keyVal.split("=")[1]).replace("+", " ")
+		Assignment.find(findObject).sort("id").exec renderJSON(res)
 
 	create: (req, res)->
 		Assignment.create req.body, renderJSON(res)
 
 	edit:  (req, res)->
+		if req.params.id?
+			return Assignment.findOneAndUpdate({id:req.params.id}, req.body.updateObject).exec renderJSON(res)
 		Assignment.findOneAndUpdate req.body.findObject, req.body.updateObject, renderJSON(res)
 
 	destroy: (req, res)->
+		if req.params.id?
+			return Assignment.remove {id: req.params.id}, renderJSON(res)
 		Assignment.remove req.body, renderJSON(res)
 		
 	count: (req, res)->

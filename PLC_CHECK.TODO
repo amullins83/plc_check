@@ -608,17 +608,8 @@
          Test Timer:
          Test Counter:
          Test One-shot:
-             ✔ Sample rung @done (13-06-15 00:02)
-             ✔ Test code @done (13-06-15 00:02)
              ☐ Refactor
          Test Compare:
-             ✔ Test LES @done (13-06-16 13:28)
-             ✔ Test LEQ @done (13-06-16 13:28)
-             ✔ Test GRT @done (13-06-16 13:28)
-             ✔ Test GEQ @done (13-06-16 13:28)
-             ✔ Test LIM @done (13-06-18 14:43)
-             ✔ Test EQU @done (13-06-16 13:28)
-             ✔ Test NEQ @done (13-06-16 13:28)
 
      System:
          Grader Class:
@@ -626,23 +617,14 @@
          Create Grader_ch4:
          Create Grader_ch5:
          Create Grader_ch6:
-             ✔ Test more actual labs, add OR tests @done (13-06-19 17:34)
          Create Grader_ch7:
          Create Grader_ch8:
          Run against a few actual labs:
          Make script to automatically grade all submissions:
          Make script to automatically rename all submissions:
-             ✔ Convert #{chapter}.#{problem}.rsl to #{chapter}-#{problem}.rsl @done (13-06-18 14:43)
-             ✔ Convert capitals to lowercase @done (13-06-18 14:43)
-             ✔ Add leading zero to single-digit problem numbers @done (13-06-18 14:43)
-             ✔ Remove leading text (Chapter 7-11.rsl becomes 7-11.rsl) @done (13-06-18 14:43)
-             ✔ Remove spaces @done (13-06-20 16:53)
      
      Refactoring:
          Scripts:
-             ✔ Move find to a separate folder @done (13-06-18 14:43)
-             ✔ Move each REPL script to a separate file @done (13-06-18 14:43)
-             ✘ Make REPL scripts object-oriented @cancelled (13-06-18 14:44)
 
          RSLParser:
              Replace static method interface with object oriented:
@@ -661,10 +643,7 @@
                  Grader:
                      ☐ Create multi-part problem method to automatically generate related a/b code
 Web Interface:
-    ✔ Bootstrap @done (13-06-17 10:43)
     ☐ Karma setup
-    ✔ Heroku setup @done (13-06-17 15:27)
-    ✔ MongoLab or whatever @done (13-06-17 16:17)
     ☐ s3 bucket
     ☐ Student login
     ☐ Uploader
@@ -676,6 +655,27 @@ Web Interface:
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Sample rung @done (13-06-15 00:02)
+ ✔ Test code @done (13-06-15 00:02)
+ ✔ Test LES @done (13-06-16 13:28)
+ ✔ Test LEQ @done (13-06-16 13:28)
+ ✔ Test GRT @done (13-06-16 13:28)
+ ✔ Test GEQ @done (13-06-16 13:28)
+ ✔ Test LIM @done (13-06-18 14:43)
+ ✔ Test EQU @done (13-06-16 13:28)
+ ✔ Test NEQ @done (13-06-16 13:28)
+ ✔ Test more actual labs, add OR tests @done (13-06-19 17:34)
+ ✔ Convert #{chapter}.#{problem}.rsl to #{chapter}-#{problem}.rsl @done (13-06-18 14:43)
+ ✔ Convert capitals to lowercase @done (13-06-18 14:43)
+ ✔ Add leading zero to single-digit problem numbers @done (13-06-18 14:43)
+ ✔ Remove leading text (Chapter 7-11.rsl becomes 7-11.rsl) @done (13-06-18 14:43)
+ ✔ Remove spaces @done (13-06-20 16:53)
+ ✔ Move find to a separate folder @done (13-06-18 14:43)
+ ✔ Move each REPL script to a separate file @done (13-06-18 14:43)
+ ✘ Make REPL scripts object-oriented @cancelled (13-06-18 14:44)
+ ✔ Bootstrap @done (13-06-17 10:43)
+ ✔ Heroku setup @done (13-06-17 15:27)
+ ✔ MongoLab or whatever @done (13-06-17 16:17)
  ✘ Have addTest return the resulting dataTable @cancelled (13-06-12 01:41)
  ✔ Convert #{chapter}.#{problem}.rsl to #{chapter}-#{problem}.rsl @done (13-06-12 01:41)
  ✔ Convert capitals to lowercase @done (13-06-12 01:41)
