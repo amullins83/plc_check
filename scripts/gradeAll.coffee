@@ -26,7 +26,7 @@
             for folder in data
                 folderLocation = "#{path}/#{folder}"
                 if fs.existsSync folderLocation
-                    if fs.statSync(folderLocation).isDirectory()
+                    if fs.statSync(folderLocation).isDirectory() and not folderLocation.match(/(zips|examples)/i)?
                         gradingPath = folderLocation
                         myGrader = new grader gradingPath
                         feedbackText = myGrader.feedback + "\nGrade: " + myGrader.grade

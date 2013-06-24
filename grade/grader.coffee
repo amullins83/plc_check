@@ -26,7 +26,7 @@
             @score = @max = 0
             for problemName, problem of @problems
                 if problem.submission == ""
-                    points += problem.tests.map((test)-> return test().points).reduce( (value, sum)-> sum + value)
+                    points = problem.tests.map((test)-> return test().points).reduce( (value, sum)-> sum + value)
                     @max += points
                     @feedback += "#{problemName}: Make sure to include this problem in your submission. -#{points} \n\n"
                 else
