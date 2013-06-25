@@ -22,9 +22,9 @@ models.ready ->
                 assignment.problems.push
                     id: id
                     example: problem.submission
-                    tests: problem.tests
+                    tests: []
                 console.log "                        pushed into problems array"
-            Assignment.findOneAndUpdate {id: assignment.id}, assignment, (err, updated)->
+            assignment.save (err, updated)->
                 if err
                     console.log "#{assignment.name} failed:"
                     console.log err

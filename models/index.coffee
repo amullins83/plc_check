@@ -39,7 +39,10 @@ exports.assignmentObject = assignmentObject =
     url: String
     problems: [
         id: String
-        tests: Array
+        example: String
+        tests: [
+            type: Object
+        ]
     ]
     
 exports.ready = ready = (handler)->
