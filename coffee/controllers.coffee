@@ -18,8 +18,9 @@ class AppCtrl
 
 
 class UploadCtrl
-    constructor: (@$scope, Assignment)->
+    constructor: (@$scope, @$http, Assignment, Grader)->
         @$scope.assignments = []
+        @$scope.feedback = []
         @$scope.assignments = Assignment.query()
         @$scope.problems = []
         @$scope.$watch "selectedAssignmentId", =>
@@ -28,7 +29,12 @@ class UploadCtrl
                 @$scope.postURL = assignment.url
             ) if @$scope.selectedAssignmentId?
             
-    @$inject: ['$scope', 'Assignment']
+        @$scope.grade = (content, complete)->
+            if complete? and @$scope.selectedProblemId?
+                @$scope.feedback = content.feedback
+                @$scope.upload = content.upload
+
+    @$inject: ['$scope', '$http', 'Assignment', 'Grader']
 
 
 class TimeLineCtrl

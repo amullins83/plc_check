@@ -1,4 +1,4 @@
-.row-fluid(style="text-align:center;")
+form.row-fluid(style="text-align:center;", ng-upload, action="/api/grade/{{selectedProblemId}}")
     .row-fluid
         h2 Choose Chapter and Problem
     .row-fluid
@@ -6,12 +6,15 @@
             option(value="") Choose a chapter...
             option(ng-repeat="assignment in assignments", value="{{ assignment.id }}") {{ assignment.name }}
     .row-fluid
-        select(name="problemSelect", id="problemSelect")
+        select(name="problemSelect", id="problemSelect", ng-model="selectedProblemId")
             option(value="") Choose a problem...
             option(ng-repeat="problem in problems", value="{{ problem.id }}") {{ problem.id }}
     .row-fluid(style="text-align:center")
-        input(id="Upload", name="Upload", type="file") Upload
+        input(id="file", name="file", type="file")
+    .row-fluid(style="text-align:center")
+            input(type="submit", value="Upload", upload-submit="grade(content, complete)")
     .row-fluid(style="text-align:center") 
         a(id="Post", name="Post", href="{{ postURL }}", style="margin-left:10px;", target="_blank") Post
+    .row-fluid {{ upload }} 
     .row-fluid(style="text-align:center;", id="feedbackRow")
         .feedback(ng-repeat="feedbackItem in feedback") {{ feedbackItem }}

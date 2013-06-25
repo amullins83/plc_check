@@ -7,7 +7,8 @@
 
     class Grader
         constructor: (@folderPath)->
-            @studentFiles = Grader.filterRSL fs.readdirSync @folderPath
+            if @folderPath?
+                @studentFiles = Grader.filterRSL fs.readdirSync @folderPath
             @feedback = ""
 
         @filterRSL: (array)->
@@ -50,6 +51,7 @@
 
             @problems[problem].mongooseTests.push
                 description: description
+                points: points
                 in: [ testInput ]
                 out: [ testOutput ]
 
@@ -86,6 +88,7 @@
 
             @problems[problem].mongooseTests.push
                 description: description
+                points: points
                 in: inputObjectSet
                 out: outputObjectSet
 

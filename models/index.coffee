@@ -42,6 +42,7 @@ exports.assignmentObject = assignmentObject =
         example: String
         tests: [
             description: String
+            points: Number
             in: [
                 Schema.Mixed
             ]

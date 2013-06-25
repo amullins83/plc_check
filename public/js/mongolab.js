@@ -3,4 +3,9 @@ angular.module('mongolab', ['ngResource']).
     factory('Assignment', function($resource) {
       var Assignment = $resource('api/assignments/:id');
       return Assignment;
+    }).
+    factory('Grader', function($resource) {
+      var Grader = $resource('api/grade/:id', {id:"@id"},
+        {'post': {method:"POST", isArray:true}});
+      return Grader;
     });

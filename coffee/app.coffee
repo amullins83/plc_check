@@ -7,7 +7,8 @@
 		'plcGrader.filters',
 		'plcGrader.services',
 		'plcGrader.directives',
-		'mongolab'
+		'mongolab',
+		'ngUpload'
 	]).config [
 			'$routeProvider',
 			'$locationProvider',
