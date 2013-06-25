@@ -41,7 +41,13 @@ exports.assignmentObject = assignmentObject =
         id: String
         example: String
         tests: [
-            type: Object
+            description: String
+            in: [
+                Schema.Mixed
+            ]
+            out: [
+                Schema.Mixed
+            ]
         ]
     ]
     

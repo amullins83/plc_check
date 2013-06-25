@@ -1,0 +1,3 @@
+#!/bin/sh
+
+jasmine-node --coffee --autotest test/testModels --watch test/testModels --watch models

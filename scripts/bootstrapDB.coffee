@@ -22,7 +22,7 @@ models.ready ->
                 assignment.problems.push
                     id: id
                     example: problem.submission
-                    tests: []
+                    tests: problem.mongooseTests
                 console.log "                        pushed into problems array"
             assignment.save (err, updated)->
                 if err

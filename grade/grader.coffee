@@ -46,6 +46,13 @@
         addTest: (problem, description, points, testInput, testOutput)->
             @problems[problem] = @problems[problem] || {submission: "", tests:[]}
 
+            @problems[problem].mongooseTests = @problems[problem].mongooseTests || []
+
+            @problems[problem].mongooseTests.push
+                description: description
+                in: [ testInput ]
+                out: [ testOutput ]
+
             @problems[problem].tests.push =>
                 if typeof testInput == "function"
                     actualInput = testInput()
@@ -75,28 +82,31 @@
         addOrTest: (problem, description, points, inputObjectSet, outputObjectSet)->
             @problems[problem] = @problems[problem] || {submission: "", tests:[]}
 
-            if @problems[problem].submission == ""
-                @problems[problem].tests.push =>
-                    return @testReport false, "to include this problem in your submission", points
-            else
-                @problems[problem].tests.push =>
-                    pass = false
-                    for testInput, index in inputObjectSet
-                        testOutput = outputObjectSet[index]
-                        if typeof testInput == "function"
-                            actualInput = testInput()
-                        else
-                            actualInput = testInput
-    
-                        actualOutput = RSLParser.runRoutine @problems[problem].submission, actualInput
-                        if Find.match testOutput, actualOutput
-                            pass = true
-                            break
+            @problems[problem].mongooseTests = @problems[problem].mongooseTests || []
 
-                    if pass
-                        return @testReport true, "Good!", points               
+            @problems[problem].mongooseTests.push
+                description: description
+                in: inputObjectSet
+                out: outputObjectSet
+
+            @problems[problem].tests.push =>
+                pass = false
+                for testInput, index in inputObjectSet
+                    testOutput = outputObjectSet[index]
+                    if typeof testInput == "function"
+                        actualInput = testInput()
                     else
-                        return @testReport false, description, points
+                        actualInput = testInput
+    
+                    actualOutput = RSLParser.runRoutine @problems[problem].submission, actualInput
+                    if Find.match testOutput, actualOutput
+                        pass = true
+                        break
+
+                if pass
+                    return @testReport true, "Good!", points               
+                else
+                    return @testReport false, description, points
 
         simpleAddOr: (problem, description, points, inputArray, initOutputArray, finalOutputArray)->
             orTestInitialTable = []
