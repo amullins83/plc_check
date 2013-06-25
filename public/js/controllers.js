@@ -33,6 +33,7 @@ UploadCtrl = (function() {
   function UploadCtrl($scope, Assignment) {
     var _this = this;
     this.$scope = $scope;
+    this.$scope.assignments = [];
     this.$scope.assignments = Assignment.query();
     this.$scope.problems = [];
     this.$scope.$watch("selectedAssignmentId", function() {
