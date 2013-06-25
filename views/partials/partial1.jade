@@ -10,6 +10,8 @@
             option(value="") Choose a problem...
             option(ng-repeat="problem in problems", value="{{ problem.id }}") {{ problem.id }}
     .row-fluid(style="text-align:center")
-        button(id="Save", name="Save", valid-button, style="margin-right:10px;") Save 
+        input(id="Upload", name="Upload", type="file") Upload
+    .row-fluid(style="text-align:center") 
         a(id="Post", name="Post", href="{{ postURL }}", style="margin-left:10px;", target="_blank") Post
-    .row-fluid(style="text-align:center;", id="feedback")
+    .row-fluid(style="text-align:center;", id="feedbackRow")
+        .feedback(ng-repeat="feedbackItem in feedback") {{ feedbackItem }}
