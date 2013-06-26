@@ -12,9 +12,9 @@ form.row-fluid(style="text-align:center;", ng-upload, action="/api/grade/{{selec
     .row-fluid(style="text-align:center")
         input(id="file", name="file", type="file")
     .row-fluid(style="text-align:center")
-            input(type="submit", value="Upload", upload-submit="grade(content, complete)")
+            input(type="submit", value="Upload", upload-submit="updateGrade(content, complete)")
     .row-fluid(style="text-align:center") 
         a(id="Post", name="Post", href="{{ postURL }}", style="margin-left:10px;", target="_blank") Post
-    .row-fluid {{ upload }} 
+    .row-fluid Grade: {{ grade }} 
     .row-fluid(style="text-align:center;", id="feedbackRow")
         .feedback(ng-repeat="feedbackItem in feedback") {{ feedbackItem }}

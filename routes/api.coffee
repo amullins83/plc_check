@@ -1,5 +1,6 @@
 #Serve JSON to our AngularJS client
 models = models || require "../models"
+Find = require "../models/find"
 http = require "http"
 url = require "url"
 querystring = require "querystring"
@@ -64,7 +65,6 @@ exports.grade =
         else
             chapterString = problemId.match(/^(\d+)/)[1]
         console.log chapterString
-        console.log file
         Assignment.findOne {id: "ch#{chapterString}"}, (err, assignment)->
             if err
                 res.json err
@@ -79,7 +79,9 @@ exports.grade =
                 for test in theTests
                     g.addOrTest problemId, test.description, test.points, test.in, test.out
                 g.run()
+                
                 result = 
-                    feedback: g.feedback.split("\n")
-                    upload:   file
+                    feedback: Find.filter g.feedback.split("\n"), /\w/
+                    grade:    g.grade
+                console.log result
                 res.json result

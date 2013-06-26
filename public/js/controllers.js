@@ -48,10 +48,11 @@ UploadCtrl = (function() {
         });
       }
     });
-    this.$scope.grade = function(content, complete) {
-      console.log("Grade was called!");
+    this.$scope.updateGrade = function(content, complete) {
+      console.log("inside updateGrade");
+      console.log(content);
       _this.$scope.feedback = content.feedback;
-      return _this.$scope.upload = content.upload;
+      return _this.$scope.grade = content.grade;
     };
   }
 

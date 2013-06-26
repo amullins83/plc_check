@@ -29,10 +29,11 @@ class UploadCtrl
                 @$scope.postURL = assignment.url
             ) if @$scope.selectedAssignmentId?
             
-        @$scope.grade = (content, complete)=>
-            console.log "Grade was called!"
+        @$scope.updateGrade = (content, complete)=>
+            console.log "inside updateGrade"
+            console.log content
             @$scope.feedback = content.feedback
-            @$scope.upload = content.upload
+            @$scope.grade    = content.grade
 
     @$inject: ['$scope', '$http', 'Assignment', 'Grader']
 
