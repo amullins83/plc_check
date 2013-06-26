@@ -30,10 +30,12 @@ AppCtrl = (function() {
 
 UploadCtrl = (function() {
 
-  function UploadCtrl($scope, Assignment) {
+  function UploadCtrl($scope, $http, Assignment, Grader) {
     var _this = this;
     this.$scope = $scope;
+    this.$http = $http;
     this.$scope.assignments = [];
+    this.$scope.feedback = [];
     this.$scope.assignments = Assignment.query();
     this.$scope.problems = [];
     this.$scope.$watch("selectedAssignmentId", function() {
@@ -46,9 +48,15 @@ UploadCtrl = (function() {
         });
       }
     });
+    this.$scope.grade = function(content, complete) {
+      if ((complete != null) && (this.$scope.selectedProblemId != null)) {
+        this.$scope.feedback = content.feedback;
+        return this.$scope.upload = content.upload;
+      }
+    };
   }
 
-  UploadCtrl.$inject = ['$scope', 'Assignment'];
+  UploadCtrl.$inject = ['$scope', '$http', 'Assignment', 'Grader'];
 
   return UploadCtrl;
 

@@ -39,7 +39,17 @@ exports.assignmentObject = assignmentObject =
     url: String
     problems: [
         id: String
-        tests: Array
+        example: String
+        tests: [
+            description: String
+            points: Number
+            in: [
+                Schema.Mixed
+            ]
+            out: [
+                Schema.Mixed
+            ]
+        ]
     ]
     
 exports.ready = ready = (handler)->

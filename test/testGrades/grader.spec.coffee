@@ -61,7 +61,7 @@
                 myGrader = new Grader submissionPath
                 myGrader.initializeProblems()
                 myGrader.addTest "1-01a", "this passes", 5, {}, {}
-                myGrader.addTest "2-002", "this fails", 5, {}, {hey: "ho"}
+                myGrader.addTest "2-02", "this fails", 5, {}, {hey: "ho"}
                 myGrader.addTest "5", "five is right out", 2, {should: not "get here"}, {}
 
             it "exists", ->
@@ -69,8 +69,13 @@
 
             it "adds a test function to the specified problem", ->
                 expect(myGrader.problems["1-01a"].tests.length).toBe 1
-                expect(myGrader.problems["2-002"].tests.length).toBe 1
+                expect(myGrader.problems["2-02"].tests.length).toBe 1
 
+            it "adds a new element to mongooseTests", ->
+                myGrader.addTest "1-01a", "this fails", 5, {I: {1: {0:true}}}, {O: {2: {0:true}}}
+                expect(myGrader.problems["1-01a"].mongooseTests[1].description).toEqual "this fails"
+                expect(myGrader.problems["1-01a"].mongooseTests[1].in).toEqual [{I: {1: {0:true}}}]
+                expect(myGrader.problems["1-01a"].mongooseTests[1].out).toEqual [{O: {2: {0:true}}}]
             
         describe "simpleAdd", ->
 
@@ -133,6 +138,12 @@
                 myGrader.addOrTest("2-02", failDescription, points, [{I: {1: {0:false}}}], [{O: {2: {0:false}}}])
                 expect(myGrader.problems["2-02"].tests[0]()).toEqual myGrader.testReport false, failDescription, points
                 expect(myGrader.problems["2-02"].tests[1]()).toEqual myGrader.testReport true,  "Good!", points
+
+            it "adds a new element to mongooseTests", ->
+                myGrader.addOrTest "1-01a", "this fails", 5, [{I: {1: {0:true}}}, {I: {1: {1:true}}}], [{O: {2: {0:true}}}, {O: {2: {0:true}}}]
+                expect(myGrader.problems["1-01a"].mongooseTests[0].description).toEqual "this fails"
+                expect(myGrader.problems["1-01a"].mongooseTests[0].in).toEqual [{I: {1: {0:true}}}, {I: {1: {1:true}}}]
+                expect(myGrader.problems["1-01a"].mongooseTests[0].out).toEqual [{O: {2: {0:true}}}, {O: {2: {0:true}}}]
 
         describe "simpleAddOr", ->
             myGrader = null

@@ -12,7 +12,7 @@ app = module.exports = express()
 app.configure ->
   app.set 'views', __dirname + '/views'
   app.set 'view engine', 'jade'
-  app.use express.bodyParser()
+  app.use express.bodyParser({keepExtensions:true, uploadDir: './submissions/tmp'})
   app.use express.methodOverride()
   app.use express.static(__dirname + '/public')
   app.use app.router
@@ -31,11 +31,15 @@ app.get '/partial/:name', routes.partial
 # JSON API
 
 app.get '/api/name', api.name
+
 app.get '/api/assignments/:id', api.assignments.get
 app.get '/api/assignments', api.assignments.get
 app.put '/api/assignments/:id', api.assignments.edit
 app.post '/api/assignments', api.assignments.create
 app.delete '/api/assignments/:id', api.assignments.destroy
+
+app.post '/api/grade/:problemId', api.grade.post
+
 #app.post '/api/moodle', api.moodle
 
 # redirect all others to the index (HTML5 history)

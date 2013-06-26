@@ -1,0 +1,3 @@
+#!/bin/sh
+
+jasmine-node --coffee --autotest test/testGrades --watch test/testGrades --watch models --watch grade
