@@ -49,10 +49,9 @@ UploadCtrl = (function() {
       }
     });
     this.$scope.grade = function(content, complete) {
-      if ((complete != null) && (this.$scope.selectedProblemId != null)) {
-        this.$scope.feedback = content.feedback;
-        return this.$scope.upload = content.upload;
-      }
+      console.log("Grade was called!");
+      _this.$scope.feedback = content.feedback;
+      return _this.$scope.upload = content.upload;
     };
   }
 
