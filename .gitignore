@@ -28,3 +28,4 @@ run.coffee
 rename.coffee
 *.log
 .bashrc
+contributions
