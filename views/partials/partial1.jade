@@ -1,4 +1,4 @@
-form.row-fluid(style="text-align:center;", ng-upload, action="/api/grade/{{selectedProblemId}}")
+form.row-fluid(style="text-align:center;", ng-upload, action="https://s3.amazonaws.com/" + process.env.S3_BUCKET + "/submissions/{{selectedChapter}}/{{selectedProblemId}}")
     .row-fluid
         h2 Choose Chapter and Problem
     .row-fluid
@@ -18,3 +18,5 @@ form.row-fluid(style="text-align:center;", ng-upload, action="/api/grade/{{selec
     .row-fluid Grade: {{ grade }} 
     .row-fluid(style="text-align:center;", id="feedbackRow")
         .feedback(ng-repeat="feedbackItem in feedback") {{ feedbackItem }}
+    input(type="hidden", name="AWSAccessKeyId", value=process.env.S3_KEY)
+    input(type="hidden", name="x-amz-grant-full-control", value="emailAddress='austin.mullins@gmail.com'")

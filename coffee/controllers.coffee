@@ -28,7 +28,16 @@ class UploadCtrl
                 @$scope.problems = assignment.problems
                 @$scope.postURL = assignment.url
             ) if @$scope.selectedAssignmentId?
-            
+        
+        @$scope.$watch "selectedProblemId", =>
+            if @$scope.selectedProblemId?    
+                chapter = @$scope.selectedProblemId.match(/(\d+)/)[1]
+                if chapter == "1" or chapter == "2"
+                    @$scope.selectedChapter = "ch1_2"
+                else
+                    @$scope.selectedChapter = "ch" + chapter
+                
+
         @$scope.updateGrade = (content, complete)=>
             console.log "inside updateGrade"
             console.log content

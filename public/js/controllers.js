@@ -48,6 +48,18 @@ UploadCtrl = (function() {
         });
       }
     });
+    this.$scope.$watch("selectedProblemId", function() {
+      var chapter;
+
+      if (_this.$scope.selectedProblemId != null) {
+        chapter = _this.$scope.selectedProblemId.match(/(\d+)/)[1];
+        if (chapter === "1" || chapter === "2") {
+          return _this.$scope.selectedChapter = "ch1_2";
+        } else {
+          return _this.$scope.selectedChapter = "ch" + chapter;
+        }
+      }
+    });
     this.$scope.updateGrade = function(content, complete) {
       console.log("inside updateGrade");
       console.log(content);
