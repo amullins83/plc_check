@@ -25,14 +25,11 @@ renderJSON = (res)->
 
 exports.assignments =
     get: (req, res)->
-        query = url.parse(req.url).query
         findObject = {}
         if req.params.id?
             return Assignment.findOne({id:req.params.id}).exec renderJSON(res)
-        else
-            if query?
-                for keyVal in query.split("&")
-                    findObject[keyVal.split("=")[0]] = unescape(keyVal.split("=")[1]).replace("+", " ")
+        if req.query?
+            findObject = req.query
         Assignment.find(findObject).sort("id").exec renderJSON(res)
 
     create: (req, res)->
@@ -59,6 +56,7 @@ exports.grade =
         problemId = req.params.problemId
         filePath = req.files.file.path
         file = fs.readFileSync(filePath).toString()
+        fs.deleteSync(filePath)
         console.log problemId
         if problemId.match(/^[12]-\w+$/)?
             chapterString = "1_2"

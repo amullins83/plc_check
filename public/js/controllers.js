@@ -50,7 +50,6 @@ UploadCtrl = (function() {
     });
     this.$scope.$watch("selectedProblemId", function() {
       var chapter;
-
       if (_this.$scope.selectedProblemId != null) {
         chapter = _this.$scope.selectedProblemId.match(/(\d+)/)[1];
         if (chapter === "1" || chapter === "2") {
@@ -61,10 +60,10 @@ UploadCtrl = (function() {
       }
     });
     this.$scope.updateGrade = function(content, complete) {
-      console.log("inside updateGrade");
-      console.log(content);
-      _this.$scope.feedback = content.feedback;
-      return _this.$scope.grade = content.grade;
+      if ((content != null) && complete) {
+        _this.$scope.feedback = content.feedback;
+        return _this.$scope.grade = content.grade;
+      }
     };
   }
 

@@ -12,7 +12,7 @@ app = module.exports = express()
 app.configure ->
   app.set 'views', __dirname + '/views'
   app.set 'view engine', 'jade'
-  app.use express.bodyParser({keepExtensions:true, uploadDir: './submissions/tmp'})
+  app.use express.bodyParser({keepExtensions:true})
   app.use express.methodOverride()
   app.use express.static(__dirname + '/public')
   app.use app.router

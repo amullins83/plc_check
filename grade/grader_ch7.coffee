@@ -162,20 +162,20 @@
         # SOR,4 XIC,O:2/0 RTO,T4:2,108000 EOR,4
         # SOR,5 XIC,T4:2/DN OTE,O:2/2 EOR,5
 
-            @checkPreset "7-13", 0, 100, {I: {1: {0: true}}, T4: {1: {dn: false}}}
-            @checkPreset "7-13", 1, 150, {I: {1: {0: true}}, T4: {1: {dn: false}}}
-            @checkPreset "7-13", 2, 108000, {I: {1: {0: true}}, T4: {1: {dn: false}}}
+            @checkPreset "7-13", 0, 100, {I: {1: {0: true}}, T4: {2: @make_timer_on_timing(0,108000)}}
+            @checkPreset "7-13", 1, 150, {I: {1: {0: true}}, T4: {2: @make_timer_on_timing(0,108000)}}
+            @checkPreset "7-13", 2, 108000, {I: {1: {0: true}}, T4: {2: @make_timer_on_timing(0,108000)}}
 
-            @addTest "7-13", "timer T4:0 enables when I:1/0 is on", 1, {I: {1: {0:true}}, T4: {2: {dn: false}}}, {T4: {0:{en:true}}}
-            @addTest "7-13", "timer T4:1 enables when I:1/0 is on", 1, {I: {1: {0:true}}, T4: {2: {dn: false}}}, {T4: {1:{en:true}}}
-            @addTest "7-13", "timer T4:2 enables when O:2/0 is on", 1, {I: {1: {0:true}}, T4: {2: {dn: false}}, O: {2: {0:true}}}, {T4: {2:{en:true}}}
+            @addTest "7-13", "timer T4:0 enables when I:1/0 is on", 1, {I: {1: {0:true}}, T4: {2: @make_timer_on_timing(2,108000)}}, {T4: {0:{en:true}}}
+            @addTest "7-13", "timer T4:1 enables when I:1/0 is on", 1, {I: {1: {0:true}}, T4: {2: @make_timer_on_timing(2,108000)}}, {T4: {1:{en:true}}}
+            @addTest "7-13", "timer T4:2 enables when O:2/0 is on", 1, {I: {1: {0:true}}, T4: {2: @make_timer_on_timing(2,108000)}, O: {2: {0:true}}}, {T4: {2:{en:true}}}
             doneTimer = @make_timer_on_about_done 2, 108000
             doneTimer.tick()
             @addTest "7-13", "timer T4:0 resets when T4:2 is done", 1, {I: {1: {0:true}}, T4: {0: @make_timer_on_timing(0, 100), 2: doneTimer}}, {T4: {0: {acc: 0}}}
-            @addTest "7-13", "timer T4:1 resets when I:1/0 is on", 1, {I: {1: {0:true}}, T4: {1: @make_timer_off_timing(1, 150), 2: {dn: false}}}, {T4: {1: {acc: 0}}}
+            @addTest "7-13", "timer T4:1 resets when I:1/0 is on", 1, {I: {1: {0:true}}, T4: {1: @make_timer_off_timing(1, 150), 2: @make_timer_on_timing(2, 108000)}}, {T4: {1: {acc: 0}}}
             @addTest "7-13", "output O:2/2 turns on when T4:2 is done", 1, {T4: {2: doneTimer}}, {O: {2: {2:true}}}
 
-            @addTest "7-13", "output O:2/1 turns on when T4:0 is done", 1, {I: {1: {0:true}}, T4: {0: @make_timer_on_about_done(0, 100), 2: {dn:false}}}, {O: {2: {1:true}}}
+            @addTest "7-13", "output O:2/1 turns on when T4:0 is done", 1, {I: {1: {0:true}}, T4: {0: @make_timer_on_about_done(0, 100), 2: @make_timer_on_timing(2, 108000)}}, {O: {2: {1:true}}}
         
         add_17: ->
             @add_17a()
@@ -230,13 +230,13 @@
         # SOR,5 XIO,T4:0/DN OTE,O:2/3
 
             @checkPreset "7-22", 0, 500, {I: {1: {0:true, 2:false}}}
-            @addTest "7-22", "timer T4:0 enables when I:1/0 is on", 3, {I: {1: {0:true, 2:false}}}, {T4: {0: {en:true}}}
+            @addTest "7-22", "timer T4:0 enables when I:1/0 is on", 3, {I: {1: {0:true, 2:false}}, T4: 0: @make_timer_on_timing(0, 500)}, {T4: {0: {en:true}}}
             @addTest "7-22", "timer T4:0 resets when I:1/2 is on", 3, {I: {1: {0:false, 2:true}}, T4: {0: @make_timer_on_about_done 0, 500}}, {T4: {0: {acc: 0}}}
             @addTest "7-22", "timer T4:0 retains count when I:1/0 is off", 3, {I: {1: {0:false, 2:false}}, T4: {0: @make_timer_on_about_done 0, 500}}, {T4: {0: {acc:499}}}
-            @addTest "7-22", "output O:2/0 is on when T4:0 is enabled", 1, {I: {1: {0:true, 2:false}}}, {O: {2: {0:true}}}
-            @addTest "7-22", "output O:2/1 is on when T4:0 is not enabled", 1, {I: {1: {0:false, 2:false}}}, {O: {2: {1:true}}}
+            @addTest "7-22", "output O:2/0 is on when T4:0 is enabled", 1, {I: {1: 0:true, 2:false}, T4: 0: @make_timer_on_about_done(0, 500)}, {O: 2: 0:true}
+            @addTest "7-22", "output O:2/1 is on when T4:0 is not enabled", 1, {I: {1: {0:false, 2:false}}, T4: 0: @make_timer_on_about_done(0, 500)}, {O: {2: {1:true}}}
             @addTest "7-22", "output O:2/2 is on when T4:0 is done", 1, {I: {1: {0:true, 2:false}}, T4: {0: @make_timer_on_about_done 0, 500}}, {O: {2: {2:true}}}
-            @addTest "7-22", "output O:2/3 is on when T4:0 is not done", 1, {I: {1: {0:true, 2:false}}}, {O: {2: {3:true}}}
+            @addTest "7-22", "output O:2/3 is on when T4:0 is not done", 1, {I: {1: {0:true, 2:false}}, T4: 0: @make_timer_on_timing(0, 500)}, {O: {2: {3:true}}}
 
 
     module.exports = Grader_ch7
