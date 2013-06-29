@@ -26,6 +26,7 @@ app.configure 'production', ->
 # Routes
 
 app.get '/', routes.index
+app.post '/', routes.index
 app.get '/partial/:name', routes.partial
 
 # JSON API
