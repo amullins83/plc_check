@@ -46,7 +46,9 @@ class UploadCtrl
 
 
 class TimeLineCtrl
-    constructor: ->
+    constructor: (@$scope, @$http, Assignment)->
+        @$scope.assignments = []
+        @$scope.assignments = Assignment.query()
        
-    @$inject: []
+    @$inject: ['$scope', '$http', 'Assignment']
 

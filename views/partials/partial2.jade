@@ -10,7 +10,7 @@
 				th Posting URL
 		tbody
 			tr(ng-repeat="assignment in assignments")
-				td {{ assignment.date | prettyDate }}
+				td {{ assignment.date }}
 				td {{ assignment.name }}
 				td 
-					a(href="{{ assignment.postURL }}") Submit to Moodle
+					a(href="{{ assignment.url }}") Submit to Moodle

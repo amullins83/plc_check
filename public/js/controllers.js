@@ -73,9 +73,14 @@ UploadCtrl = (function() {
 })();
 
 TimeLineCtrl = (function() {
-  function TimeLineCtrl() {}
+  function TimeLineCtrl($scope, $http, Assignment) {
+    this.$scope = $scope;
+    this.$http = $http;
+    this.$scope.assignments = [];
+    this.$scope.assignments = Assignment.query();
+  }
 
-  TimeLineCtrl.$inject = [];
+  TimeLineCtrl.$inject = ['$scope', '$http', 'Assignment'];
 
   return TimeLineCtrl;
 
