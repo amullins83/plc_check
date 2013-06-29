@@ -39,9 +39,8 @@ class UploadCtrl
                 
 
         @$scope.updateGrade = (content, complete)=>
-            if content? and complete
-                @$scope.feedback = content.feedback
-                @$scope.grade    = content.grade
+            @$scope.feedback = content.feedback
+            @$scope.grade    = content.grade
 
     @$inject: ['$scope', '$http', 'Assignment', 'Grader']
 

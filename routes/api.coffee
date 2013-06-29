@@ -56,7 +56,7 @@ exports.grade =
         problemId = req.params.problemId
         filePath = req.files.file.path
         file = fs.readFileSync(filePath).toString()
-        fs.deleteSync(filePath)
+        fs.unlinkSync(filePath)
         console.log problemId
         if problemId.match(/^[12]-\w+$/)?
             chapterString = "1_2"
