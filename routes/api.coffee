@@ -6,7 +6,7 @@ url = require "url"
 querystring = require "querystring"
 fs = require "fs"
 Assignment = {}
-s3 = require 's3'
+knox = require 'knox'
 uploaderFinished = false
 graderFinished = false
 
@@ -57,21 +57,16 @@ upload = (filePath, folder, name)->
 
     uploaderFinished = false
 
-    client = s3.createClient
+    client = knox.createClient
         key: process.env.S3_KEY
         secret: process.env.S3_SECRET
         bucket: "plc-grader"
 
-    uploader = client.upload filePath, "submissions/ch#{folder}/#{name}"
-    
-    uploader.on 'error', (err)->
-      console.error "unable to upload:", err.stack
+    client.putFile filePath, "submissions/ch#{folder}/#{name}", (err, res)->
+        if err
+            console.error "unable to upload:", err.stack
 
-    uploader.on 'progress', (amountDone, amountTotal)->
-        console.log "progress", amountDone, amountTotal
-
-    uploader.on 'end', (url)->
-        console.log "file available at", url
+        console.log "file available at https://plc-grader.s3.amazon.com/submissions/ch#{folder}/#{name}"
         uploaderFinished = true
         if graderFinished
             fs.unlinkSync filePath
