@@ -44,19 +44,33 @@ exports.assignmentObject = assignmentObject =
             description: String
             points: Number
             in: [
-                Schema.Mixed
+                Schema.Types.Mixed
             ]
             out: [
-                Schema.Mixed
+                Schema.Types.Mixed
             ]
         ]
     ]
-    
+
+exports.userObject = userObject =
+    firstName: type: String, required: true
+    lastName: type: String, required: true
+    userName: type: String, required: true, index: unique: true
+    email: type: String, required: true, index: unique: true
+    password: type: String, required: true
+    salt: type: String, required: true
+    creationDate: type: Date, index: true
+    lastLogin: type: Date, default: new Date
+    socialMediaPersonae: [{type: Schema.ObjectId, ref: "SocialMediaUser"}]
+    submissions: Schema.Types.Mixed
+
+
 exports.ready = ready = (handler)->
     db.once "open", handler
     
 RSLParser = exports.RSLParser = require "./RSLParser"
     
 ready ->
-    Assignment = exports.Assignment = mongoose.model "Assignment", mongoose.Schema(assignmentObject)
+    Assignment = exports.Assignment = mongoose.model "Assignment", mongoose.Schema assignmentObject
+    User = exports.User = mongoose.model "User", mongoose.Schema userObject
     console.log "Assignment model ready"

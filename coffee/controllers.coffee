@@ -18,7 +18,7 @@ class AppCtrl
 
 
 class UploadCtrl
-    constructor: (@$scope, @$http, Assignment, Grader)->
+    constructor: (@$scope, @$http, Assignment)->
         @$scope.assignments = []
         @$scope.feedback = []
         @$scope.assignments = Assignment.query()
@@ -42,7 +42,7 @@ class UploadCtrl
             @$scope.feedback = content.feedback
             @$scope.grade    = content.grade
 
-    @$inject: ['$scope', '$http', 'Assignment', 'Grader']
+    @$inject: ['$scope', '$http', 'Assignment']
 
 
 class TimeLineCtrl
@@ -52,3 +52,8 @@ class TimeLineCtrl
        
     @$inject: ['$scope', '$http', 'Assignment']
 
+class SignInCtrl
+    constructor: (@$scope, @$http, User)->
+        @$scope.user = {}
+
+    @$inject: ['$scope', '$http', 'User']

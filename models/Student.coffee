@@ -1,18 +1,15 @@
-(->
-	"use strict"
+"use strict"
 
-	Submission = require "./Student/Submission"
+Submission = require "./Student/Submission"
 
-	class Student
-		constructor: (@name)->
-			@firstName = @name.split(" ")[0]
-			@lastName = @name.split(" ")[1]
-			@labs = []
-			@initializeLabs()
-			@grade()
+class Student
+	constructor: (@name)->
+		@firstName = @name.split(" ")[0]
+		@lastName = @name.split(" ")[1]
+		@labs = []
+		@initializeLabs()
+		@grade()
 
-		initializeLabs: ->
+	initializeLabs: ->
 
-		grade: ->
-			
-).call this
+	grade: ->

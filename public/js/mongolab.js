@@ -8,4 +8,8 @@ angular.module('mongolab', ['ngResource']).
       var Grader = $resource('api/grade/:id', {id:"@id"},
         {'post': {method:"POST", isArray:true}});
       return Grader;
+    }).
+    factory('User', function($resource) {
+        var User = $resource('api/user/:id', {id:"@id"});
+        return User;
     });

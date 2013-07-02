@@ -41,7 +41,7 @@ app.delete '/api/assignments/:id', api.assignments.destroy
 
 app.post '/api/grade/:problemId', api.grade.post
 
-#app.post '/api/moodle', api.moodle
+app.get '/api/user/:id', api.user.get
 
 # redirect all others to the index (HTML5 history)
 app.get '*', routes.index

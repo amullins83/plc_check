@@ -9,10 +9,13 @@ block body
           li
             a(href='uploader') Uploader
           li
-            a(href='timeLine') Timeline    
+            a(href='timeLine') Timeline
+          li
+            button(type="button", data-toggle="modal", data-target="#signIn") Sign In
   .container-fluid
     div(ng-controller='AppCtrl')
       div(ng-view)
+      block signInModal
 
   script(src='js/lib/jquery/jquery-1.9.1.min.js')
   script(src='js/lib/angular/angular.min.js')
