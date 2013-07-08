@@ -1,7 +1,7 @@
 extends layout
 
 block body
-  .navbar.navbar-fixed-top
+  form.navbar.navbar-fixed-top.navbar-form
     .navbar-inner
       .container-fluid
         a.brand(href='#') PLC Grader
@@ -11,21 +11,23 @@ block body
           li
             a(href='timeLine') Timeline
           li
-            button(type="button", data-toggle="modal", data-target="#signIn") Sign In
+            button.btn(type="button", data-toggle="modal", data-target="#signIn") Sign In
   .container-fluid
     div(ng-controller='AppCtrl')
       div(ng-view)
       block signInModal
 
-  script(src='js/lib/jquery/jquery-1.9.1.min.js')
-  script(src='js/lib/angular/angular.min.js')
-  script(src='js/lib/angular/angular-sanitize.min.js')
-  script(src='js/lib/angular/angular-resource.min.js')
-  script(src='js/app.js')
-  script(src='js/mongolab.js')
-  script(src='js/services.js')
-  script(src='js/controllers.js')
-  script(src='js/filters.js')
-  script(src='js/directives.js')
-  script(src='bootstrap/js/bootstrap.min.js')
-  script(src='js/ng-upload.min.js')
+  script(src='js/lib/angular/angular.min.js').
+  script(src='js/lib/angular/angular-sanitize.min.js').
+  script(src='js/lib/angular/angular-resource.min.js').
+  script(type="text/javascript", src="js/lib/angular-ui/angular-ui.min.js").
+  script(type="text/javascript", src="js/lib/angular-ui/ui-bootstrap-tpls.min.js").
+   //if lt IE 8
+    script(src='js/lib/angular-ui/angular-ui-ieshiv.min.js').
+  script(src='js/app.js').
+  script(src='js/mongolab.js').
+  script(src='js/services.js').
+  script(src='js/controllers.js').
+  script(src='js/filters.js').
+  script(src='js/directives.js').
+  script(src='js/ng-upload.min.js').
