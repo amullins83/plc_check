@@ -1,5 +1,21 @@
 'use strict'
 
+class DialogCtrl
+
+    constructor: (@$scope, @$http, @$dialog)->
+        @$scope.opts =
+            templateUrl: 'modal/signIn'
+            controller:  SignInCtrl
+
+        @$scope.openSignIn = =>
+            d = @$dialog.dialog @$scope.opts
+            d.open().then (result)=>
+                @$scope.didSignIn = result
+                console.log result
+
+    @$inject: ['$scope', '$http', '$dialog']
+
+
 class AppCtrl
 
     constructor: (@$scope, @$http)->
@@ -53,7 +69,9 @@ class TimeLineCtrl
     @$inject: ['$scope', '$http', 'Assignment']
 
 class SignInCtrl
-    constructor: (@$scope, @$http, User)->
+    constructor: (@$scope, @$http, User, @dialog)->
         @$scope.user = {}
+        @$scope.close = (result)=>
+            @dialog.close result
 
-    @$inject: ['$scope', '$http', 'User']
+    @$inject: ['$scope', '$http', 'User', 'dialog']

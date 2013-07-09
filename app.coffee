@@ -29,6 +29,8 @@ app.get '/', routes.index
 app.post '/', routes.index
 app.get '/partial/:name', routes.partial
 
+app.get '/modal/:name', routes.modal
+
 # JSON API
 
 app.get '/api/name', api.name
