@@ -1,7 +1,15 @@
 .modal-header
-    h3 This is the title
+    h3 Sign In
     .modal-body
-        p Enter a value to pass to "close" as the result:
-            input(ng-model="result")
+        .row-fluid
+            .span3 Email address:
+            .span3
+                input(type="email", name="email", ng-model="email")
+        .row-fluid
+            .span3 Password:
+            .span3
+                input(type="password", name="password", ng-model="password")
     .modal-footer
-        button.btn.btn-primary(ng-click="close(result)") Close
+        .row
+            button.btn(ng-click="close(false)") Close
+            button.btn.btn-primary(ng-click="signIn()") Sign In
