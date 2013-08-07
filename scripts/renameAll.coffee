@@ -10,7 +10,7 @@
         data = fs.readdirSync path
             
         for folder in data
-            if fs.statSync(filePath(path, folder)).isDirectory()
+            if fs.statSync(filePath(path, folder)).isDirectory() and folder isnt "zips"
                 rename filePath(path, folder), findExpression, replaceExpression
     
     module.exports = renameAll

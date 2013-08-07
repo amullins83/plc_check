@@ -30,3 +30,6 @@ rename.coffee
 .bashrc
 contributions
 components
+.grunt
+_SpecRunner.html
+bin

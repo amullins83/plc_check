@@ -7,21 +7,10 @@ module.exports = function(grunt) {
             }
         },
         jasmine: {
-            src: ['models/**/*.coffee'],
+            src: ['models/**/*.coffee', 'grade/*.coffee'],
             options: {
                 specs: ['test/**/*Spec.coffee'],
-                host: "http://localhost:3000",
-                template: require('grunt-template-jasmine-requirejs'),
-                templateOptions: {
-                          requireConfig: {
-                            baseUrl: '/Users/austinmullins/plc_check',
-                            paths: {
-                              "mongoose": "node_modules/mongoose/lib/mongoose"
-                            },
-
-                            deps: ['mongoose']
-                        }
-                }
+                host: "http://localhost:<%= connect.test.port %>"
             }
         },
         watch: {
